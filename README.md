@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## 배포하는 법
+
+npm run deploy
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
