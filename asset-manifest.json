@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/biky/static/css/main.1635e87c.chunk.css",
-    "main.js": "/biky/static/js/main.515fff69.chunk.js",
-    "main.js.map": "/biky/static/js/main.515fff69.chunk.js.map",
+    "main.css": "/biky/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/biky/static/js/main.0b2b7d5e.chunk.js",
+    "main.js.map": "/biky/static/js/main.0b2b7d5e.chunk.js.map",
     "runtime-main.js": "/biky/static/js/runtime-main.a75e637b.js",
     "runtime-main.js.map": "/biky/static/js/runtime-main.a75e637b.js.map",
     "static/js/2.31981db1.chunk.js": "/biky/static/js/2.31981db1.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.02e54e72.chunk.js": "/biky/static/js/3.02e54e72.chunk.js",
     "static/js/3.02e54e72.chunk.js.map": "/biky/static/js/3.02e54e72.chunk.js.map",
     "index.html": "/biky/index.html",
-    "static/css/main.1635e87c.chunk.css.map": "/biky/static/css/main.1635e87c.chunk.css.map",
+    "static/css/main.9d5b29c0.chunk.css.map": "/biky/static/css/main.9d5b29c0.chunk.css.map",
     "static/js/2.31981db1.chunk.js.LICENSE.txt": "/biky/static/js/2.31981db1.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/biky/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.a75e637b.js",
     "static/js/2.31981db1.chunk.js",
-    "static/css/main.1635e87c.chunk.css",
-    "static/js/main.515fff69.chunk.js"
+    "static/css/main.9d5b29c0.chunk.css",
+    "static/js/main.0b2b7d5e.chunk.js"
   ]
 }
