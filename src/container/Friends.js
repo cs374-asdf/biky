@@ -1,10 +1,13 @@
 import React from 'react';
-import FriendComponent from '../component/Friends'
+import FriendList from '../component/Friends'
+import FrequestComponent from '../component/Frequest'
+
 
 export default function Friends() {
   return (
     <div>
-      <FriendComponent />
+      <FrequestComponent />
+      <FriendList />
     </div>
   )
 }
