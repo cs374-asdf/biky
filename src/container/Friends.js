@@ -1,6 +1,6 @@
 import React from 'react';
-import FriendList from '../component/Friends'
-import FrequestComponent from '../component/Frequest'
+import FriendList from '../component/Friends/Friends'
+import FrequestComponent from '../component/Friends/Frequest'
 
 
 export default function Friends() {
