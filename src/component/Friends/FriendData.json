@@ -2,7 +2,7 @@
     {
         "id": 0,
         "level_badge": 1,
-        "picture": "./profile/tmp.jpg",
+        "picture": "./images/tmp.jpg",
         "name": "yuri",
         "total_intimacy": 45.2,
         "spent_time": 100.3,
@@ -11,7 +11,7 @@
     {
         "id": 1,
         "level_badge": "frontFacingBabyChick",
-        "picture": "./profile/tmp.jpg",
+        "picture": "./images/tmp.jpg",
         "name": "nayoung",
         "total_intimacy": 4.2,
         "spent_time": 150.3,
