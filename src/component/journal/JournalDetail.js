@@ -1,3 +1,8 @@
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,15 +24,48 @@ const modalStyle = {
   transform: `translate(-${50}%, -${50}%)`,
 }
 
-export default function JournalDetail({journal}) {
+function getDivs(items) {
+  return items.map(item => <div> {item} </div>)
+}
+
+function getMetaphors(metaphor) {
+  return <div>
+    <div> 나무 {metaphor.tree} 그루 </div>
+    <div> 택시 {metaphor.taxi} 번 </div>
+    <div> 햄버거 {metaphor.hamburger} 개 </div>
+  </div>
+}
+
+function openJournalEditor(journal) {
+  console.log("opening journal")
+}
+
+export default function JournalDetail({ journal }) {
   const classes = useStyles();
 
   return (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">{journal.title}</h2>
-      <p id="simple-modal-description">
-        {journal.desc}
-      </p>
+      <Card onClick={() => openJournalEditor(journal)}>
+        <CardHeader
+          title={journal.title} />
+        <CardContent>{journal.desc}</CardContent>
+        <CardContent>{getDivs(journal.friends)}</CardContent>
+        <CardContent>{getDivs(journal.hashtags)}</CardContent>
+        <CardContent>{getDivs(journal.photos)}</CardContent>
+        <CardContent>{getDivs(journal.emojis)}</CardContent>
+        <CardContent>{journal.distance} km</CardContent>
+        {/* <CardContent>{journal.time} </CardContent> */}
+        <CardContent>{journal.weather} </CardContent>
+        <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
+        <CardContent>{journal.map} </CardContent>
+      </Card >
+      <Button disabled={false} onClick={() => console.log("수정")}>
+        <Link to="/edit/1">수정</Link>
+      </Button>
+      <Button onClick={() => alert("삭제")}>
+        삭제
+        </Button>
+
     </div>
   );
 }
