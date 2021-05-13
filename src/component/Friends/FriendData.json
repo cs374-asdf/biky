@@ -10,7 +10,7 @@
     },
     {
         "id": 1,
-        "level_badge": "frontFacingBabyChick",
+        "level_badge": 2,
         "picture": "./images/tmp.jpg",
         "name": "nayoung",
         "total_intimacy": 4.2,

@@ -8,6 +8,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import Box from '@material-ui/core/Box';
 import { Icon, InlineIcon } from '@iconify/react';
@@ -18,9 +21,41 @@ import frontFacingBabyChick from '@iconify-icons/twemoji/front-facing-baby-chick
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import flist from './FriendData.json';
+import { RestaurantRounded } from '@material-ui/icons';
 // https://material-ui.com/components/lists/
 // https://material-ui.com/components/cards/
 // https://material-ui.com/components/progress/
+
+/*
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+*/
+function FriendListItem(props){
+  var icon_name;
+  if (props.level === 1){
+    icon_name = hatchingChick;
+  }
+  else{
+    icon_name = frontFacingBabyChick;
+  }
+  return (
+    <Box alignItems="center">
+      <ButtonBase variant="contained" color="primary" style={{width:360,}}>
+        <Icon style={{ fontSize: 30 }} icon={icon_name}/>
+        <Avatar alt={props.name} src={require(""+props.picture).default}/>
+        <LinearProgressWithLabel value={props.intimacy} />
+      </ButtonBase>
+    </Box>
+  );
+}
+
+FriendListItem.propTypes = {
+  level: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  intimacy: PropTypes.number.isRequired
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 function LinearProgressWithLabel(props) {
   return (
     <Box display="flex" alignItems="center">
-      <Box width="100%">
+      <Box minWidth={60} mr={1}>
         <LinearProgress variant="determinate" {...props} />
       </Box>
       <Box minWidth={3}>
@@ -68,6 +103,7 @@ export default function FriendList() {
 
 function fillTable(el)
 {
+  /*
   var icon_name;
   if (el.level_badge === 1){
     icon_name = hatchingChick;
@@ -75,10 +111,18 @@ function fillTable(el)
   else{
     icon_name = frontFacingBabyChick;
   }
+  */
   // https://javascript.plainenglish.io/material-ui-icons-and-lists-a98c8ccbdac0
   var sentence = "total intimacy: "+el.total_intimacy+", time: "+ el.spent_time +", distance: "+ el.distance;
     return(
-      <React.Fragment key={el.id}>
+      
+      <FriendListItem key={el.id} level={el.level_badge} name={el.name} picture={el.picture} intimacy={el.total_intimacy}/>
+      
+    );
+}
+/*
+
+<React.Fragment key={el.id}>
         <ListItem button>
         <ListItemIcon>
           <Icon style={{ fontSize: 30 }} icon={icon_name}/>
@@ -93,7 +137,4 @@ function fillTable(el)
       </ListItem>
       <Divider variant="inset" component="li" />
       </React.Fragment>
-      
-      
-    );
-}
+      */
