@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function JournalForm({ journal, onSubmit, openFriendAddPage, friends, removeFriend, addFriend }) {
+export default function JournalForm({ journal, onSubmit, openFriendAddPage, friends, removeFriend, addFriend, pictures, openPictureSelector }) {
   const classes = useStyles();
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
-  const [photos, setPhotos] = React.useState(journal.photos);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -44,7 +43,7 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
   const handleSubmit = () => {
     let newJournal = {
       ...journal,
-      title, desc, friends, hashtags, photos
+      title, desc, friends, hashtags, photos: pictures
     }
 
     onSubmit(newJournal)
@@ -67,6 +66,11 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
       <TextField onChange={handleTitleChange} id="title" label="제목" variant="outlined" defaultValue={journal.title} />
       <TextField onChange={handleDescChange} id="desc" label="내용" variant="outlined" multiline defaultValue={journal.desc} />
       <Button onClick={handleSubmit}> 저장 </Button>
+      <Button onClick={openPictureSelector}> 사진 추가 </Button>
+
+      <div>
+        {pictures.map(p => <div> 나는 사진이다!!!! </div>)}
+      </div>
 
 
       <List dense>

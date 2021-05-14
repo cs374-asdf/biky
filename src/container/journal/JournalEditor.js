@@ -6,6 +6,7 @@
 import FriendAddPage from '../../component/journal/FriendAddPage';
 import JournalForm from '../../component/journal/JournalForm';
 import { Modal } from '@material-ui/core';
+import PictureSelector from '../../component/journal/PictureSelector';
 import React from 'react';
 import friendList from './FriendList.json'
 import { useParams } from 'react-router-dom';
@@ -47,7 +48,8 @@ export default function JournalEditor() {
     console.log(`newJournal: ${newJournal}`)
     // id 에 해당하는 파이어베이스 데이터를 newJournal로 업데이트
   }
-  const [open, setOpen] = React.useState(false);
+  const [friendPageOpen, setFriendAddPageOpen] = React.useState(false);
+  const [pictureSelectorOpen, setPictureSelectorOpen] = React.useState(false);
 
   const [friends, setFriends] = React.useState(getFriends(journal.friends, allFriends));
   // TODO journal.friends 에 있는 id를 가지고 allFriends에 있는 객체를 끌어오자
@@ -61,22 +63,40 @@ export default function JournalEditor() {
     setFriends([...friends, friend])
   }
 
-  const handleOpen = (journal) => {
-    setOpen(true);
-  };
+  const addPictures = (adds) => {
+    const newPictures = pictures
+    adds.foreach(p => {
+      if (!pictures.includes(p))
+        newPictures.push(p)
+    })
+    setPictures(newPictures)
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [pictures, setPictures] = React.useState([])
+
+  const onSubmitPictures = (adds) => {
+    addPictures(adds)
+    setPictureSelectorOpen(false)
+  }
+
 
   return (
     <div>
-      <JournalForm journal={journal} onSubmit={onSubmit} openFriendAddPage={handleOpen}
+      <JournalForm journal={journal} onSubmit={onSubmit} openFriendAddPage={() => setFriendAddPageOpen(true)}
         friends={friends} removeFriend={removeFriend} addFriend={addFriend}
+        openPictureSelector={() => setPictureSelectorOpen(true)}
+        pictures={pictures}
+        
       />
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={friendPageOpen} onClose={() => setFriendAddPageOpen(false)}>
         <FriendAddPage allFriends={allFriends} selectedFriends={friends} addFriend={addFriend} />
       </Modal>
+
+      <Modal open={pictureSelectorOpen} onClose={() => setPictureSelectorOpen(false)}>
+        <PictureSelector pictures={pictures} onSubmit={onSubmitPictures} />
+      </Modal>
+
+
     </div >
   );
 }
