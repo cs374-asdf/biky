@@ -1,5 +1,8 @@
+import { List, ListItem } from '@material-ui/core';
+
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FriendItem from './FriendItem'
 import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -23,11 +26,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function JournalForm({ journal, onSubmit }) {
+export default function JournalForm({ journal, onSubmit, openFriendAddPage, friends, removeFriend, addFriend }) {
   const classes = useStyles();
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
-  const [friends, setFriends] = React.useState(journal.friends);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
   const [photos, setPhotos] = React.useState(journal.photos);
 
@@ -59,10 +61,6 @@ export default function JournalForm({ journal, onSubmit }) {
     setHashtags(hashtags.filter(item => item !== hashtag))
   }
 
-  const removeFriend = (friend) => {
-    setFriends(friends.filter(item => item !== friend))
-  }
-
 
   return (
     <div className={classes.root} noValidate autoComplete="off">
@@ -70,17 +68,16 @@ export default function JournalForm({ journal, onSubmit }) {
       <TextField onChange={handleDescChange} id="desc" label="내용" variant="outlined" multiline defaultValue={journal.desc} />
       <Button onClick={handleSubmit}> 저장 </Button>
 
-      <div className={classes.friendGroup}>
-        {friends.map(hashtag => <div> #{hashtag}
-          <IconButton aria-label="delete" key={hashtag} onClick={() => removeHashtag(hashtag)}>
-            <DeleteIcon />
-          </IconButton>
-        </div>)
-        }
-        {/* <Button>+</Button> 
-          Friend add 버튼 눌렀을 때는 무슨 일이 일어나는가
-        */}
-      </div>
+
+      <List dense>
+        {friends.map(friend =>
+          <FriendItem friend={friend} removeFriend={removeFriend} />)}
+        <ListItem>
+          <Button onClick={openFriendAddPage}>+</Button>
+        </ListItem>
+      </List>
+
+
 
       <div className={classes.hashtagGroup}>
         {hashtags.map(hashtag => <div> #{hashtag}
