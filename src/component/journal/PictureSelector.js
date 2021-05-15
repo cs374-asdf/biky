@@ -1,7 +1,7 @@
-import { Button, Card, CardMedia } from '@material-ui/core';
-
 import AppBar from '@material-ui/core/AppBar';
 import CheckIcon from '@material-ui/icons/Check';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,6 +26,18 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
 
+  selected: {
+    border: '2px solid orange',
+  },
+
+  unselected: {
+
+  },
+
+  gridList: {
+
+  },
+
 }));
 
 const modalStyle = {
@@ -34,9 +46,9 @@ const modalStyle = {
   transform: `translate(-${50}%, -${50}%)`,
 }
 
-const allPictures = ['picture1', 'picture2']
+const allPictures = ['/images/photo1.jpg', '/images/photo2.jpg', '/images/photo3.jpg']
 
-function MyAppBar({ handleSubmit }) {
+function MyAppBar({ onSubmit }) {
   const classes = useStyles();
 
   return (
@@ -48,7 +60,7 @@ function MyAppBar({ handleSubmit }) {
           </Typography>
 
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu"
-            onClick={handleSubmit}
+            onClick={onSubmit}
           >
             <CheckIcon />
           </IconButton>
@@ -59,24 +71,34 @@ function MyAppBar({ handleSubmit }) {
 }
 
 export default function PictureSelector({ pictures, onSubmit }) {
+  const classes = useStyles();
+  const [selected, setSelected] = React.useState(pictures)
 
   const handleSubmit = () => {
-    console.log(pictures)
-    onSubmit(pictures)
+    console.log(selected)
+    onSubmit(selected)
+  }
+
+  const togglePic = (pic) => {
+    if (selected.includes(pic))
+      setSelected(selected.filter(item => item !== pic))
+
+    else
+      setSelected([...selected, pic])
   }
 
   return <div>
     <MyAppBar onSubmit={handleSubmit} />
 
-    {allPictures.map(
-      picture =>
-        <Card>
-          picture
-          <CardMedia>
-
-          </CardMedia>
-        </Card>
-    )}
+    <GridList cellHeight={160} className={classes.gridList} cols={3}>
+      {allPictures.map((pic) => (
+        <GridListTile key={pic} cols={1} onClick={() => togglePic(pic)}
+          className={selected.includes(pic) ? classes.selected : classes.unselected}
+        >
+          <img src={process.env.PUBLIC_URL + pic} alt="bike" />
+        </GridListTile>
+      ))}
+    </GridList>
 
     사진을 추가해보시지
   </div>

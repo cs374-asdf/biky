@@ -30,7 +30,6 @@ export default function JournalItem({ journal, openJournal }) {
       <CardContent>{journal.desc}</CardContent>
       <CardContent>{getDivs(journal.friends)}</CardContent>
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
-      <CardContent>{getDivs(journal.photos)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}</CardContent>
       <CardContent>{journal.distance} km</CardContent>
       {/* <CardContent>{journal.time} </CardContent> */}

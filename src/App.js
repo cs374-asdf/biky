@@ -15,7 +15,7 @@ function App() {
         <Route path="/edit/:id" exact component={JournalEditor} />
         <Route path="/setting" exact component={Settings} />
         <Route path="/friend" component={Friends} />
-        <Redirect from="*" to="/" />
+        {/* <Redirect from="*" to="/" /> */}
       </Switch>
     </BrowserRouter>);
 }

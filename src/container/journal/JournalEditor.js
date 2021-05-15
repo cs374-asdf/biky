@@ -63,20 +63,15 @@ export default function JournalEditor() {
     setFriends([...friends, friend])
   }
 
-  const addPictures = (adds) => {
-    const newPictures = pictures
-    adds.foreach(p => {
-      if (!pictures.includes(p))
-        newPictures.push(p)
-    })
-    setPictures(newPictures)
-  }
-
   const [pictures, setPictures] = React.useState([])
 
-  const onSubmitPictures = (adds) => {
-    addPictures(adds)
+  const onSubmitPictures = (selected) => {
+    setPictures(selected)
     setPictureSelectorOpen(false)
+  }
+
+  const removePicture = (pic) => {
+    setPictures(pictures.filter(item => item !== pic))
   }
 
 
@@ -86,7 +81,7 @@ export default function JournalEditor() {
         friends={friends} removeFriend={removeFriend} addFriend={addFriend}
         openPictureSelector={() => setPictureSelectorOpen(true)}
         pictures={pictures}
-        
+        removePicture={removePicture}
       />
       <Modal open={friendPageOpen} onClose={() => setFriendAddPageOpen(false)}>
         <FriendAddPage allFriends={allFriends} selectedFriends={friends} addFriend={addFriend} />
