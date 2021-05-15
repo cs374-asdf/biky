@@ -68,8 +68,34 @@ export default function BadgeDetail() {
   })
 
   function handleClick(value) {
-    alert(value);
+    setVal({
+      representativeBadge : value,
+    })
   }
+
+  const eachBadge = badges.map((badge) => (
+    <Paper onClick={() => {handleClick(badge.oid);}}>
+      <Grid container spacing={2} className={classes.eachBadge}>
+        <Grid item>
+          <Box className={classes.badgeBox}>
+            <img className={classes.badge} src={badge.thumbnail} />
+          </Box>
+        </Grid>
+        <Grid item xs container direction="column" spacing={2}>
+          <Grid item xs>
+            <Typography variant="h6">
+              {badge.title}
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <Typography variant="body2">
+              {badge.description}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
+  ));
 
   return (
 
@@ -105,94 +131,7 @@ export default function BadgeDetail() {
         <Typography>
           badge list
         </Typography>
-
-        <Paper>
-          <Grid container spacing={2} className={classes.eachBadge}>
-            <Grid item onClick={handleClick(0)}>
-              <Box className={classes.badgeBox}>
-                <img className={classes.badge} src={badges[0].thumbnail} />
-              </Box>
-            </Grid>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography variant="h6">
-                  {badges[0].title}
-                </Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography variant="body2">
-                  {badges[0].description}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
-
-        <Paper>
-          <Grid container spacing={2} className={classes.eachBadge}>
-            <Grid item onClick={handleClick(1)}>
-              <Box className={classes.badgeBox}>
-                <img className={classes.badge} src={badges[1].thumbnail} />
-              </Box>
-            </Grid>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography variant="h6">
-                  {badges[1].title}
-                </Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography variant="body2">
-                  {badges[1].description}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
-
-        <Paper>
-          <Grid container spacing={2} className={classes.eachBadge}>
-            <Grid item onClick={handleClick(2)}>
-              <Box className={classes.badgeBox}>
-                <img className={classes.badge} src={badges[2].thumbnail} />
-              </Box>
-            </Grid>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography variant="h6">
-                  {badges[2].title}
-                </Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography variant="body2">
-                  {badges[2].description}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
-
-        <Paper>
-          <Grid container spacing={2} className={classes.eachBadge}>
-            <Grid item onClick={handleClick(3)}>
-              <Box className={classes.badgeBox}>
-                <img className={classes.badge} src={badges[3].thumbnail} />
-              </Box>
-            </Grid>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography variant="h6">
-                  {badges[3].title}
-                </Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography variant="body2">
-                  {badges[3].description}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
+        {eachBadge}
       </div>
       
     </Box>
