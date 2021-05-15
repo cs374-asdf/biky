@@ -4,8 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import background from "../img/LoadingBackground.png";
+import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 const MyButton = styled(Button)({
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -20,14 +23,17 @@ const MyButton = styled(Button)({
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: 275,
+  background: {
+    background: 'linear-gradient(0deg, #FFEDE8, #FFFFF5)',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    width: '100vw',
+    height: '100vh',
+    bottom: 0,
   },
-  content: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
+  grid: {
+    margin: 'auto',
+  }
 }));
 
 export default function Login() {
@@ -54,41 +60,40 @@ export default function Login() {
 
   return (
     
-    <div style={{
-      backgroundImage: `url(${background})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      width: '100%',
-    }}>
-      <Card className={classes.root}>
-        <CardContent className={classes.content}>
-          <Typography variant="h5">
-            Login
-          </Typography>
-        
-          <div>
-            <div>
-              <input 
-                type="id"
-                name="id"
-                onChange={onChange}
-                placeholder="Enter ID" />
-            </div>
+    <Container className={classes.background}>
+      <Box className={classes.root}>
+        <Typography variant="h5">
+          Login
+        </Typography>
+      
+        <Grid container spacing={2} className={classes.grid}>
+          <Grid item xs={8}>
+            <TextField 
+              type="id"
+              name="id"
+              required
+              fullWidth
+              variant="outlined"
+              onChange={onChange}
+              placeholder="Enter ID"
+            />
+          </Grid>
 
-            <div>
-              <input
-                type="password"
-                name="password"
-                onChange={onChange} 
-                placeholder="Enter password">  
-              </input>
-            </div>
-          </div>
+          <Grid item xs={12}>
+            <TextField
+              type="password"
+              name="password"
+              required
+              fullWidth
+              variant="outlined"
+              onChange={onChange} 
+              placeholder="Enter password" 
+            />
+          </Grid>
+        </Grid>
 
-          <MyButton onClick={handleSubmit}>Submit</MyButton>
-        </CardContent>
-      </Card>
-    </div>
+        <MyButton onClick={handleSubmit}>Submit</MyButton>
+      </Box>
+    </Container>
   );
 }

@@ -1,0 +1,80 @@
+import React from 'react';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import logo from '../img/logo.png';
+import '@fontsource/roboto';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+  },
+  badgeBox: {
+    width: '100%',
+    height: '100%',
+  },
+  badge: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+}));
+
+export default function MyPage() {
+  const classes = useStyles();
+
+  function handleClick() {
+    window.location.replace ("/badgeDetail")
+  }
+
+  return (
+    <Box fontFamily="roboto" p={3} height="100vh">
+      <Box mb={2} bgcolor="#ffc400">
+        personal information
+      </Box>
+      
+      <Box mt={2} >
+        <Typography>
+          Records
+        </Typography>
+        <Box bgcolor="primary.main">
+          1000km 탔네요!
+        </Box>
+      </Box>
+      
+      <div className={classes.root}>
+        <Typography>
+          Badge
+        </Typography>
+        <Paper className={classes.paper} onClick = {handleClick}>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Box className={classes.badgeBox}>
+                <img className={classes.badge} src={logo} />
+              </Box>
+            </Grid>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography variant="h6">
+                  배지 이름
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography variant="body2">
+                  배지 설명asdfasdfasdfasdfasdfasdfs
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+      </div>
+
+    </Box>
+  )
+}
