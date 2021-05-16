@@ -5,14 +5,17 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import FilterListIcon from "@material-ui/icons/FilterList";
 import Box from "@material-ui/core/Box";
 import { Icon } from "@iconify/react";
 import Avatar from "@material-ui/core/Avatar";
 import hatchingChick from "@iconify-icons/twemoji/hatching-chick";
 import frontFacingBabyChick from "@iconify-icons/twemoji/front-facing-baby-chick";
+import chickenIcon from "@iconify-icons/twemoji/chicken";
+import eggIcon from "@iconify-icons/twemoji/egg";
 
-import flist from "./FriendData.json";
+import { IconButton } from "@material-ui/core";
+
 // https://material-ui.com/components/lists/
 // https://material-ui.com/components/cards/
 // https://material-ui.com/components/progress/
@@ -20,10 +23,14 @@ import flist from "./FriendData.json";
 
 function FriendListItemInner(props) {
   var icon_name;
-  if (props.level === 1) {
+  if (props.intimacy < 25) {
+    icon_name = eggIcon;
+  } else if (props.intimacy < 50) {
+    icon_name = frontFacingBabyChick;
+  } else if (props.intimacy < 75) {
     icon_name = hatchingChick;
   } else {
-    icon_name = frontFacingBabyChick;
+    icon_name = chickenIcon;
   }
   return (
     <Box
@@ -67,7 +74,6 @@ function FriendListItem(props) {
       >
         <FriendListItemInner
           key={props.id}
-          level={props.level}
           name={props.name}
           picture={props.picture}
           intimacy={props.intimacy}
@@ -99,7 +105,6 @@ const ProgressStyles = makeStyles((theme) => ({
   },
 
   progress_bar_inner: {
-    backgroundColor: "hsl(0, 0%, 88%)",
     display: "block",
     width: 0,
     height: "100%",
@@ -110,14 +115,14 @@ const ProgressStyles = makeStyles((theme) => ({
     transition: "width 1s linear 0s",
     "&::after": {
       content: `""`,
-      width: "14px",
-      height: "12px",
+      width: "32px",
+      height: "29px",
       backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bike.png"})`,
       backgroundSize: "contain",
       borderRadius: "50%",
       position: "absolute",
       right: "-4px",
-      top: "-8px",
+      top: "-20px",
     },
   },
 }));
@@ -157,7 +162,6 @@ function fillTable(el) {
   return (
     <FriendListItem
       key={el.id}
-      level={el.level_badge}
       name={el.name}
       picture={el.picture}
       intimacy={el.total_intimacy}
@@ -167,8 +171,19 @@ function fillTable(el) {
   );
 }
 
-export default function FriendList() {
+export default function FriendList(props) {
   const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Box display="flex" flexDirection="column">
+        <Box alignSelf="flex-end">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Box>
 
-  return <div className={classes.root}>{flist.map(fillTable)}</div>;
+        <div>{props.flist.map(fillTable)}</div>
+      </Box>
+    </div>
+  );
 }

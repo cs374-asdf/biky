@@ -8,7 +8,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
-import frlist from "./FrequestData.json";
+import MailIcon from "@material-ui/icons/Mail";
 
 // https://material-ui.com/components/modal/
 
@@ -72,7 +72,7 @@ function ReceivedElement(props) {
   );
 }
 
-export default function Frequest() {
+export default function Frequest(props) {
   const classes = useStyles();
   const [modalStyle] = React.useState({
     top: `50%`,
@@ -80,18 +80,6 @@ export default function Frequest() {
     transform: `translate(-50%, -50%)`,
   });
   const [open, setOpen] = React.useState(false);
-  const [frequests, setFrequests] = React.useState(frlist);
-
-  const acceptFrequest = (fid) => {
-    console.log("add " + fid);
-    setFrequests(frequests.filter((item) => item.id !== fid));
-  };
-
-  const rejectFrequest = (fid) => {
-    setFrequests(frequests.filter((item) => item.id !== fid));
-    /*     console.log(frequests);
-     */
-  };
 
   function fillTable(el) {
     // https://javascript.plainenglish.io/material-ui-icons-and-lists-a98c8ccbdac0
@@ -101,8 +89,8 @@ export default function Frequest() {
         oid={el.id}
         name={el.name}
         picture={el.picture}
-        onRejectClick={rejectFrequest}
-        onAcceptClick={acceptFrequest}
+        onRejectClick={props.onRejectClick}
+        onAcceptClick={props.onAcceptClick}
       />
     );
   }
@@ -135,12 +123,12 @@ export default function Frequest() {
             받은 신청
           </Typography>
           <Box display="flex" alignItems="center" flexDirection="column">
-            {frequests.length == 0 ? (
+            {props.frequests.length === 0 ? (
               <Typography variant="body1" color="textPrimary">
                 받은 친구 신청이 없습니다
               </Typography>
             ) : (
-              frequests.map(fillTable)
+              props.frequests.map(fillTable)
             )}
           </Box>
         </Box>
@@ -159,9 +147,9 @@ export default function Frequest() {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Frequest Mail
-      </button>
+      <IconButton onClick={handleOpen}>
+        <MailIcon />
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
