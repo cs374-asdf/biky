@@ -1,7 +1,6 @@
 import Avatar from '@material-ui/core/Avatar';
 import { Delete } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';

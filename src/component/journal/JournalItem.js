@@ -3,10 +3,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import {Link} from 'react-router-dom';
 import React from 'react';
 
 function getDivs(items) {
-  return items.map(item => <div> {item} </div>)
+  return items.map(item => <div key={item}> {item} </div>)
 
 }
 
@@ -21,6 +22,8 @@ function getMetaphors(metaphor) {
     <div> 햄버거 {metaphor.hamburger} 개 </div>
   </div>
 }
+
+
 
 export default function JournalItem({ journal, openJournal }) {
   return (
@@ -39,18 +42,3 @@ export default function JournalItem({ journal, openJournal }) {
     </Card >
   );
 }
-
-/*
-    {
-      title: '제목1', desc: '내용1',
-      friends: ['friend1'],
-      hashtags: ['happy'],
-      photos: ['../'],
-      emojis: ["happy", "exited"],
-      distance: 100,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-*/

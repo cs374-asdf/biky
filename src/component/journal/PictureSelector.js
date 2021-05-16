@@ -75,7 +75,6 @@ export default function PictureSelector({ pictures, onSubmit }) {
   const [selected, setSelected] = React.useState(pictures)
 
   const handleSubmit = () => {
-    console.log(selected)
     onSubmit(selected)
   }
 
@@ -87,17 +86,31 @@ export default function PictureSelector({ pictures, onSubmit }) {
       setSelected([...selected, pic])
   }
 
+  // TODO 공식문서에는 이렇게 하라고 되어있음. 그런데 이렇게 하면 한 column에 모든 사진이 있음
+  // const Pictures = React.forwardRef((props, ref) =>
+  //   allPictures.map((pic) => (
+  //     <GridList cellHeight={160} className={classes.gridList} cols={3}>
+  //       <GridListTile ref={ref} key={pic} cols={1} onClick={() => togglePic(pic)}
+  //         className={selected.includes(pic) ? classes.selected : classes.unselected}
+  //       >
+  //         <img src={process.env.PUBLIC_URL + pic} alt="bike" />
+  //       </GridListTile>
+  //     </GridList>
+  //   )));
+
+
   return <div>
     <MyAppBar onSubmit={handleSubmit} />
+    {/* <Pictures /> */}
 
-    <GridList cellHeight={160} className={classes.gridList} cols={3}>
-      {allPictures.map((pic) => (
-        <GridListTile key={pic} cols={1} onClick={() => togglePic(pic)}
-          className={selected.includes(pic) ? classes.selected : classes.unselected}
-        >
-          <img src={process.env.PUBLIC_URL + pic} alt="bike" />
-        </GridListTile>
-      ))}
+    <GridList cellHeight={200} className={classes.gridList} cols={3}>
+    {allPictures.map((pic) => (
+      <GridListTile key={pic} cols={1} onClick={() => togglePic(pic)}
+        className={selected.includes(pic) ? classes.selected : classes.unselected}
+      >
+        <img src={process.env.PUBLIC_URL + pic} alt="bike" />
+      </GridListTile>
+    ))}
     </GridList>
 
     사진을 추가해보시지

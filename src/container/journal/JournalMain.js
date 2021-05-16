@@ -5,74 +5,7 @@ import JournalList from '../../component/journal/JournalList'
 import Modal from '@material-ui/core/Modal';
 import React from 'react';
 import SearchBar from '../../component/journal/SearchBar';
-
-const initJournals =
-  [
-    {
-      title: '제목1', desc: '내용1',
-      friends: ['friend1'],
-      hashtags: ['happy'],
-      photos: ["/images/photo1.jpg"],
-      emojis: ["happy", "exited"],
-      distance: 100,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-
-    {
-      title: '제목2', desc: '내용2',
-      friends: ['friend1', 'friend2'],
-      hashtags: ['happy'],
-      photos: ['/images/photo2.jpg'],
-      emojis: ["happy", "exited"],
-      distance: 200,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-
-    {
-      title: '제목3', desc: '내용3',
-      friends: [],
-      hashtags: ['sad'],
-      photos: ['/images/photo3.jpg'],
-      emojis: ["sad"],
-      distance: 300,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-
-    {
-      title: '제목4', desc: '내용4',
-      friends: ['friend1'],
-      hashtags: ['happy'],
-      photos: ['/images/photo1.jpg', '/images/photo2.jpg'],
-      emojis: ["happy", "exited"],
-      distance: 20,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-
-    {
-      title: '제목5', desc: '내용5',
-      friends: ['friend1'],
-      hashtags: ['happy'],
-      photos: [],
-      emojis: ["happy", "exited"],
-      distance: 20,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-  ]
+import initJournals from './journal'
 
 export default function JournalMain() {
 
@@ -89,20 +22,23 @@ export default function JournalMain() {
 
   const handleClose = () => {
     setOpen(false);
+    setSelected(null);
   };
 
 
   return (
     <div>
-      <SearchBar />
-      {/* <Button
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <SearchBar />
+        <Button
           variant="contained"
           color="primary"
           size="large"
           startIcon={<FilterIcon />}
         >
           필터
-      </Button> */}
+      </Button>
+      </div>
 
       <JournalList journals={journals} openJournal={handleOpen} />
 
@@ -111,9 +47,7 @@ export default function JournalMain() {
         onClose={handleClose}
       >
         <JournalDetail journal={selected} />
-
       </Modal>
-
     </div>
   );
 };

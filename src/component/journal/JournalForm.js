@@ -3,9 +3,6 @@ import { List, ListItem } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FriendItem from './FriendItem'
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import PictureList from './PictureList'
 import React from 'react';
@@ -80,6 +77,11 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
   return (
     <div className={classes.root} noValidate autoComplete="off">
       <TextField onChange={handleTitleChange} id="title" label="제목" variant="outlined" defaultValue={journal.title} />
+
+      <div> 오늘 본 고양이는 누구였나요?? </div>
+
+      {/* 내용 suggestion */}
+
       <TextField onChange={handleDescChange} id="desc" label="내용" variant="outlined" multiline defaultValue={journal.desc} />
       <Button onClick={handleSubmit}> 저장 </Button>
       <Button onClick={openPictureSelector}> 사진 추가 </Button>
@@ -94,11 +96,9 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
         </ListItem>
       </List>
 
-
-
       <div className={classes.hashtagGroup}>
-        {hashtags.map(hashtag => <div> #{hashtag}
-          <IconButton aria-label="delete" key={hashtag} onClick={() => removeHashtag(hashtag)}>
+        {hashtags.map(hashtag => <div key={hashtag}> #{hashtag}
+          <IconButton aria-label="delete" onClick={() => removeHashtag(hashtag)}>
             <DeleteIcon />
           </IconButton>
         </div>)

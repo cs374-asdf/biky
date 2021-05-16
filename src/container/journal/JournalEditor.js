@@ -3,11 +3,14 @@
 // create인 경우, edit인 경우 이동
 // 마지막 라우트의 id를 읽어서 요청을 보냄
 
+import initJournals, { mockJournal } from './journal'
+
 import FriendAddPage from '../../component/journal/FriendAddPage';
 import JournalForm from '../../component/journal/JournalForm';
 import { Modal } from '@material-ui/core';
 import PictureSelector from '../../component/journal/PictureSelector';
 import React from 'react';
+import dayjs from 'dayjs'
 import friendList from './FriendList.json'
 import { useParams } from 'react-router-dom';
 
@@ -15,30 +18,25 @@ function getFriends(ids, allFriends) {
   return allFriends.filter(friend => ids.includes(friend.id))
 }
 
+
+function getJournal(jid) {
+  const j = initJournals.find(j => String(j.id) === String(jid))
+  if (!j) {
+    console.log(`No such journal: ${jid}`)
+    return mockJournal;
+  }
+  return j;
+}
+
+
 export default function JournalEditor() {
   // 라우트 params 불러오기
   // create인 경우 vs. edit인 경우
   // const id = 1;
   let { id } = useParams();
-  console.log(`JournalEditor: id = ${id}`)
-
 
   // 서버에서 불러와야 함
-  const journal = {
-    // 수정 가능
-    title: '제목1', desc: '내용1',
-    friends: ['1'],
-    hashtags: ['happy'],
-    photos: ['../'],
-
-    // 수정 불가능
-    emojis: ["happy", "exited"],
-    distance: 100,
-    time: new Date(),
-    weather: "sunny",
-    metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-    map: "../"
-  };
+  const journal = getJournal(id)
 
   // 서버에서 불러와야함
   const allFriends = friendList
@@ -63,7 +61,7 @@ export default function JournalEditor() {
     setFriends([...friends, friend])
   }
 
-  const [pictures, setPictures] = React.useState([])
+  const [pictures, setPictures] = React.useState(journal.photos)
 
   const onSubmitPictures = (selected) => {
     setPictures(selected)
@@ -95,18 +93,3 @@ export default function JournalEditor() {
     </div >
   );
 }
-
-/*
-    {
-      title: '제목1', desc: '내용1',
-      friends: ['friend1'],
-      hashtags: ['happy'],
-      photos: ['../'],
-      emojis: ["happy", "exited"],
-      distance: 100,
-      time: new Date(),
-      weather: "sunny",
-      metaphor: { tree: 1, taxi: 2, hamburger: 3 },
-      map: "../"
-    },
-*/
