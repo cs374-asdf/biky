@@ -9,6 +9,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import MailIcon from "@material-ui/icons/Mail";
+import Badge from "@material-ui/core/Badge";
 
 // https://material-ui.com/components/modal/
 
@@ -146,10 +147,17 @@ export default function Frequest(props) {
   );
 
   return (
-    <div>
+    <div style={{ marginTop: "5px", marginRight: "5px" }}>
       <IconButton onClick={handleOpen}>
-        <MailIcon />
+        {props.frequests.length === 0 ? (
+          <MailIcon />
+        ) : (
+          <Badge badgeContent={props.frequests.length} color="primary">
+            <MailIcon />
+          </Badge>
+        )}
       </IconButton>
+
       <Modal
         open={open}
         onClose={handleClose}
