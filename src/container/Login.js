@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import logo from '../img/logo.png';
 
 const MyButton = styled(Button)({
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -16,9 +17,10 @@ const MyButton = styled(Button)({
   borderRadius: 3,
   boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   color: 'white',
-  width: 400,
-  height: 50,
+  width: '60vw',
+  height: '40px',
   padding: '0 30px',
+  marginBottom: '10px',
 });
 
 
@@ -33,7 +35,21 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     margin: 'auto',
-  }
+  },
+  textField: {
+    width: '60vw',
+    background: '#FFFFFF',
+  },
+  submit: {
+    marginTop: '3vh'
+  },
+  login: {
+    marginBottom: '2vh',
+  },
+  logo: {
+    paddingTop: theme.spacing(12),
+    paddingBottom: theme.spacing(10),
+  },
 }));
 
 export default function Login() {
@@ -62,11 +78,14 @@ export default function Login() {
     
     <Container className={classes.background}>
       <Box className={classes.root}>
-        <Typography variant="h5">
-          Login
-        </Typography>
-      
-        <Grid container spacing={2} className={classes.grid}>
+        <Grid container className={classes.logo} justify="center">
+          <img src={logo}/>
+        </Grid>
+        
+        <Grid container alignItems="center" direction="column" spacing={1}>
+          <Typography variant="h5" className={classes.login}>
+            Login
+          </Typography>
           <Grid item xs={8}>
             <TextField 
               type="id"
@@ -76,6 +95,7 @@ export default function Login() {
               variant="outlined"
               onChange={onChange}
               placeholder="Enter ID"
+              className={classes.textField}
             />
           </Grid>
 
@@ -87,12 +107,13 @@ export default function Login() {
               fullWidth
               variant="outlined"
               onChange={onChange} 
-              placeholder="Enter password" 
+              placeholder="Enter password"
+              className={classes.textField}
             />
           </Grid>
+ 
+          <MyButton onClick={handleSubmit} className={classes.submit}>Submit</MyButton>
         </Grid>
-
-        <MyButton onClick={handleSubmit}>Submit</MyButton>
       </Box>
     </Container>
   );
