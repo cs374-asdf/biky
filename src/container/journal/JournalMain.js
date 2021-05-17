@@ -4,7 +4,7 @@ import JournalDetail from '../../component/journal/JournalDetail'
 import JournalList from '../../component/journal/JournalList'
 import Modal from '@material-ui/core/Modal';
 import React from 'react';
-import SearchBar from '../../component/journal/SearchBar';
+import SearchBar from '../../component/common/SearchBar';
 import initJournals from './journal'
 
 export default function JournalMain() {
@@ -29,7 +29,7 @@ export default function JournalMain() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <SearchBar />
+        <SearchBar/>
         <Button
           variant="contained"
           color="primary"

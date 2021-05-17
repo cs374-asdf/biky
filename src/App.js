@@ -1,19 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-import NavigationBar from "./component/NavigationBar"
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
-import Home from "./container/Home"
-import Diary from "./container/Diary"
+
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+
+import BadgeDetail from './container/BadgeDetail';
 import Friends from './container/Friends';
+import Home from "./container/Home"
 import JournalEditor from './container/journal/JournalEditor';
 import JournalMain from "./container/journal/JournalMain"
-import NavigationBar from "./component/NavigationBar"
-import Settings from './container/Settings';
 import Login from './container/Login';
 import LoginInitial from './container/LoginInitial';
 import MyPage from './container/MyPage';
-import BadgeDetail from './container/BadgeDetail';
+import NavigationBar from "./component/NavigationBar"
+import Settings from './container/Settings';
+import logo from './logo.svg';
 
 function App() {
   return (

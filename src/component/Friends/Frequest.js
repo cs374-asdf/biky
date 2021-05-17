@@ -1,15 +1,17 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import CloseIcon from "@material-ui/icons/Close";
 import { IconButton, Typography } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CancelIcon from "@material-ui/icons/Cancel";
+
 import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
+import Box from "@material-ui/core/Box";
+import CancelIcon from "@material-ui/icons/Cancel";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
 import MailIcon from "@material-ui/icons/Mail";
-import Badge from "@material-ui/core/Badge";
+import Modal from "@material-ui/core/Modal";
+import React from "react";
+import SearchBar from "../common/SearchBar";
+import { makeStyles } from "@material-ui/core/styles";
 
 // https://material-ui.com/components/modal/
 
@@ -138,9 +140,7 @@ export default function Frequest(props) {
           <Typography variant="subtitle1" color="textPrimary">
             신청 보내기
           </Typography>
-          <Typography variant="subtitle1" color="textPrimary">
-            상아님의 searachbar 넣을 예정
-          </Typography>
+          <SearchBar />
         </Box>
       </Box>
     </div>

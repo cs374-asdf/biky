@@ -1,5 +1,6 @@
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import { CardActions } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { Link } from 'react-router-dom';
@@ -10,11 +11,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    position: 'absolute',
     width: '80%',
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
+    position: 'absolute',
+    maxHeight: '80%',
     padding: theme.spacing(2, 4, 3),
 
   },
@@ -23,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 const modalStyle = {
   top: '50%',
   left: '50%',
+  position: 'absolute',
+  overflow: 'scroll',
   transform: `translate(-${50}%, -${50}%)`,
 }
 
@@ -52,29 +53,27 @@ function getTime(start, end) {
 export default function JournalDetail({ journal }) {
   const classes = useStyles();
 
-  return (
+  if (!journal)
+    return null
 
-    <div style={modalStyle} className={classes.paper}>
-      {
-        journal &&
-        <div>
-          <Card>
-            <CardHeader
-              title={journal.title} />
-            <CardContent>{journal.desc}</CardContent>
-            <CardContent>{getDivs(journal.friends)}</CardContent>
-            <CardContent>{getDivs(journal.hashtags)}</CardContent>
-            <CardContent>{getDivs(journal.emojis)}
-              <PictureList pictures={journal.photos} isEditing={false} />
-            </CardContent>
-            <CardContent>{journal.distance} km</CardContent>
-            <CardContent>
-              {getTime(journal.startTime, journal.endTime)}
-            </CardContent>
-            <CardContent>{journal.weather} </CardContent>
-            <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
-            <CardContent>{journal.map} </CardContent>
-          </Card >
+  return (
+      <Card style={modalStyle} className={classes.paper}>
+        <CardHeader
+          title={journal.title} />
+        <CardContent>{journal.desc}</CardContent>
+        <CardContent>{getDivs(journal.friends)}</CardContent>
+        <CardContent>{getDivs(journal.hashtags)}</CardContent>
+        <CardContent>{getDivs(journal.emojis)}
+          <PictureList pictures={journal.photos} isEditing={false} />
+        </CardContent>
+        <CardContent>{journal.distance} km</CardContent>
+        <CardContent>
+          {getTime(journal.startTime, journal.endTime)}
+        </CardContent>
+        <CardContent>{journal.weather} </CardContent>
+        <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
+        <CardContent>{journal.map} </CardContent>
+        <CardActions>
           <Button disabled={false}
             component={Link} to={`/edit/${journal.id}`}
           >
@@ -83,9 +82,8 @@ export default function JournalDetail({ journal }) {
           <Button onClick={() => alert("삭제")}>
             삭제
         </Button>
-        </div>
-      }
-    </div>
+        </CardActions>
+      </Card >
 
   );
 }
