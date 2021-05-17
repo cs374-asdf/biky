@@ -1,5 +1,10 @@
+import logo from './logo.svg';
+import './App.css';
+import NavigationBar from "./component/NavigationBar"
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import Home from "./container/Home"
+import Diary from "./container/Diary"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-
 import Friends from './container/Friends';
 import JournalEditor from './container/journal/JournalEditor';
 import JournalMain from "./container/journal/JournalMain"
@@ -15,14 +20,13 @@ function App() {
     <BrowserRouter>
       <NavigationBar />
       <Switch>
-        <Route path="/" exact component={JournalMain} />
+        <Route path="/" exact component={Home} />
+        <Route path="/journal" exact component={JournalMain} />
         <Route path="/edit/:id" exact component={JournalEditor} />
-
         <Route path="/login" exact component={Login}/>
         <Route path="/loginInitial" exact component={LoginInitial}/>
         <Route path="/myPage" exact component={MyPage}/>
         <Route path="/badgeDetail" exact component={BadgeDetail}/>
-
         <Route path="/setting" exact component={Settings} />
         <Route path="/friend" component={Friends} />
         {/* <Redirect from="*" to="/" /> */}
