@@ -1,6 +1,7 @@
-import React from 'react';
 import { MetaphorContainer, StaticMap } from './';
+
 import { Modal } from '@material-ui/core';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
 export default function JournalModal(props) {
     const classes = useStyles();
     var open = props.open;
@@ -45,10 +47,10 @@ export default function JournalModal(props) {
     return (
         <div>
             <Modal
-            open={open}
-            onClose={closeModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
+                open={open}
+                onClose={closeModal}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
             >
                 <div className={classes.modal}>
 
@@ -56,10 +58,10 @@ export default function JournalModal(props) {
                         Today's Ride
                     </h2>
 
-                    <MetaphorContainer amount={amount}/>
+                    <MetaphorContainer amount={amount} />
 
-                    <hr/>
-                    
+                    <hr />
+
                     <div id="modal-description">
                         <div className={classes.half}>시간 {time}</div>
                         <div className={classes.half}>거리 {distance}</div>
@@ -67,10 +69,10 @@ export default function JournalModal(props) {
 
                         <div>
                             이동경로
-                            <StaticMap route={route} zoom={15} width={"100%"} height={"300px"}/>
+                            <StaticMap route={route} zoom={15} width={"100%"} height={"300px"} />
                         </div>
                         <br />
-                        
+
                         <div className={classes.button}>Journal Ride</div>
                     </div>
                 </div>
