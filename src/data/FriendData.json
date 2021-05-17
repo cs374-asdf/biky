@@ -1,23 +1,23 @@
 [
   {
-    "id": 0,
-    "picture": "/images/tmp.jpg",
+    "id": "0",
+    "picture": "/images/friend_profile.jpg",
     "name": "yuri",
     "total_intimacy": 60.2,
     "spent_time": 100.3,
     "distance": 50.2
   },
   {
-    "id": 1,
-    "picture": "/images/tmp.jpg",
+    "id": "1",
+    "picture": "/images/friend_profile.jpg",
     "name": "nayoung",
     "total_intimacy": 84.2,
     "spent_time": 150.3,
     "distance": 30.2
   },
   {
-    "id": 2,
-    "picture": "/images/tmp.jpg",
+    "id": "2",
+    "picture": "/images/friend_profile.jpg",
     "name": "sanga",
     "total_intimacy": 44.2,
     "spent_time": 150.3,

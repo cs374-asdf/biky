@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import burger from '../../image/home/metaphor_burger.png'
+
+const burger = '/images/home/metaphor_burger.png'
 
 const useStyles = makeStyles(theme => ({
     background: {
@@ -31,7 +32,7 @@ export default function MetaphorBurger(props) {
 
     return (
         <div className={classes.background}>
-            <img src={burger} alt="" className={classes.img} />
+            <img src={burger} alt="burger" className={classes.img} />
             <div className={classes.text}>You skipped {amount*2} burgers!</div>
         </div>
     )

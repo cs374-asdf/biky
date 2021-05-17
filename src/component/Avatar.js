@@ -1,8 +1,9 @@
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+
+import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ export default function LetterAvatars() {
   return (
     <div className={classes.root}>
       <Avatar className={classes.orange}
-        component={Link} to="/setting"
+        component={Link} to="/myPage"
       >N</Avatar>
     </div>
   );

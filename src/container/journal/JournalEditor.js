@@ -3,7 +3,7 @@
 // create인 경우, edit인 경우 이동
 // 마지막 라우트의 id를 읽어서 요청을 보냄
 
-import initJournals, { mockJournal } from './journal'
+import initJournals, { mockJournal } from '../../data/journal'
 
 import FriendAddPage from '../../component/journal/FriendAddPage';
 import JournalForm from '../../component/journal/JournalForm';
@@ -11,7 +11,7 @@ import { Modal } from '@material-ui/core';
 import PictureSelector from '../../component/journal/PictureSelector';
 import React from 'react';
 import dayjs from 'dayjs'
-import friendList from './FriendList.json'
+import friendList from '../../data/FriendData.json'
 import { useParams } from 'react-router-dom';
 
 function getFriends(ids, allFriends) {

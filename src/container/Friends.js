@@ -1,8 +1,8 @@
+import FrequestComponent from "../component/friend/Frequest";
+import FriendList from "../component/friend/Friends";
 import React from "react";
-import FriendList from "../component/Friends/Friends";
-import FrequestComponent from "../component/Friends/Frequest";
-import flist from "./FriendsData/FriendData.json";
-import frlist from "./FriendsData/FrequestData.json";
+import flist from "../data/FriendData.json";
+import frlist from "../data/FrequestData.json";
 
 export default function Friends() {
   // Firebase comeon

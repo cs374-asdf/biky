@@ -5,7 +5,7 @@ import JournalList from '../../component/journal/JournalList'
 import Modal from '@material-ui/core/Modal';
 import React from 'react';
 import SearchBar from '../../component/common/SearchBar';
-import initJournals from './journal'
+import initJournals from '../../data/journal'
 
 export default function JournalMain() {
 

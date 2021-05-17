@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+
+import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
-import Grid from "@material-ui/core/Grid";
-import logo from "../img/logo.png";
-import img1 from "../img/1.png";
-import img2 from "../img/2.png";
-import img3 from "../img/3.png";
+
+const logo = '/images/logo.png'
+const badge1 = '/images/badge1.png'
+const badge2 = '/images/badge2.png'
+const badge3 = '/images/badge3.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,19 +52,19 @@ const badges = [
   },
   {
     oid: 1,
-    thumbnail: img1,
+    thumbnail: badge1,
     title: "배지 이름1",
     description: "배지 설명1",
   },
   {
     oid: 2,
-    thumbnail: img2,
+    thumbnail: badge2,
     title: "배지 이름2",
     description: "배지 설명2",
   },
   {
     oid: 3,
-    thumbnail: img3,
+    thumbnail: badge3,
     title: "배지 이름3",
     description: "배지 설명3",
   },

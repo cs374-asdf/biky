@@ -1,12 +1,15 @@
-import React from "react";
+import "@fontsource/roboto";
+
 import Box from "@material-ui/core/Box";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import logo from "../img/logo.png";
-import "@fontsource/roboto";
+
+const logo = '/images/logo.png'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

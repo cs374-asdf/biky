@@ -11,7 +11,6 @@ import Login from './container/Login';
 import LoginInitial from './container/LoginInitial';
 import MyPage from './container/MyPage';
 import NavigationBar from "./component/NavigationBar"
-import Settings from './container/Settings';
 import logo from './logo.svg';
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
         <Route path="/loginInitial" exact component={LoginInitial}/>
         <Route path="/myPage" exact component={MyPage}/>
         <Route path="/badgeDetail" exact component={BadgeDetail}/>
-        <Route path="/setting" exact component={Settings} />
         <Route path="/friend" component={Friends} />
         {/* <Redirect from="*" to="/" /> */}
       </Switch>

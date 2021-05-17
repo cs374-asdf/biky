@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import taxi from '../../image/home/metaphor_taxi.png'
+
+const taxi = '/images/home/metaphor_taxi.png'
 
 const useStyles = makeStyles(theme => ({
     background: {
@@ -31,7 +32,7 @@ export default function MetaphorTaxi(props) {
 
     return (
         <div className={classes.background}>
-            <img src={taxi} alt="" className={classes.img} />
+            <img src={taxi} alt="taxi" className={classes.img} />
             <div className={classes.text}>You saved {amount*3000} won!</div>
         </div>
     )
