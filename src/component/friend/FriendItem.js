@@ -23,7 +23,6 @@ export function JournalEntry({ journal }) {
 }
 export default function FriendItem({ friend, journals }) {
 
-  console.log(journals)
   return (
     <Accordion>
       <AccordionSummary
@@ -57,7 +56,6 @@ function getIcon(intimacy) {
 }
 
 function FriendListItemInner({ friend }) {
-  console.log(friend)
   const icon_name = getIcon(friend.total_intimacy);
   return (
     <Box
