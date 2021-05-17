@@ -3,12 +3,26 @@ import FriendList from "../component/friend/Friends";
 import React from "react";
 import flist from "../data/FriendData.json";
 import frlist from "../data/FrequestData.json";
+import journals from '../data/journal.js'
+
+function getJournalsByFriend() {
+  let journalsByFriend = {}
+  for (let i = 0; i < flist.length; i++) {
+    let f = flist[i]
+    journalsByFriend[f.id] = journals.filter(j => j.friends.includes(f.id))
+  }
+
+  return journalsByFriend
+}
 
 export default function Friends() {
   // Firebase comeon
   // json 파일 여기서 불러오기
   const [frequests, setFrequests] = React.useState(frlist);
   const [friendlist, setFriendlist] = React.useState(flist);
+  const journalsByFriend = getJournalsByFriend();
+
+
   const acceptFrequest = (fid) => {
     var newFriend = {
       id: friendlist.length,
@@ -30,8 +44,6 @@ export default function Friends() {
 
   const rejectFrequest = (fid) => {
     setFrequests(frequests.filter((item) => item.id !== fid));
-    /*     console.log(frequests);
-     */
   };
   return (
     <div>
@@ -40,7 +52,7 @@ export default function Friends() {
         onRejectClick={rejectFrequest}
         onAcceptClick={acceptFrequest}
       />
-      <FriendList flist={friendlist} />
+      <FriendList flist={friendlist} journalsByFriend={journalsByFriend}/>
     </div>
   );
 }
