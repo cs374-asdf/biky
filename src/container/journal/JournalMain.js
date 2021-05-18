@@ -17,7 +17,7 @@ export default function JournalMain({ journalRef }) {
       journalRef.on('value', snapshot => {
         const journalData = snapshot.val()
         console.log(journalData);
-        setJournals(journalData)
+        setJournals(Object.values(journalData))
       })
     }, []
   )

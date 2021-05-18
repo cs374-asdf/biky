@@ -30,7 +30,10 @@ function App() {
           exact
           render={() => <JournalMain journalRef={db.ref(journalRef)} />}
         />
-        <Route path="/edit/:id" exact component={JournalEditor} />
+        <Route path="/edit/:id" exact
+          render={() => <JournalEditor journalRef={db.ref(journalRef)} friendRef={db.ref(friendRef)}
+          />}
+        />
         <Route path="/login" exact component={Login} />
         <Route path="/loginInitial" exact component={LoginInitial} />
         <Route path="/myPage" exact component={MyPage} />

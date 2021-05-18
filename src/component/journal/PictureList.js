@@ -39,25 +39,28 @@ const useStyles = makeStyles((theme) => ({
 export default function PictureList({ pictures, removePicture, isEditing }) {
   const classes = useStyles();
 
-  return (
-      <GridList cellHeight={160} className={classes.gridList} cols={3}>
-        {pictures.map(pic => <GridListTile key={pic} className={classes.picture}>
-          <img src={process.env.PUBLIC_URL + pic} alt="bike" />
+  if (!pictures)
+    return null
 
-          {isEditing && 
-            <GridListTileBar
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }}
-              actionIcon={
-                <IconButton aria-label={`delete ${pic}`} onClick={() => removePicture(pic)}>
-                  <DeleteIcon className={classes.title} />
-                </IconButton>
-              }
-            />
-          }
-        </GridListTile>)}
-      </GridList>
+  return (
+    <GridList cellHeight={160} className={classes.gridList} cols={3}>
+      {pictures.map(pic => <GridListTile key={pic} className={classes.picture}>
+        <img src={process.env.PUBLIC_URL + pic} alt="bike" />
+
+        {isEditing &&
+          <GridListTileBar
+            classes={{
+              root: classes.titleBar,
+              title: classes.title,
+            }}
+            actionIcon={
+              <IconButton aria-label={`delete ${pic}`} onClick={() => removePicture(pic)}>
+                <DeleteIcon className={classes.title} />
+              </IconButton>
+            }
+          />
+        }
+      </GridListTile>)}
+    </GridList>
   );
 }

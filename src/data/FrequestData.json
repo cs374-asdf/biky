@@ -1,12 +1,15 @@
-[
+{
+  "0":
   {
     "id": 0,
     "picture": "/images/friend_profile.jpg",
     "name": "맹구"
   },
+
+  "1":
   {
     "id": 1,
     "picture": "/images/friend_profile.jpg",
     "name": "맹구2"
   }
-]
+}

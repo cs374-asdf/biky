@@ -45,6 +45,8 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
   const [desc, setDesc] = React.useState(journal.desc);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
 
+
+  console.log(journal.title)
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -54,12 +56,9 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
   };
 
   const handleSubmit = () => {
-    let newJournal = {
-      ...journal,
-      title, desc, friends, hashtags, photos: pictures
-    }
-
-    onSubmit(newJournal)
+      onSubmit({
+        title, desc, hashtags
+      })
   }
 
   const addHashtag = (event) => {
