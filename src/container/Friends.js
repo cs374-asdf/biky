@@ -4,11 +4,13 @@ import React from "react";
 import flist from "../data/FriendData.json";
 import frlist from "../data/FrequestData.json";
 
-export default function Friends() {
+export default function Friends({ friendRef, frequestRef }) {
   // Firebase comeon
   // json 파일 여기서 불러오기
-  const [frequests, setFrequests] = React.useState(frlist);
-  const [friendlist, setFriendlist] = React.useState(flist);
+  const [frequests, setFrequests] = React.useState([]);
+  const [friendlist, setFriendlist] = React.useState([]);
+
+
   const acceptFrequest = (fid) => {
     var newFriend = {
       id: friendlist.length,
@@ -27,6 +29,22 @@ export default function Friends() {
     setFriendlist(friendlist.concat([newFriend]));
     setFrequests(frequests.filter((item) => item.id !== fid));
   };
+
+  React.useEffect(
+    () => {
+      friendRef.on('value', snapshot => {
+        const friendData = snapshot.val()
+        console.log(friendData);
+        setFriendlist(friendData)
+      })
+
+      frequestRef.on('value', snapshot => {
+        const frequestData = snapshot.val()
+        console.log(frequestData)
+        setFrequests(frequestData)
+      })
+    }, []
+  )
 
   const rejectFrequest = (fid) => {
     setFrequests(frequests.filter((item) => item.id !== fid));

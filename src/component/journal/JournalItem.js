@@ -3,16 +3,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 function getDivs(items) {
   return items.map(item => <div key={item}> {item} </div>)
 
-}
-
-function getFriends(friends) {
-  return friends.map(friend => <div> {friend} </div>)
 }
 
 function getMetaphors(metaphor) {
@@ -26,15 +22,20 @@ function getMetaphors(metaphor) {
 
 
 export default function JournalItem({ journal, openJournal }) {
+  if (!journal)
+    return null;
+
+  console.log(journal)
   return (
     <Card onClick={() => openJournal(journal)}>
       <CardHeader
         title={journal.title} />
       <CardContent>{journal.desc}</CardContent>
-      <CardContent>{getDivs(journal.friends)}</CardContent>
+
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}</CardContent>
       <CardContent>{journal.distance} km</CardContent>
+      <CardContent> {journal.friends} </CardContent>
       {/* <CardContent>{journal.time} </CardContent> */}
       <CardContent>{journal.weather} </CardContent>
       <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
