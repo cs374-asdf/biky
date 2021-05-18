@@ -12,7 +12,7 @@ export default function Friends({ friendRef, frequestRef }) {
 
   const acceptFrequest = (fid) => {
     var newFriend = {
-      id: friendlist.length,
+      id: "f" + friendlist.length,
       picture: "",
       name: "",
       total_intimacy: 0,
@@ -26,7 +26,7 @@ export default function Friends({ friendRef, frequestRef }) {
       }
     }
     friendRef.child("f" + friendlist.length).set(newFriend);
-    frequestRef.child("r" + fid).remove();
+    frequestRef.child(fid).remove();
     //setFrequests(frequests.filter((item) => item.id !== fid));
   };
 
@@ -45,7 +45,7 @@ export default function Friends({ friendRef, frequestRef }) {
   }, []);
 
   const rejectFrequest = (fid) => {
-    frequestRef.child("r" + fid).remove();
+    frequestRef.child(fid).remove();
   };
   return (
     <div>
