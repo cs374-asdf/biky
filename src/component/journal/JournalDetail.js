@@ -55,13 +55,13 @@ export default function JournalDetail({ journal }) {
 
   if (!journal)
     return null
-    
+
   return (
     <Card style={modalStyle} className={classes.paper}>
       <CardHeader
         title={journal.title} />
       <CardContent>{journal.desc}</CardContent>
-      {/* <CardContent>{getDivs(journal.friends)}</CardContent> */}
+      <CardContent>{getDivs(journal.friends ? journal.friends : [])}</CardContent>
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}
         <PictureList pictures={journal.photos} isEditing={false} />
