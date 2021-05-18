@@ -128,3 +128,4 @@ yarn-error.log*
 
 .fake
 .ionide
+.env
