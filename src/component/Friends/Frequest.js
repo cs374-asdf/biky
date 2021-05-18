@@ -20,10 +20,14 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: "80%",
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: "18px",
   },
+  mailIcon: {
+    position: "absolute", 
+    display: "inline-block", 
+    marginLeft: "10px"
+  }
 }));
 
 function ReceivedElement(props) {
@@ -33,43 +37,52 @@ function ReceivedElement(props) {
       alignItems="center"
       justifyContent="flex-start"
       flexDirection="row"
-      width="100%"
-      mb={1}
-      style={{ borderTop: "1px dashed lightgray" }}
+      width="calc(100% - 20px)"
+      style={{ 
+        backgroundColor: "lightgray",
+        borderRadius: "5px",
+        marginBottom: "7px",
+        padding: "10px",
+      }}
     >
-      <Box flex={1} mr={1}>
+      <Box>
         <Avatar
           alt={props.name}
           src={process.env.PUBLIC_URL + props.picture}
           style={{
             border: "2px solid lightgray",
+            width: "30px",
+            height: "30px"
           }}
         />
       </Box>
-      <Box flex={2} mr={4}>
+      <Box style={{ margin: "0 7px" }}>
         <Typography variant="body2" color="textPrimary">
           {props.name}
         </Typography>
       </Box>
-      <Box flex={1}>
-        <IconButton
-          style={{ color: "green" }}
-          onClick={() => {
-            props.onAcceptClick(props.oid);
-          }}
-        >
-          <CheckCircleIcon />
-        </IconButton>
-      </Box>
-      <Box flex={1}>
-        <IconButton
-          style={{ color: "red" }}
-          onClick={() => {
-            props.onRejectClick(props.oid);
-          }}
-        >
-          <CancelIcon />
-        </IconButton>
+
+      <Box style={{ border: "solid 1px black", position: "relative", float: "right" }}>
+        <div style={{ display: "inline-block" }}>
+          <IconButton
+            style={{ color: "green" }}
+            onClick={() => {
+              props.onAcceptClick(props.oid);
+            }}
+          >
+            <CheckCircleIcon />
+          </IconButton>
+        </div>
+        <div style={{ display: "inline-block" }}>
+          <IconButton
+            style={{ color: "red" }}
+            onClick={() => {
+              props.onRejectClick(props.oid);
+            }}
+          >
+            <CancelIcon />
+          </IconButton>
+        </div>
       </Box>
     </Box>
   );
@@ -112,7 +125,7 @@ export default function Frequest(props) {
         <Box flex={1} display="flex" alignItems="center" flexDirection="row">
           <Box flexGrow={1}>
             <Typography variant="h4" color="textPrimary">
-              Frequest
+              <b>Frequest</b>
             </Typography>
           </Box>
           <Box>
@@ -121,14 +134,15 @@ export default function Frequest(props) {
             </IconButton>
           </Box>
         </Box>
+
         <Box flex={4}>
-          <Typography variant="subtitle1" color="textPrimary">
-            받은 신청
+          <Typography variant="subtitle1" color="textPrimary" style={{ padding: "7px 0" }}>
+            <b>Received Frequests</b>
           </Typography>
-          <Box display="flex" alignItems="center" flexDirection="column">
+          <Box display="flex" alignItems="center" flexDirection="column" style={{ paddingBottom: "5px" }}>
             {props.frequests.length === 0 ? (
               <Typography variant="body1" color="textPrimary">
-                받은 친구 신청이 없습니다
+                You have received no frequests
               </Typography>
             ) : (
               props.frequests.map(fillTable)
@@ -137,8 +151,8 @@ export default function Frequest(props) {
         </Box>
         <Divider />
         <Box flex={4}>
-          <Typography variant="subtitle1" color="textPrimary">
-            신청 보내기
+          <Typography variant="subtitle1" color="textPrimary" style={{ padding: "7px 0" }}>
+            <b>Send a Frequest</b>
           </Typography>
           <SearchBar />
         </Box>
@@ -147,7 +161,7 @@ export default function Frequest(props) {
   );
 
   return (
-    <div style={{ marginTop: "5px", marginRight: "5px" }}>
+    <div className={classes.mailIcon}>
       <IconButton onClick={handleOpen}>
         {props.frequests.length === 0 ? (
           <MailIcon />
