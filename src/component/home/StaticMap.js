@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         height: "100%",
         textAlign: "center",
         display: "inline-block",
-        border: "solid 1px black"
+        // border: "solid 1px black"
     },
   });
 

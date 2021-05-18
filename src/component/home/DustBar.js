@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
         height: "10px",
         backgroundColor: "white",
         borderRadius: "10px",
-        marginTop: "15px",
+        marginTop: "10px",
         // border: "solid 1px black"
     },
     slider: {
