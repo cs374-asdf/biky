@@ -10,7 +10,6 @@ export default function Friends({ friendRef, frequestRef }) {
   const [frequests, setFrequests] = React.useState([]);
   const [friendlist, setFriendlist] = React.useState([]);
 
-
   const acceptFrequest = (fid) => {
     var newFriend = {
       id: friendlist.length,
@@ -26,30 +25,27 @@ export default function Friends({ friendRef, frequestRef }) {
         newFriend.picture = frequests[i].picture;
       }
     }
-    setFriendlist(friendlist.concat([newFriend]));
-    setFrequests(frequests.filter((item) => item.id !== fid));
+    friendRef.child("f" + friendlist.length).set(newFriend);
+    frequestRef.child("r" + fid).remove();
+    //setFrequests(frequests.filter((item) => item.id !== fid));
   };
 
-  React.useEffect(
-    () => {
-      friendRef.on('value', snapshot => {
-        const friendData = snapshot.val()
-        console.log(friendData);
-        setFriendlist(friendData)
-      })
+  React.useEffect(() => {
+    friendRef.on("value", (snapshot) => {
+      const friendData = snapshot.val();
+      console.log(friendData);
+      setFriendlist(Object.values(friendData));
+    });
 
-      frequestRef.on('value', snapshot => {
-        const frequestData = snapshot.val()
-        console.log(frequestData)
-        setFrequests(frequestData)
-      })
-    }, []
-  )
+    frequestRef.on("value", (snapshot) => {
+      const frequestData = snapshot.val();
+      console.log(frequestData);
+      setFrequests(frequestData === null ? [] : Object.values(frequestData));
+    });
+  }, []);
 
   const rejectFrequest = (fid) => {
-    setFrequests(frequests.filter((item) => item.id !== fid));
-    /*     console.log(frequests);
-     */
+    frequestRef.child("r" + fid).remove();
   };
   return (
     <div>

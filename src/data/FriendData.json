@@ -1,5 +1,5 @@
-[
-  {
+{
+  "f0": {
     "id": "0",
     "picture": "/images/friend_profile.jpg",
     "name": "yuri",
@@ -7,7 +7,7 @@
     "spent_time": 100.3,
     "distance": 50.2
   },
-  {
+  "f1": {
     "id": "1",
     "picture": "/images/friend_profile.jpg",
     "name": "nayoung",
@@ -15,7 +15,7 @@
     "spent_time": 150.3,
     "distance": 30.2
   },
-  {
+  "f2": {
     "id": "2",
     "picture": "/images/friend_profile.jpg",
     "name": "sanga",
@@ -23,4 +23,4 @@
     "spent_time": 150.3,
     "distance": 30.2
   }
-]
+}
