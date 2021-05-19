@@ -13,6 +13,7 @@ export function getDivs(items) {
 }
 
 export function getFriends(friends) {
+  if (!friends) return <div> no friends... </div>
   return friends.map(friend => <FriendSimpleView key={friend.id} friend={friend} />)
 }
 

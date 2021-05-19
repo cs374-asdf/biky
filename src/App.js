@@ -28,7 +28,7 @@ function App() {
         <Route
           path="/journal"
           exact
-          render={() => <JournalMain journalRef={db.ref(journalRef)} />}
+          render={() => <JournalMain journalRef={db.ref(journalRef)} friendRef={db.ref(friendRef)}/>}
         />
         <Route path="/edit/:id" exact
           render={() => <JournalEditor journalRef={db.ref(journalRef)} friendRef={db.ref(friendRef)}

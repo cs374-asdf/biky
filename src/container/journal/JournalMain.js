@@ -8,18 +8,17 @@ import SearchBar from '../../component/common/SearchBar';
 import flist from "../../data/FriendData.json";
 import initJournals from '../../data/journal'
 
-function getFriendsByJournal(journals) {
+function getFriendsByJournal(journals, flist) {
   let friendsByJournal = {}
   for (let i = 0; i < journals.length; i++) {
     let j = journals[i]
-    let friends = j.friends
-    friendsByJournal[j.id] = flist.filter(f => friends.includes(f.id))
+    friendsByJournal[j.id] = flist.filter(f => j.friends && j.friends.includes(f.id))
   }
 
   return friendsByJournal
 }
 
-export default function JournalMain({ journalRef }) {
+export default function JournalMain({ journalRef, friendRef }) {
 
   // firebase subscribe를 해서 journal document가 바뀌면 다시 다운받도록 함
   const [journals, setJournals] = React.useState([]);
@@ -30,9 +29,13 @@ export default function JournalMain({ journalRef }) {
       journalRef.on('value', snapshot => {
         const journalData = snapshot.val()
         console.log(journalData);
-        let journals = journalData ? Object.values(journalData) : [];
-        setJournals(journals) // journalData = null 일 경우 처리
-        setFriendsByJournal(getFriendsByJournal(journals));
+        let journalList = journalData ? Object.values(journalData) : [];
+        friendRef.once('value', snapshot => {
+          let friendData = snapshot.val()
+          let friendList = friendData ? Object.values(friendData) : [];
+          setJournals(journalList)
+          setFriendsByJournal(getFriendsByJournal(journalList, friendList));
+        })
       })
     }, []
   )
@@ -65,13 +68,13 @@ export default function JournalMain({ journalRef }) {
       </Button>
       </div>
 
-      <JournalList journals={journals} openJournal={handleOpen} friendsByJournal={friendsByJournal}/>
+      <JournalList journals={journals} openJournal={handleOpen} friendsByJournal={friendsByJournal} />
 
       <Modal
         open={open}
         onClose={handleClose}
       >
-        <JournalDetail journal={selected} friends={selected ? friendsByJournal[selected.id] : null}/>
+        <JournalDetail journal={selected} friends={selected ? friendsByJournal[selected.id] : null} />
       </Modal>
     </div>
   );
