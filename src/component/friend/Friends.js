@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
 function fillTable(friend, journals) {
   console.log(journals);
   // https://javascript.plainenglish.io/material-ui-icons-and-lists-a98c8ccbdac0
-  return <FriendListItem key={friend.id} friend={friend} journals={journals} />;
+  return <div key={friend.id} style={{ margin: "10px", marginTop: "5px" }}>
+    <FriendListItem friend={friend} journals={journals} />
+  </div>
 }
 
 export default function FriendList(props) {
@@ -28,7 +30,7 @@ export default function FriendList(props) {
   return (
     <div className={classes.root}>
       <Box display="flex" flexDirection="column">
-        <Box alignSelf="flex-end">
+        <Box alignSelf="flex-end" style={{ marginRight: "10px" }}>
           <IconButton>
             <FilterListIcon />
           </IconButton>

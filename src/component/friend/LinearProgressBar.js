@@ -45,7 +45,7 @@ export default function LinearProgressBar(props) {
       alignItems="center"
       justifyContent="flex-start"
     >
-      <Box flex={5}>
+      <Box flex={5} style={{ transform: "translateY(8px)" }}>
         <div className={classes.pro_bar}>
           <div
             className={classes.progress_bar_inner}
@@ -57,11 +57,11 @@ export default function LinearProgressBar(props) {
           ></div>
         </div>
       </Box>
-      <Box flex={1}>
+      {/* <Box flex={1}>
         <Typography variant="body2" color="textPrimary" align="right">
           {props.value}%
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
