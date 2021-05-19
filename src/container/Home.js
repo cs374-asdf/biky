@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { Distance, Dust, JournalModal, Map, StartButton, StopButton, Time, Weather } from '../component/home'
+import React, { useRef, useState } from 'react';
+
 import Avatar from '../component/Avatar';
-import { Weather, Dust, Distance, Time, Map, StartButton, StopButton, JournalModal } from '../component/home'
+import dayjs from 'dayjs'
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     page: {
@@ -9,7 +12,7 @@ const useStyles = makeStyles({
         margin: "0 auto",
         border: "solid 1px black",
     },
-    header: { 
+    header: {
         fontSize: "30px",
         fontWeight: "bold",
         borderBottom: "solid 1px black",
@@ -21,8 +24,8 @@ const useStyles = makeStyles({
         textAlign: "right",
         paddingRight: "10px",
     },
-    weather: { 
-        width: "100%", 
+    weather: {
+        width: "100%",
         height: "150px",
         // border: "solid 1px black", 
         // padding: "0 10px",
@@ -30,7 +33,7 @@ const useStyles = makeStyles({
     measuresContainer: {
         position: "absolute",
         zIndex: "1",
-        width: "calc(100% - 20px)", 
+        width: "calc(100% - 20px)",
         // border: "solid 1px black", 
         padding: "10px",
     },
@@ -45,29 +48,29 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         fontSize: "20px",
     },
-    mapContainer: { 
-        position: "relative", 
+    mapContainer: {
+        position: "relative",
         // border: "solid 1px black", 
         height: "300px",
     },
-    buttonContainer: { 
-        position: "relative", 
+    buttonContainer: {
+        position: "relative",
         // border: "solid 1px black", 
         height: "60px",
         padding: "10px",
     },
     button: {
-        position: "relative", 
+        position: "relative",
         height: "100%",
-        border: "solid 1px black", 
+        border: "solid 1px black",
         textAlign: "center",
         borderRadius: "10px",
         fontWeight: "bold",
         fontSize: "20px",
         margin: "auto 0",
-    }, 
+    },
     buttonText: {
-        position: "relative", 
+        position: "relative",
         // border: "solid 1px black", 
         textAlign: "center",
         fontWeight: "bold",
@@ -80,9 +83,9 @@ const useStyles = makeStyles({
     stopButton: {
 
     }
-  });
+});
 
-export default function Home() {
+export default function Home({ journalRef }) {
     const classes = useStyles();
     var [isRiding, setIsRiding] = useState(false);
     var [open, setOpen] = useState(false);
@@ -91,12 +94,45 @@ export default function Home() {
     var [route, setRoute] = useState([]);
     const increment = useRef(null);
 
+    const [hashtags, setHashtags] = useState(["happy"])
+    const [startTime, setStartTime] = useState(dayjs())
+
+    const createJournal = () => {
+        let id = journalRef.push().key
+
+        const endTime = startTime.add(time, 'minute')
+        let newJournal = {
+            id,
+            route,
+            hashtags,
+            distance,
+            startTime: startTime.toString(),
+            endTime: endTime.toString(),
+            title: "제목 없음",
+            desc: "내용 없음",
+            photos: ["/images/photo1.jpg"],
+            emojis: ["happy", "exited"],
+            metaphors: {
+                tree: 1,
+                taxi: 1,
+                burger: 1,
+            }
+        }
+
+        console.log(newJournal)
+
+        journalRef.child(id).set(newJournal)
+        return id;
+    }
+
+
     const startRide = () => {
+        setStartTime(dayjs())
         setIsRiding(true);
         increment.current = setInterval(() => {
             setDistance((distance) => distance + 1);
-            setTime((time) => time + 1/6);
-        }, 1000/6);
+            setTime((time) => time + 1 / 6);
+        }, 1000 / 6);
     }
 
     const stopRide = () => {
@@ -106,9 +142,18 @@ export default function Home() {
     }
 
     const closeModal = () => {
+        console.log("closing modal")
+        createJournal();
         setOpen(false);
         setDistance(0);
         setTime(0);
+    }
+
+    let history = useHistory();
+
+    const handleJournal = () => {
+        const id = createJournal();
+        history.push(`/edit/${id}`);
     }
 
     const formatTime = () => {
@@ -121,10 +166,10 @@ export default function Home() {
     }
 
     const formatDistance = () => {
-        if(distance < 1000) {
+        if (distance < 1000) {
             return `${distance}m`
         } else {
-            return `${distance/1000}km`
+            return `${distance / 1000}km`
         }
     }
 
@@ -132,8 +177,8 @@ export default function Home() {
         <div className={classes.page}>
             <div className={classes.header}>Home</div>
 
-            <div className={classes.myPageButton}> 
-                Nayeon Min 
+            <div className={classes.myPageButton}>
+                Nayeon Min
                 <div style={{ display: "inline-block" }}><Avatar /></div>
             </div>
 
@@ -142,22 +187,22 @@ export default function Home() {
                 <Dust />
             </div>
 
-            { isRiding ? 
+            { isRiding ?
                 <div className={classes.measuresContainer}>
-                    <Distance distance={formatDistance()} style={classes.measures}/>
-                    <Time time={formatTime()} style={classes.measures}/>
+                    <Distance distance={formatDistance()} style={classes.measures} />
+                    <Time time={formatTime()} style={classes.measures} />
                 </div>
-            : null }
+                : null}
 
             <div className={classes.mapContainer}>
-                <Map index={distance} isRiding={isRiding} saveRoute={setRoute}/>
+                <Map index={distance} isRiding={isRiding} saveRoute={setRoute} />
             </div>
 
-            <div onClick={() => !isRiding ? startRide() : stopRide() } className={classes.buttonContainer}>
-                { !isRiding ? <StartButton style={{button: classes.button, text: classes.buttonText}}/> : <StopButton style={{button: classes.button, text: classes.buttonText}}/> }
+            <div onClick={() => !isRiding ? startRide() : stopRide()} className={classes.buttonContainer}>
+                {!isRiding ? <StartButton style={{ button: classes.button, text: classes.buttonText }} /> : <StopButton style={{ button: classes.button, text: classes.buttonText }} />}
             </div>
 
-            <JournalModal open={open} distance={formatDistance()} time={formatTime()} amount={distance} route={route} closeModal={closeModal} />
+            <JournalModal handleJournal={handleJournal} open={open} distance={formatDistance()} time={formatTime()} amount={distance} route={route} closeModal={closeModal} />
         </div>
     )
 }

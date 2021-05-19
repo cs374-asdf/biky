@@ -6,12 +6,14 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-function getDivs(items) {
+export function getDivs(items) {
+  if (!items) return <div> empty </div>
   return items.map(item => <div key={item}> {item} </div>)
 
 }
 
-function getMetaphors(metaphor) {
+export function getMetaphors(metaphor) {
+  if (!metaphor) return <div> empty metaphor </div>
   return <div>
     <div> 나무 {metaphor.tree} 그루 </div>
     <div> 택시 {metaphor.taxi} 번 </div>
@@ -35,11 +37,12 @@ export default function JournalItem({ journal, openJournal }) {
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}</CardContent>
       <CardContent>{journal.distance} km</CardContent>
+      {/* TODO 적절한 양식으로 friends 보여주기! object의 배열임에 주의*/}
+
       {/* <CardContent> {journal.friends} </CardContent> */}
       {/* <CardContent>{journal.time} </CardContent> */}
       <CardContent>{journal.weather} </CardContent>
       <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
-      <CardContent>{journal.map} </CardContent>
     </Card >
   );
 }

@@ -3,6 +3,8 @@
 // create인 경우, edit인 경우 이동
 // 마지막 라우트의 id를 읽어서 요청을 보냄
 
+import { nullToList, toList } from '../../util/format';
+
 import FriendAddPage from '../../component/journal/FriendAddPage';
 import JournalForm from '../../component/journal/JournalForm';
 import { Modal } from '@material-ui/core';
@@ -46,16 +48,16 @@ export default function JournalEditor({ journalRef, friendRef }) {
         const journalData = snapshot.val()
         console.log(journalData);
         const j = getJournal(id, journalData)
-        console.log(j)
-        setJournal(j)
-        if (j.photos) setPictures(j.photos)
-        setLoading(false)
         friendRef.once('value', snapshot => {
           const friendData = snapshot.val()
           console.log(friendData);
-          const allFriends = Object.values(friendData)
-          setFriends(getFriends(j.friends, allFriends))
+          let allFriends = toList(friendData)
+          let friends = nullToList(j.friends)
+          setFriends(getFriends(friends, allFriends))
           setAllFriends(allFriends)
+          setJournal(j)
+          setPictures(nullToList(j.photos))
+          setLoading(false)
         })
       })
     }, [journalRef, id, friendRef]
@@ -67,11 +69,8 @@ export default function JournalEditor({ journalRef, friendRef }) {
   }) => {
     const newJournal = {
       ...journal,
-      title, desc, friends, hashtags, pictures
+      title, desc, friends: friends.map(friend => friend.id), hashtags, photos: pictures
     }
-
-    // journalRef.child(id)    console.log(`id: ${id} 에 해당하는 파이어베이스 데이터를 newJournal로 업데이트`)
-    console.log(newJournal)
 
     // id 에 해당하는 파이어베이스 데이터를 newJournal로 업데이트
     journalRef.child(journal.id).set(newJournal)
@@ -83,7 +82,6 @@ export default function JournalEditor({ journalRef, friendRef }) {
   const [pictures, setPictures] = React.useState([])
   const [friends, setFriends] = React.useState([]);
 
-  // TODO journal.friends 에 있는 id를 가지고 allFriends에 있는 객체를 끌어오자
 
   const removeFriend = (friend) => {
     setFriends(friends.filter(item => item !== friend))
@@ -107,6 +105,10 @@ export default function JournalEditor({ journalRef, friendRef }) {
   if (loading)
     return <div> loading... </div>
 
+
+  const MyPictureSelector = React.forwardRef((props, ref) => <PictureSelector pictures={pictures} onSubmit={onSubmitPictures} ref={ref} />);
+
+
   return (
     <div>
       <JournalForm journal={journal} onSubmit={onSubmit} openFriendAddPage={() => setFriendAddPageOpen(true)}
@@ -120,7 +122,7 @@ export default function JournalEditor({ journalRef, friendRef }) {
       </Modal>
 
       <Modal open={pictureSelectorOpen} onClose={() => setPictureSelectorOpen(false)}>
-        <PictureSelector pictures={pictures} onSubmit={onSubmitPictures} />
+        <MyPictureSelector />
       </Modal>
 
     </div >)

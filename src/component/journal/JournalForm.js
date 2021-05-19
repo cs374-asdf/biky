@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FriendItem from './FriendItem'
 import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
 import PictureList from './PictureList'
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -56,9 +57,9 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
   };
 
   const handleSubmit = () => {
-      onSubmit({
-        title, desc, hashtags
-      })
+    onSubmit({
+      title, desc, hashtags
+    })
   }
 
   const addHashtag = (event) => {
@@ -82,14 +83,15 @@ export default function JournalForm({ journal, onSubmit, openFriendAddPage, frie
       {/* 내용 suggestion */}
 
       <TextField onChange={handleDescChange} id="desc" label="내용" variant="outlined" multiline defaultValue={journal.desc} />
-      <Button onClick={handleSubmit}> 저장 </Button>
+      <Button onClick={handleSubmit} component={Link} to="/journal"> 저장 </Button>
+
       <Button onClick={openPictureSelector}> 사진 추가 </Button>
 
       <PictureList pictures={pictures} removePicture={removePicture} isEditing />
 
       <List dense>
         {friends.map(friend =>
-          <FriendItem friend={friend} removeFriend={removeFriend} />)}
+          <FriendItem key={friend.id} friend={friend} removeFriend={removeFriend} />)}
         <ListItem>
           <Button onClick={openFriendAddPage}>+</Button>
         </ListItem>

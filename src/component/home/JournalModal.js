@@ -1,6 +1,8 @@
-import React from 'react';
+import { Button, Modal } from '@material-ui/core';
 import { MetaphorContainer, StaticMap } from './';
-import { Modal } from '@material-ui/core';
+
+import { Link } from 'react-router-dom';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -45,10 +47,10 @@ export default function JournalModal(props) {
     return (
         <div>
             <Modal
-            open={open}
-            onClose={closeModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
+                open={open}
+                onClose={closeModal}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
             >
                 <div className={classes.modal}>
 
@@ -56,10 +58,10 @@ export default function JournalModal(props) {
                         Today's Ride
                     </h2>
 
-                    <MetaphorContainer amount={amount}/>
+                    <MetaphorContainer amount={amount} />
 
-                    <hr/>
-                    
+                    <hr />
+
                     <div id="modal-description">
                         <div className={classes.half}>시간 {time}</div>
                         <div className={classes.half}>거리 {distance}</div>
@@ -67,11 +69,10 @@ export default function JournalModal(props) {
 
                         <div>
                             이동경로
-                            <StaticMap route={route} zoom={15} width={"100%"} height={"300px"}/>
+                            <StaticMap route={route} zoom={15} width={"100%"} height={"300px"} />
                         </div>
                         <br />
-                        
-                        <div className={classes.button}>Journal Ride</div>
+                        <Button className={classes.button} onClick={props.handleJournal}>Journal Ride</Button>
                     </div>
                 </div>
             </Modal>

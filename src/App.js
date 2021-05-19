@@ -24,7 +24,7 @@ function App() {
     <BrowserRouter>
       <NavigationBar />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact render={() => <Home journalRef={db.ref(journalRef)} />} />
         <Route
           path="/journal"
           exact
