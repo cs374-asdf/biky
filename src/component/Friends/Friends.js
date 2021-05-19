@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -21,6 +21,20 @@ import { IconButton } from "@material-ui/core";
 // https://material-ui.com/components/progress/
 // https://material-ui.com/components/accordion/
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+    // border: "solid 1px black"
+  },
+  verticalAlign: {
+    position: "absolute",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    display: "inline-block",
+  },
+}));
+
 function FriendListItemInner(props) {
   var icon_name;
   if (props.intimacy < 25) {
@@ -39,21 +53,22 @@ function FriendListItemInner(props) {
       justifyContent="flex-start"
       flexDirection="row"
       width="100%"
-      mb={1}
     >
-      <Box flex={1} mr={1}>
+      {/* <Box flex={1} mr={1}>
         <Icon style={{ fontSize: 30 }} icon={icon_name} />
-      </Box>
+      </Box> */}
       <Box flex={1} mr={1}>
         <Avatar
           alt={props.name}
           src={process.env.PUBLIC_URL + props.picture}
           style={{
             border: "2px solid lightgray",
+            width: "30px",
+            height: "30px",
           }}
         />
       </Box>
-      <Box flex={2} mr={2}>
+      <Box flex={2} mr={2} style={{ minWidth: "75px" }}>
         <Typography variant="body1" color="textPrimary">
           {props.name}
         </Typography>
@@ -65,11 +80,49 @@ function FriendListItemInner(props) {
   );
 }
 
+function FriendListItemJournal(journal) {
+  return (
+    <div style={{
+      backgroundColor: "white",
+      borderRadius: "5px",
+      padding: "7px",
+      marginTop: "10px",
+      fontSize: "11px",
+    }}>
+      <div style={{
+        display: "inline-block", 
+        width: "20%"
+      }}>{journal.date}</div>
+      <div style={{
+        display: "inline-block", 
+        width: "35%"
+      }}>{journal.title}</div>
+      <div style={{
+        display: "inline-block", 
+        width: "15%"
+      }}>{journal.emojis}</div>
+      <div style={{
+        display: "inline-block", 
+        width: "30%"
+      }}>{journal.hashtags}</div>
+    </div>
+  )
+}
+
+function formatTime(time) {
+  const hours = parseInt(time / 60);
+  const minutes = time % 60;
+  return `${hours > 0 ? `${hours} hr${hours > 1 ? "s" : ""} ` : " "}${minutes > 0 ? `${minutes} min${minutes > 1 ? "s" : ""}` : ""}`
+}
+
+function formatDistance(distance) {
+  return `${distance} km`
+}
+
 function FriendListItem(props) {
   return (
-    <Accordion>
+    <Accordion style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}>
       <AccordionSummary
-        style={{ width: "95%" }}
         expandIcon={<ExpandMoreIcon />}
       >
         <FriendListItemInner
@@ -79,21 +132,37 @@ function FriendListItem(props) {
           intimacy={props.intimacy}
         />
       </AccordionSummary>
-      <AccordionDetails style={{ backgroundColor: "lightgray" }}>
-        <Typography variant="body2" color="textPrimary">
-          Rode with {props.name} for {props.time}min and {props.distance}km
-        </Typography>
+      <AccordionDetails style={{ backgroundColor: "lightgray", padding: "10px" }}>
+        {/* <Typography variant="body2" color="textPrimary"> */}
+          <div style={{ width: "100%" }}>
+            <div style={{ display: "inline-block", width: "50%" }}>
+              <b>Time: </b>{formatTime(props.time)}
+            </div>
+
+            <div style={{ display: "inline-block", width: "50%" }}>
+              <b>Distance: </b>{formatDistance(props.distance)}
+            </div>
+
+            <div>
+              {FriendListItemJournal({
+                date: "2021/05/18",
+                title: "Title",
+                emojis: "Emojis", 
+                hashtags: "Hashtags"
+              })}
+              {FriendListItemJournal({
+                date: "2021/05/19",
+                title: "So exciting~",
+                emojis: "Emojis", 
+                hashtags: "Hashtags"
+              })}
+            </div>
+          </div>
+        {/* </Typography> */}
       </AccordionDetails>
     </Accordion>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
 
 const ProgressStyles = makeStyles((theme) => ({
   pro_bar: {
@@ -136,7 +205,7 @@ function LinearProgressV2(props) {
       alignItems="center"
       justifyContent="flex-start"
     >
-      <Box flex={5}>
+      <Box flex={5} style={{transform: "translateY(8px)"}}>
         <div className={classes.pro_bar}>
           <div
             className={classes.progress_bar_inner}
@@ -148,11 +217,11 @@ function LinearProgressV2(props) {
           ></div>
         </div>
       </Box>
-      <Box flex={1}>
+      {/* <Box flex={1}>
         <Typography variant="body2" color="textPrimary" align="right">
           {props.value}%
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
@@ -160,14 +229,16 @@ function LinearProgressV2(props) {
 function fillTable(el) {
   // https://javascript.plainenglish.io/material-ui-icons-and-lists-a98c8ccbdac0
   return (
-    <FriendListItem
-      key={el.id}
-      name={el.name}
-      picture={el.picture}
-      intimacy={el.total_intimacy}
-      time={el.spent_time}
-      distance={el.distance}
-    />
+    <div style={{ margin: "10px", marginTop: "5px"}}>
+      <FriendListItem
+        key={el.id}
+        name={el.name}
+        picture={el.picture}
+        intimacy={el.total_intimacy}
+        time={el.spent_time}
+        distance={el.distance}
+      />
+    </div>
   );
 }
 
@@ -176,11 +247,11 @@ export default function FriendList(props) {
   return (
     <div className={classes.root}>
       <Box display="flex" flexDirection="column">
-        <Box alignSelf="flex-end">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Box>
+          <Box alignSelf="flex-end" style={{ marginRight: "10px" }}>
+            <IconButton>
+              <FilterListIcon />
+            </IconButton>
+          </Box>
 
         <div>{props.flist.map(fillTable)}</div>
       </Box>
