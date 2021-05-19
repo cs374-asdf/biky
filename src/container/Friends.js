@@ -24,7 +24,7 @@ export default function Friends({ friendRef, frequestRef }) {
 
   const acceptFrequest = (fid) => {
     var newFriend = {
-      id: friendlist.length,
+      id: "f" + friendlist.length,
       picture: "",
       name: "",
       total_intimacy: 0,
@@ -37,9 +37,11 @@ export default function Friends({ friendRef, frequestRef }) {
         newFriend.picture = frequests[i].picture;
       }
     }
-    setFriendlist(friendlist.concat([newFriend]));
-    setFrequests(frequests.filter((item) => item.id !== fid));
+    friendRef.child("f" + friendlist.length).set(newFriend);
+    frequestRef.child(fid).remove();
+    //setFrequests(frequests.filter((item) => item.id !== fid));
   };
+
 
   React.useEffect(
     () => {
@@ -47,21 +49,21 @@ export default function Friends({ friendRef, frequestRef }) {
         const friendData = snapshot.val()
         console.log(friendData);
         // TODO Object.values 로 바꾸기, null 처리
-        setFriendlist(friendData)
+        setFriendlist(Object.values(friendData))
     
         setJournalsByFriend(getJournalsByFriend(friendlist));
       })
 
-      frequestRef.on('value', snapshot => {
-        const frequestData = snapshot.val()
-        console.log(frequestData)
-        setFrequests(frequestData)
-      })
-    }, []
-  )
+    frequestRef.on("value", (snapshot) => {
+      const frequestData = snapshot.val();
+      console.log(frequestData);
+      setFrequests(frequestData === null ? [] : Object.values(frequestData));
+    });
+  }, []);
 
   const rejectFrequest = (fid) => {
-    setFrequests(frequests.filter((item) => item.id !== fid));
+    frequestRef.child(fid).remove();
+
   };
   return (
     <div>

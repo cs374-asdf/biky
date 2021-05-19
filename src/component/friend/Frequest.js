@@ -126,7 +126,7 @@ export default function Frequest(props) {
             받은 신청
           </Typography>
           <Box display="flex" alignItems="center" flexDirection="column">
-            {props.frequests.length === 0 ? (
+            {props.frequests == null || props.frequests.length === 0 ? (
               <Typography variant="body1" color="textPrimary">
                 받은 친구 신청이 없습니다
               </Typography>
@@ -149,7 +149,7 @@ export default function Frequest(props) {
   return (
     <div style={{ marginTop: "5px", marginRight: "5px" }}>
       <IconButton onClick={handleOpen}>
-        {props.frequests.length === 0 ? (
+        {props.frequests == null || props.frequests.length === 0 ? (
           <MailIcon />
         ) : (
           <Badge badgeContent={props.frequests.length} color="primary">
