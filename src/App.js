@@ -11,14 +11,14 @@ import Login from "./container/Login";
 import LoginInitial from "./container/LoginInitial";
 import MyPage from "./container/MyPage";
 import NavigationBar from "./component/NavigationBar";
-import db from './firebaseInit'
+import db from "./firebaseInit";
 
-const journalRef = "/nayeon/journals"
-const frequestRef = "/nayeon/frequests"
-const friendRef = "/nayeon/friends"
+const journalRef = "/nayeon/journals";
+const frequestRef = "/nayeon/frequests";
+const friendRef = "/nayeon/friends";
 
 function App() {
-  console.log(db)
+  console.log(db);
 
   return (
     <BrowserRouter>
@@ -35,7 +35,16 @@ function App() {
         <Route path="/loginInitial" exact component={LoginInitial} />
         <Route path="/myPage" exact component={MyPage} />
         <Route path="/badgeDetail" exact component={BadgeDetail} />
-        <Route path="/friend" render={() => <Friends friendRef={db.ref(friendRef)} frequestRef={db.ref(frequestRef)} />} />
+        <Route
+          path="/friend"
+          render={() => (
+            <Friends
+              friendRef={db.ref(friendRef)}
+              frequestRef={db.ref(frequestRef)}
+              journalRef={db.ref(journalRef)}
+            />
+          )}
+        />
         {/* <Redirect from="*" to="/" /> */}
       </Switch>
     </BrowserRouter>

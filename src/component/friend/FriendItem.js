@@ -5,40 +5,42 @@ import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Icon } from "@iconify/react";
-import LinearProgressBar from './LinearProgressBar'
+import LinearProgressBar from "./LinearProgressBar";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import chickenIcon from "@iconify-icons/twemoji/chicken";
 import eggIcon from "@iconify-icons/twemoji/egg";
 import frontFacingBabyChick from "@iconify-icons/twemoji/front-facing-baby-chick";
 import hatchingChick from "@iconify-icons/twemoji/hatching-chick";
+import { findRenderedComponentWithType } from "react-dom/test-utils";
+import { Divider } from "@material-ui/core";
 
 export function JournalEntry({ journal }) {
-  return <div>
-    {journal.title}
-    {journal.desc}
-    {/* 디자인한대로 journal 간단한 정보 출력하면 됨 */}
-  </div>
-
+  return (
+    <Box>
+      {journal.title}
+      {journal.desc}
+      {/* 디자인한대로 journal 간단한 정보 출력하면 됨 */}
+    </Box>
+  );
 }
 export default function FriendItem({ friend, journals }) {
-
+  console.log(journals);
   return (
     <Accordion>
       <AccordionSummary
         style={{ width: "95%" }}
         expandIcon={<ExpandMoreIcon />}
       >
-        <FriendListItemInner
-          key={friend.id}
-          friend={friend}
-        />
+        <FriendListItemInner key={friend.id} friend={friend} />
       </AccordionSummary>
       <AccordionDetails style={{ backgroundColor: "light-gray" }}>
         <Typography variant="body2" color="textPrimary">
-          Rode with {friend.name} for {friend.time}min and {friend.distance}km
+          Rode with {friend.name} for {friend.spent_time}min {friend.distance}km
         </Typography>
-        {journals.map(journal => <JournalEntry journal={journal} />)}
+        {journals.map((journal) => (
+          <JournalEntry journal={journal} key={journal.id} />
+        ))}
       </AccordionDetails>
     </Accordion>
   );
