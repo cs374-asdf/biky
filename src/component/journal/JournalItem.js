@@ -25,8 +25,11 @@ function getMetaphors(metaphor) {
 }
 
 
-
 export default function JournalItem({ journal, openJournal, friends }) {
+  if (!journal)
+    return null;
+
+  console.log(journal)
   return (
     <Card onClick={() => openJournal(journal)}>
       <CardHeader
@@ -36,6 +39,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}</CardContent>
       <CardContent>{journal.distance} km</CardContent>
+      <CardContent> {journal.friends} </CardContent>
       {/* <CardContent>{journal.time} </CardContent> */}
       <CardContent>{journal.weather} </CardContent>
       <CardContent>{getMetaphors(journal.metaphor)} </CardContent>

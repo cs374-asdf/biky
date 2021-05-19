@@ -19,11 +19,23 @@ function getFriendsByJournal(journals) {
   return friendsByJournal
 }
 
-export default function JournalMain() {
+export default function JournalMain({ journalRef }) {
 
   // firebase subscribe를 해서 journal document가 바뀌면 다시 다운받도록 함
-  const [journals, setJournals] = React.useState(initJournals);
-  const friendsByJournal = getFriendsByJournal(journals);
+  const [journals, setJournals] = React.useState([]);
+  const [friendsByJournal, setFriendsByJournal] = React.useState([])
+
+  React.useEffect(
+    () => {
+      journalRef.on('value', snapshot => {
+        const journalData = snapshot.val()
+        console.log(journalData);
+        let journals = journalData ? Object.values(journalData) : [];
+        setJournals(journals) // journalData = null 일 경우 처리
+        setFriendsByJournal(getFriendsByJournal(journals));
+      })
+    }, []
+  )
 
   const [selected, setSelected] = React.useState(null);
   const [open, setOpen] = React.useState(false);

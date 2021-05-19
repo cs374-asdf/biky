@@ -1,11 +1,11 @@
 import FrequestComponent from "../component/friend/Frequest";
 import FriendList from "../component/friend/Friends";
 import React from "react";
-import flist from "../data/FriendData.json";
-import frlist from "../data/FrequestData.json";
+// import flist from "../data/FriendData.json";
+// import frlist from "../data/FrequestData.json";
 import journals from '../data/journal.js'
 
-function getJournalsByFriend() {
+function getJournalsByFriend(flist) {
   let journalsByFriend = {}
   for (let i = 0; i < flist.length; i++) {
     let f = flist[i]
@@ -15,13 +15,12 @@ function getJournalsByFriend() {
   return journalsByFriend
 }
 
-export default function Friends() {
+export default function Friends({ friendRef, frequestRef }) {
   // Firebase comeon
   // json 파일 여기서 불러오기
-  const [frequests, setFrequests] = React.useState(frlist);
-  const [friendlist, setFriendlist] = React.useState(flist);
-  const journalsByFriend = getJournalsByFriend();
-
+  const [frequests, setFrequests] = React.useState([]);
+  const [friendlist, setFriendlist] = React.useState([]);
+  const [journalsByFriend, setJournalsByFriend] = React.useState([]) 
 
   const acceptFrequest = (fid) => {
     var newFriend = {
@@ -41,6 +40,25 @@ export default function Friends() {
     setFriendlist(friendlist.concat([newFriend]));
     setFrequests(frequests.filter((item) => item.id !== fid));
   };
+
+  React.useEffect(
+    () => {
+      friendRef.on('value', snapshot => {
+        const friendData = snapshot.val()
+        console.log(friendData);
+        // TODO Object.values 로 바꾸기, null 처리
+        setFriendlist(friendData)
+    
+        setJournalsByFriend(getJournalsByFriend(friendlist));
+      })
+
+      frequestRef.on('value', snapshot => {
+        const frequestData = snapshot.val()
+        console.log(frequestData)
+        setFrequests(frequestData)
+      })
+    }, []
+  )
 
   const rejectFrequest = (fid) => {
     setFrequests(frequests.filter((item) => item.id !== fid));
