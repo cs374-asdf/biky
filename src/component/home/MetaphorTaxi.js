@@ -32,7 +32,7 @@ export default function MetaphorTaxi(props) {
 
     return (
         <div className={classes.background}>
-            <img src={taxi} alt="taxi" className={classes.img} />
+            <img src={process.env.PUBLIC_URL + taxi} alt="taxi" className={classes.img} />
             <div className={classes.text}>You saved {amount*3000} won!</div>
         </div>
     )

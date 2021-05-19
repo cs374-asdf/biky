@@ -65,7 +65,9 @@ export default function MyPage() {
               <Grid container spacing={2}>
                 <Grid item>
                   <Box className={classes.badgeBox}>
-                    <img className={classes.badge} src={logo} />
+                    <img className={classes.badge} 
+                      src={process.env.PUBLIC_URL + logo} alt={"main badge"}
+                    />
                   </Box>
                 </Grid>
                 <Grid item xs container direction="column" spacing={2}>

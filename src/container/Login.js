@@ -79,7 +79,7 @@ export default function Login() {
     <Container className={classes.background}>
       <Box className={classes.root}>
         <Grid container className={classes.logo} justify="center">
-          <img src={logo} alt="logo"/>
+          <img src={process.env.PUBLIC_URL +logo} alt="logo"/>
         </Grid>
         
         <Grid container alignItems="center" direction="column" spacing={1}>

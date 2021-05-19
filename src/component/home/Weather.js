@@ -54,7 +54,7 @@ export default function Weather() {
 
   return (
     <div className={classes.container}>
-      {/* <img src={currentWeather} width="100%" alt="" /> */}
+      {/* <img src={process.env.PUBLIC_URL +currentWeather} width="100%" alt="" /> */}
       <div className={classes.background} style={style}>
         {weather} <br />
         {temperature}&#8451;

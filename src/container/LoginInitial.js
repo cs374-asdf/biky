@@ -46,17 +46,17 @@ export default function LoginInitial() {
   const classes = useStyles();
 
   function handleClick() {
-    window.location.replace ("/login")
+    window.location.replace("/login")
   }
 
   return (
     <Container className={classes.background}>
       <CssBaseline />
       <Grid container className={classes.logo} justify="center">
-        <img src={logo}/>
+        <img src={process.env.PUBLIC_URL + logo} alt="logo" />
       </Grid>
       <Grid container alignItems="center" direction="column" spacing={1}>
-        <MyButton item onClick = {handleClick}>Log in</MyButton>
+        <MyButton item onClick={handleClick}>Log in</MyButton>
         <Typography item className={classes.character} align="center" variant="body2">
           Don't have an account? <b>SIGN UP</b>
         </Typography>

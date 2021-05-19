@@ -97,7 +97,7 @@ export default function BadgeDetail() {
         <Grid container spacing={2} className={classes.eachBadge}>
           <Grid item>
             <Box className={classes.badgeBox}>
-              <img className={classes.badge} src={badge.thumbnail} />
+              <img className={classes.badge} src={process.env.PUBLIC_URL + badge.thumbnail} alt={badge.title} />
             </Box>
           </Grid>
 
@@ -137,7 +137,8 @@ export default function BadgeDetail() {
               <Box className={classes.badgeBox}>
                 <img
                   className={classes.badge}
-                  src={badges[val.representativeBadge].thumbnail}
+                  src={process.env.PUBLIC_URL + badges[val.representativeBadge].thumbnail}
+                  alt="대표 뱃지"
                 />
               </Box>
             </Grid>
