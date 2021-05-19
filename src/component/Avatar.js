@@ -27,7 +27,7 @@ export default function LetterAvatars() {
   return (
     <div className={classes.root}>
       <Avatar className={classes.orange}
-        component={Link} to="/setting"
+        component={Link} to="/myPage"
       >N</Avatar>
     </div>
   );

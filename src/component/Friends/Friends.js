@@ -121,7 +121,7 @@ function formatDistance(distance) {
 
 function FriendListItem(props) {
   return (
-    <Accordion>
+    <Accordion style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
       >
