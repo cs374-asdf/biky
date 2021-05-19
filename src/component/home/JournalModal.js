@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
 export default function JournalModal(props) {
     const classes = useStyles();
     var open = props.open;

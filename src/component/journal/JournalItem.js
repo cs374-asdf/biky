@@ -3,14 +3,19 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import FriendSimpleView from './FriendSimpleView';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>
   return items.map(item => <div key={item}> {item} </div>)
-
 }
+
+export function getFriends(friends) {
+  return friends.map(friend => <FriendSimpleView key={friend.id} friend={friend} />)
+}
+
 
 export function getMetaphors(metaphor) {
   if (!metaphor) return <div> empty metaphor </div>
@@ -21,9 +26,7 @@ export function getMetaphors(metaphor) {
   </div>
 }
 
-
-
-export default function JournalItem({ journal, openJournal }) {
+export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal)
     return null;
 
@@ -33,7 +36,7 @@ export default function JournalItem({ journal, openJournal }) {
       <CardHeader
         title={journal.title} />
       <CardContent>{journal.desc}</CardContent>
-
+      <CardContent>{getFriends(friends)}</CardContent>
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}</CardContent>
       <CardContent>{journal.distance} km</CardContent>

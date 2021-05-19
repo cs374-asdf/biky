@@ -8,7 +8,9 @@ import CardHeader from '@material-ui/core/CardHeader';
 import { Link } from 'react-router-dom';
 import PictureList from './PictureList';
 import React from 'react';
+import StaticMap from '../home/StaticMap'
 import dayjs from 'dayjs'
+import { getFriends } from './JournalItem';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +42,7 @@ function getTime(start, end) {
   </div>
 }
 
-export default function JournalDetail({ journal }) {
+export default function JournalDetail({ journal, friends }) {
   const classes = useStyles();
 
   if (!journal)
@@ -65,7 +67,9 @@ export default function JournalDetail({ journal }) {
       </CardContent>
       <CardContent>{journal.weather} </CardContent>
       <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
-      <CardContent>{journal.map} </CardContent>
+      <CardContent>
+        <StaticMap route={journal.route} zoom={15} width={"100%"} height={"300px"} />
+      </CardContent>
       <CardActions>
         <Button disabled={false}
           component={Link} to={`/edit/${journal.id}`}
