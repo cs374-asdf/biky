@@ -24,13 +24,16 @@ function App() {
     <BrowserRouter>
       <NavigationBar />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact render={() => <Home journalRef={db.ref(journalRef)} />} />
         <Route
           path="/journal"
           exact
           render={() => <JournalMain journalRef={db.ref(journalRef)} />}
         />
-        <Route path="/edit/:id" exact component={JournalEditor} />
+        <Route path="/edit/:id" exact
+          render={() => <JournalEditor journalRef={db.ref(journalRef)} friendRef={db.ref(friendRef)}
+          />}
+        />
         <Route path="/login" exact component={Login} />
         <Route path="/loginInitial" exact component={LoginInitial} />
         <Route path="/myPage" exact component={MyPage} />

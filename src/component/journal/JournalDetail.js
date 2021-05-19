@@ -1,3 +1,5 @@
+import { getDivs, getMetaphors } from './JournalItem'
+
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import { CardActions } from '@material-ui/core';
@@ -29,18 +31,6 @@ const modalStyle = {
   transform: `translate(-${50}%, -${50}%)`,
 }
 
-function getDivs(items) {
-  return items.map(item => <div key={item}> {item} </div>)
-}
-
-function getMetaphors(metaphor) {
-  return <div>
-    <div> 나무 {metaphor.tree} 그루 </div>
-    <div> 택시 {metaphor.taxi} 번 </div>
-    <div> 햄버거 {metaphor.hamburger} 개 </div>
-  </div>
-}
-
 function formatTime(time) {
   console.log('time: ', time)
   return dayjs(time).format('YYYY년 M월 D일 H시 m분') // '25/01/2019'
@@ -58,12 +48,15 @@ export default function JournalDetail({ journal, friends }) {
   if (!journal)
     return null
 
+  console.log(journal.friends)
+
   return (
     <Card style={modalStyle} className={classes.paper}>
       <CardHeader
         title={journal.title} />
       <CardContent>{journal.desc}</CardContent>
-      <CardContent>{getFriends(friends)}</CardContent>
+      {/* TODO 적절한 양식으로 friends 보여주기! object의 배열임에 주의*/}
+      {/* <CardContent>{getDivs(journal.friends ? journal.friends : [])}</CardContent> */}
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
       <CardContent>{getDivs(journal.emojis)}
         <PictureList pictures={journal.photos} isEditing={false} />

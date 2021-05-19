@@ -3,7 +3,7 @@
 // create인 경우, edit인 경우 이동
 // 마지막 라우트의 id를 읽어서 요청을 보냄
 
-import initJournals, { mockJournal } from '../../data/journal'
+import { nullToList, toList } from '../../util/format';
 
 import FriendAddPage from '../../component/journal/FriendAddPage';
 import JournalForm from '../../component/journal/JournalForm';
@@ -11,46 +11,77 @@ import { Modal } from '@material-ui/core';
 import PictureSelector from '../../component/journal/PictureSelector';
 import React from 'react';
 import dayjs from 'dayjs'
-import friendList from '../../data/FriendData.json'
+import { mockJournal } from '../../data/journal'
 import { useParams } from 'react-router-dom';
 
 function getFriends(ids, allFriends) {
+  console.log(ids)
+  console.log(allFriends)
   return allFriends.filter(friend => ids.includes(friend.id))
 }
 
 
-function getJournal(jid) {
-  const j = initJournals.find(j => String(j.id) === String(jid))
+function getJournal(jid, initJournals) {
+  const j = initJournals[String(jid)]
+  // const j = initJournals.find(j => String(j.id) === String(jid))
   if (!j) {
     console.log(`No such journal: ${jid}`)
     return mockJournal;
   }
+  console.log(j)
   return j;
 }
 
 
-export default function JournalEditor() {
+export default function JournalEditor({ journalRef, friendRef }) {
   // 라우트 params 불러오기
   // create인 경우 vs. edit인 경우
   // const id = 1;
   let { id } = useParams();
+  const [journal, setJournal] = React.useState(mockJournal);
+  const [loading, setLoading] = React.useState(true);
+  const [allFriends, setAllFriends] = React.useState([])
 
-  // 서버에서 불러와야 함
-  const journal = getJournal(id)
+  React.useEffect(
+    () => {
+      journalRef.once('value', snapshot => {
+        const journalData = snapshot.val()
+        console.log(journalData);
+        const j = getJournal(id, journalData)
+        friendRef.once('value', snapshot => {
+          const friendData = snapshot.val()
+          console.log(friendData);
+          let allFriends = toList(friendData)
+          let friends = nullToList(j.friends)
+          setFriends(getFriends(friends, allFriends))
+          setAllFriends(allFriends)
+          setJournal(j)
+          setPictures(nullToList(j.photos))
+          setLoading(false)
+        })
+      })
+    }, [journalRef, id, friendRef]
+  )
 
-  // 서버에서 불러와야함
-  const allFriends = friendList
 
-  const onSubmit = (newJournal) => {
-    console.log(`id: ${id} 에 해당하는 파이어베이스 데이터를 newJournal로 업데이트`)
-    console.log(`newJournal: ${newJournal}`)
+  const onSubmit = ({
+    title, desc, hashtags
+  }) => {
+    const newJournal = {
+      ...journal,
+      title, desc, friends: friends.map(friend => friend.id), hashtags, photos: pictures
+    }
+
     // id 에 해당하는 파이어베이스 데이터를 newJournal로 업데이트
+    journalRef.child(journal.id).set(newJournal)
+
+    // 새로운 저널일 경우 처리해주기
   }
   const [friendPageOpen, setFriendAddPageOpen] = React.useState(false);
   const [pictureSelectorOpen, setPictureSelectorOpen] = React.useState(false);
+  const [pictures, setPictures] = React.useState([])
+  const [friends, setFriends] = React.useState([]);
 
-  const [friends, setFriends] = React.useState(getFriends(journal.friends, allFriends));
-  // TODO journal.friends 에 있는 id를 가지고 allFriends에 있는 객체를 끌어오자
 
   const removeFriend = (friend) => {
     setFriends(friends.filter(item => item !== friend))
@@ -61,7 +92,6 @@ export default function JournalEditor() {
     setFriends([...friends, friend])
   }
 
-  const [pictures, setPictures] = React.useState(journal.photos)
 
   const onSubmitPictures = (selected) => {
     setPictures(selected)
@@ -71,6 +101,12 @@ export default function JournalEditor() {
   const removePicture = (pic) => {
     setPictures(pictures.filter(item => item !== pic))
   }
+
+  if (loading)
+    return <div> loading... </div>
+
+
+  const MyPictureSelector = React.forwardRef((props, ref) => <PictureSelector pictures={pictures} onSubmit={onSubmitPictures} ref={ref} />);
 
 
   return (
@@ -86,10 +122,8 @@ export default function JournalEditor() {
       </Modal>
 
       <Modal open={pictureSelectorOpen} onClose={() => setPictureSelectorOpen(false)}>
-        <PictureSelector pictures={pictures} onSubmit={onSubmitPictures} />
+        <MyPictureSelector />
       </Modal>
 
-
-    </div >
-  );
+    </div >)
 }

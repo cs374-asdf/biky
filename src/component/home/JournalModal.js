@@ -1,6 +1,7 @@
+import { Button, Modal } from '@material-ui/core';
 import { MetaphorContainer, StaticMap } from './';
 
-import { Modal } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -72,8 +73,7 @@ export default function JournalModal(props) {
                             <StaticMap route={route} zoom={15} width={"100%"} height={"300px"} />
                         </div>
                         <br />
-
-                        <div className={classes.button}>Journal Ride</div>
+                        <Button className={classes.button} onClick={props.handleJournal}>Journal Ride</Button>
                     </div>
                 </div>
             </Modal>
