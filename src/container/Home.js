@@ -8,27 +8,40 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     page: {
-        maxWidth: "550px",
+        position: "relative",
+        // maxWidth: "550px",
         margin: "0 auto",
-        border: "solid 1px black",
+        // border: "solid 1px blue",
     },
-    header: {
+    verticalAlign: {
+        position: "absolute",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+        display: "inline-block",
+    },
+    header: { 
+        position: "relative",
+        height: "49px",
         fontSize: "30px",
         fontWeight: "bold",
         borderBottom: "solid 1px black",
         textAlign: "center",
-        padding: "10px",
     },
-    myPageButton: {
+    avatar: {
+        position: "relative",
+        height: "50px",
         // border: "solid 1px black",
-        textAlign: "right",
-        paddingRight: "10px",
     },
-    weather: {
-        width: "100%",
-        height: "150px",
-        // border: "solid 1px black", 
-        // padding: "0 10px",
+    content: {
+        position: "relative",
+        height: "calc(100vh - 160px)",
+        // border: "solid 1px black",
+    },
+    weatherContainer: { 
+        position: "relative",
+        width: "100%", 
+        height: "25%",
+        // border: "solid 1px black",
     },
     measuresContainer: {
         position: "absolute",
@@ -48,34 +61,34 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         fontSize: "20px",
     },
-    mapContainer: {
-        position: "relative",
+    mapContainer: { 
+        position: "relative", 
+        width: "100%", 
+        height: "60%",
         // border: "solid 1px black", 
-        height: "300px",
     },
-    buttonContainer: {
-        position: "relative",
+    buttonContainer: { 
+        position: "relative", 
+        width: "100%", 
+        height: "15%",
         // border: "solid 1px black", 
-        height: "60px",
-        padding: "10px",
     },
     button: {
-        position: "relative",
-        height: "100%",
-        border: "solid 1px black",
+        position: "relative", 
+        height: "calc(100% - 20px)",
         textAlign: "center",
         borderRadius: "10px",
         fontWeight: "bold",
         fontSize: "20px",
-        margin: "auto 0",
-    },
+        margin: "10px",
+        // border: "solid 1px black", 
+    }, 
     buttonText: {
         position: "relative",
         // border: "solid 1px black", 
         textAlign: "center",
         fontWeight: "bold",
         fontSize: "20px",
-        transform: "translateY(75%)",
     },
     startButton: {
 
@@ -175,31 +188,38 @@ export default function Home({ journalRef }) {
 
     return (
         <div className={classes.page}>
-            <div className={classes.header}>Home</div>
-
-            <div className={classes.myPageButton}>
-                Nayeon Min
-                <div style={{ display: "inline-block" }}><Avatar /></div>
+            <div className={classes.header}>
+                <div className={classes.verticalAlign}>Home</div>
             </div>
 
-            <div className={classes.weather}>
-                <Weather />
-                <Dust />
-            </div>
-
-            { isRiding ?
-                <div className={classes.measuresContainer}>
-                    <Distance distance={formatDistance()} style={classes.measures} />
-                    <Time time={formatTime()} style={classes.measures} />
+            <div className={classes.avatar}>
+                <div className={classes.verticalAlign} style={{ right: "10px", transform: "translateY(-50%)" }}> 
+                    Nayeon Min  <div style={{ display: "inline-block" }}><Avatar /></div>
                 </div>
-                : null}
-
-            <div className={classes.mapContainer}>
-                <Map index={distance} isRiding={isRiding} saveRoute={setRoute} />
             </div>
 
-            <div onClick={() => !isRiding ? startRide() : stopRide()} className={classes.buttonContainer}>
-                {!isRiding ? <StartButton style={{ button: classes.button, text: classes.buttonText }} /> : <StopButton style={{ button: classes.button, text: classes.buttonText }} />}
+            <div className={classes.content}>
+
+                <div className={classes.weatherContainer}>
+                    <Weather />
+                    <Dust />
+                </div>
+
+                { isRiding ? 
+                    <div className={classes.measuresContainer}>
+                        <Distance distance={formatDistance()} style={classes.measures}/>
+                        <Time time={formatTime()} style={classes.measures}/>
+                    </div>
+                : null }
+
+                <div className={classes.mapContainer}>
+                    <Map index={distance} isRiding={isRiding} saveRoute={setRoute}/>
+                </div>
+
+                <div onClick={() => !isRiding ? startRide() : stopRide() } className={classes.buttonContainer}>
+                    { !isRiding ? <StartButton style={{ button: classes.button, text: classes.verticalAlign }}/> : <StopButton style={{ button: classes.button, text: classes.verticalAlign }}/> }
+                </div>
+
             </div>
 
             <JournalModal handleJournal={handleJournal} open={open} distance={formatDistance()} time={formatTime()} amount={distance} route={route} closeModal={closeModal} />

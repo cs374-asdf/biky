@@ -16,13 +16,17 @@ const useStyles = makeStyles(theme => ({
         width: "15%",
     },
     text: {
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
         display: "inline-block",
         color: "white",
-        fontSize: "16px",
+        fontSize: "18px",
         fontWeight: "bold",
         margin: "0 auto",
         // border: "solid 1px black",
         width: "calc(85% - 20px)",
+        paddingLeft: "10px"
     }
 }));
 

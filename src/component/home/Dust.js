@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     container: {
       position: "relative",
       width: "calc(50% - 15px)",
-      height: "110px",
+      height: "calc(100% - 40px)",
       padding: "10px",
       paddingLeft: "5px",
       display: "inline-block",
@@ -24,13 +24,13 @@ const useStyles = makeStyles(theme => ({
       borderRadius: "10px",
       padding: "10px",
       color: "white",
-      fontWeight: "bold"
+      fontWeight: "bold",
       // border: "solid 1px black"
     },
     status: {
       display: "inline-block",
       color: "darkgray",
-      fontSize: "12px",
+      fontSize: "11px",
       backgroundColor: "white",
       padding: "3px 10px", 
       borderRadius: "10px",
