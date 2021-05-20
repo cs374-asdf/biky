@@ -12,6 +12,8 @@ import StaticMap from '../home/StaticMap'
 import dayjs from 'dayjs'
 import { getFriends } from './JournalItem';
 import { makeStyles } from '@material-ui/core/styles';
+import {nullToList} from '../../util/format'
+import {getIconComponent} from '../../util/icon'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,6 +50,9 @@ export default function JournalDetail({ journal, friends }) {
   if (!journal)
     return null
 
+  const emojis = nullToList(journal.emojis).map(getIconComponent)
+
+
   console.log(journal.friends)
 
   return (
@@ -58,7 +63,9 @@ export default function JournalDetail({ journal, friends }) {
       {/* TODO 적절한 양식으로 friends 보여주기! object의 배열임에 주의*/}
       {/* <CardContent>{getDivs(journal.friends ? journal.friends : [])}</CardContent> */}
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
-      <CardContent>{getDivs(journal.emojis)}
+      <CardContent>{emojis}</CardContent>
+      
+      <CardContent>
         <PictureList pictures={journal.photos} isEditing={false} />
       </CardContent>
       <CardContent>{journal.distance} km</CardContent>
