@@ -11,6 +11,8 @@ import logo from "../img/logo.png";
 import img1 from "../img/1.png";
 import img2 from "../img/2.png";
 import img3 from "../img/3.png";
+import img4 from "../img/3.png";
+import img5 from "../img/3.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,9 +37,15 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonBase: {
     width: "100%",
+    borderBottom: "dotted 1px lightgray"
   },
   arrow: {
     margin: theme.spacing(1, 1),
+  },
+
+  bold: {
+    fontWeight: "bold",
+    fontSize: "20px"
   },
 }));
 
@@ -66,6 +74,18 @@ const badges = [
     title: "배지 이름3",
     description: "배지 설명3",
   },
+  {
+    oid: 4,
+    thumbnail: img4,
+    title: "배지 이름4",
+    description: "배지 설명4",
+  },
+  {
+    oid: 5,
+    thumbnail: img5,
+    title: "배지 이름5",
+    description: "배지 설명5",
+  },
 ];
 
 export default function BadgeDetail() {
@@ -85,13 +105,14 @@ export default function BadgeDetail() {
     window.location.replace("/myPage");
   }
 
-  const eachBadge = badges.map((badge) => (
+  const eachBadge = badges.map((badge, idx) => (
     <Paper
       onClick={() => {
         handleClick(badge.oid);
+        console.log(val)
       }}
     >
-      <ButtonBase className={classes.buttonBase}>
+      <ButtonBase className={classes.buttonBase} style={ idx === val.representativeBadge ? { backgroundColor: "lightgray"} : {} }>
         <Grid container spacing={2} className={classes.eachBadge}>
           <Grid item>
             <Box className={classes.badgeBox}>
@@ -117,7 +138,7 @@ export default function BadgeDetail() {
   ));
 
   return (
-    <Box p={3} height="100vh">
+    <Box p={3}>
       <ButtonBase>
         <ArrowBackIosOutlinedIcon
           className={classes.arrow}
@@ -128,7 +149,7 @@ export default function BadgeDetail() {
       </ButtonBase>
 
       <div className={classes.root}>
-        <Typography>대표 Badge</Typography>
+        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>Representative Badge</Typography>
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item>
@@ -156,8 +177,10 @@ export default function BadgeDetail() {
       </div>
 
       <div className={classes.root}>
-        <Typography>badge list</Typography>
-        {eachBadge}
+        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>Other Badges</Typography>
+        <Box style={{ border: "solid 1px lightgray", overflow: "scroll", maxHeight: "calc(100vh - 390px)" }}>
+          {eachBadge}
+        </Box>
       </div>
     </Box>
   );

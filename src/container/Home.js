@@ -32,6 +32,7 @@ const useStyles = makeStyles({
     content: {
         position: "relative",
         height: "calc(100vh - 160px)",
+        overflow: "scroll",
         // border: "solid 1px black",
     },
     weatherContainer: { 
