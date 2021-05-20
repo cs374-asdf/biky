@@ -1,14 +1,14 @@
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
 
-import Avatar from '@material-ui/core/Avatar';
-import { Link } from 'react-router-dom';
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import Avatar from "@material-ui/core/Avatar";
+import { Link } from "react-router-dom";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       // margin: theme.spacing(1),
     },
   },
@@ -27,9 +27,9 @@ export default function LetterAvatars() {
 
   return (
     <div className={classes.root}>
-      <Avatar className={classes.orange}
-        component={Link} to="/myPage"
-      >N</Avatar>
+      <Avatar className={classes.orange} component={Link} to="/biky/myPage">
+        N
+      </Avatar>
     </div>
   );
 }

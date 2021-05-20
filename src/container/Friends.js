@@ -1,12 +1,8 @@
-import Avatar from '../component/Avatar';
+import Avatar from "../component/Avatar";
 import FrequestComponent from "../component/friend/Frequest";
 import FriendList from "../component/friend/Friends";
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-
-// import flist from "../data/FriendData.json";
-// import frlist from "../data/FrequestData.json";
-// import journals from '../data/journal.js'
+import { makeStyles } from "@material-ui/core/styles";
 
 function getJournalsByFriend(flist, journals) {
   let journalsByFriend = {};
@@ -54,11 +50,9 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function Friends({ friendRef, frequestRef, journalRef }) {
   const classes = useStyles();
-  // Firebase comeon
-  // json 파일 여기서 불러오기
+
   const [frequests, setFrequests] = React.useState([]);
   const [friendlist, setFriendlist] = React.useState([]);
   const [journalsByFriend, setJournalsByFriend] = React.useState(null);
@@ -69,8 +63,6 @@ export default function Friends({ friendRef, frequestRef, journalRef }) {
       picture: "",
       name: "",
       total_intimacy: 0,
-      spent_time: 0,
-      distance: 0,
     };
     for (var i = 0; i < frequests.length; i++) {
       if (frequests[i].id === fid) {
@@ -80,7 +72,6 @@ export default function Friends({ friendRef, frequestRef, journalRef }) {
     }
     friendRef.child("f" + friendlist.length).set(newFriend);
     frequestRef.child(fid).remove();
-    //setFrequests(frequests.filter((item) => item.id !== fid));
   };
 
   React.useEffect(() => {
@@ -118,8 +109,14 @@ export default function Friends({ friendRef, frequestRef, journalRef }) {
       </div>
 
       <div className={classes.avatar}>
-        <div className={classes.verticalAlign} style={{ right: "10px", transform: "translateY(-50%)" }}>
-          Nayeon Min  <div style={{ display: "inline-block" }}><Avatar /></div>
+        <div
+          className={classes.verticalAlign}
+          style={{ right: "10px", transform: "translateY(-50%)" }}
+        >
+          Nayeon Min{" "}
+          <div style={{ display: "inline-block" }}>
+            <Avatar />
+          </div>
         </div>
       </div>
 

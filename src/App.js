@@ -24,22 +24,37 @@ function App() {
     <BrowserRouter>
       <NavigationBar />
       <Switch>
-        <Route path="/" exact render={() => <Home journalRef={db.ref(journalRef)} />} />
         <Route
-          path="/journal"
+          path="/biky/"
           exact
-          render={() => <JournalMain journalRef={db.ref(journalRef)} friendRef={db.ref(friendRef)}/>}
+          render={() => <Home journalRef={db.ref(journalRef)} />}
         />
-        <Route path="/edit/:id" exact
-          render={() => <JournalEditor journalRef={db.ref(journalRef)} friendRef={db.ref(friendRef)}
-          />}
-        />
-        <Route path="/login" exact component={Login} />
-        <Route path="/loginInitial" exact component={LoginInitial} />
-        <Route path="/myPage" exact component={MyPage} />
-        <Route path="/badgeDetail" exact component={BadgeDetail} />
         <Route
-          path="/friend"
+          path="/biky/journal"
+          exact
+          render={() => (
+            <JournalMain
+              journalRef={db.ref(journalRef)}
+              friendRef={db.ref(friendRef)}
+            />
+          )}
+        />
+        <Route
+          path="/biky/edit/:id"
+          exact
+          render={() => (
+            <JournalEditor
+              journalRef={db.ref(journalRef)}
+              friendRef={db.ref(friendRef)}
+            />
+          )}
+        />
+        <Route path="/biky/login" exact component={Login} />
+        <Route path="/biky/loginInitial" exact component={LoginInitial} />
+        <Route path="/biky/myPage" exact component={MyPage} />
+        <Route path="/biky/badgeDetail" exact component={BadgeDetail} />
+        <Route
+          path="/biky/friend"
           render={() => (
             <Friends
               friendRef={db.ref(friendRef)}
