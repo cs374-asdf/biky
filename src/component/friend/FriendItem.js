@@ -1,4 +1,4 @@
-import { formatDistance, formatTime } from '../../util/format'
+import { formatDistance, formatTime } from "../../util/format";
 
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -11,24 +11,35 @@ import { Icon } from "@iconify/react";
 import LinearProgressBar from "./LinearProgressBar";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import dayjs from "dayjs";
 
 export function JournalEntry({ journal }) {
   return (
-    <div style={{
-      backgroundColor: "white",
-      borderRadius: "5px",
-      padding: "7px",
-      marginTop: "10px",
-      fontSize: "11px",
-    }}>
-      <div style={{
-        display: "inline-block",
-        width: "20%"
-      }}>{journal.startTime}</div>
-      <div style={{
-        display: "inline-block",
-        width: "35%"
-      }}>{journal.title}</div>
+    <div
+      style={{
+        backgroundColor: "white",
+        borderRadius: "5px",
+        padding: "7px",
+        marginTop: "10px",
+        fontSize: "11px",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-block",
+          width: "20%",
+        }}
+      >
+        {journal.startTime}
+      </div>
+      <div
+        style={{
+          display: "inline-block",
+          width: "35%",
+        }}
+      >
+        {journal.title}
+      </div>
 
       {/* TODO emojis, hashtags 리스트이므로 맞춰서 렌더링 */}
       {/* <div style={{
@@ -42,38 +53,52 @@ export function JournalEntry({ journal }) {
     </div>
   );
 }
+
 export default function FriendItem({ friend, journals }) {
   console.log(journals);
+  var time = 0.0;
+  var distance = 0.0;
+  journals &&
+    journals.map((journal) => {
+      distance += journal.distance;
+      time += dayjs(journal.endTime).diff(journal.startTime, "minute", true);
+    });
+  friend.total_intimacy = (time / 60 + distance) / 2;
+  if (friend.total_intimacy >= 100.0) {
+    friend.total_intimacy = 100.0;
+  }
   return (
-    <Accordion style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-      >
+    <Accordion
+      style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}
+    >
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <FriendListItemInner key={friend.id} friend={friend} />
       </AccordionSummary>
-      <AccordionDetails style={{ backgroundColor: "lightgray", padding: "10px" }}>
-
+      <AccordionDetails
+        style={{ backgroundColor: "lightgray", padding: "10px" }}
+      >
         <div style={{ width: "100%" }}>
           <div style={{ display: "inline-block", width: "50%" }}>
-            <b>Time: </b>{formatTime(friend.spent_time)}
+            <b>Time: </b>
+            {formatTime(time)}
           </div>
 
           <div style={{ display: "inline-block", width: "50%" }}>
-            <b>Distance: </b>{formatDistance(friend.distance)}
+            <b>Distance: </b>
+            {formatDistance(distance)}
           </div>
 
           <div>
-            {journals && journals.map((journal) => (
-              <JournalEntry journal={journal} key={journal.id} />
-            ))}
+            {journals &&
+              journals.map((journal) => (
+                <JournalEntry journal={journal} key={journal.id} />
+              ))}
           </div>
         </div>
-
       </AccordionDetails>
     </Accordion>
   );
 }
-
 
 function FriendListItemInner({ friend }) {
   return (
@@ -84,7 +109,6 @@ function FriendListItemInner({ friend }) {
       flexDirection="row"
       width="100%"
     >
-
       <Box flex={1} mr={1}>
         <Avatar
           alt={friend.name}
