@@ -1,15 +1,19 @@
-import "@fontsource/roboto";
-
 import Box from "@material-ui/core/Box";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
+import Avatar from '../component/Avatar';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import "@fontsource/roboto";
 
 const logo = '/images/logo.png'
 
+
+import taxi from "../image/home/metaphor_taxi.png"
+import burger from "../image/home/metaphor_burger.png"
+import tree from "../image/home/metaphor_tree.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +27,113 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   badge: {
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
-  },
-  buttonBase: {
+    // position: "absolute",
+    // margin: "0 auto",
+    display: "inline-block",
     width: "100%",
+    top: "100%",
+    // transform: "translateY(-50%)"
+  },
+
+  page: {
+    position: "relative",
+    // maxWidth: "550px",
+    margin: "0 auto",
+    // border: "solid 1px blue",
+  },
+  verticalAlign: {
+      position: "absolute",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+      display: "inline-block",
+  },
+  header: { 
+      position: "relative",
+      height: "49px",
+      fontSize: "30px",
+      fontWeight: "bold",
+      borderBottom: "solid 1px black",
+      textAlign: "center",
+  },
+  content: {
+      position: "relative",
+      height: "calc(100vh - 110px)",
+      overflow: "scroll", 
+      // border: "solid 1px black",
+  },
+
+  bold: {
+    fontWeight: "bold",
+    fontSize: "20px"
+  },
+
+  roundBox: {
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: "5px",
+    padding: "15px",
+    // border: "solid 1px black",
+  },
+  avatar: {
+    position: "relative",
+    display: "inline-block",
+    textAlign: "center",
+    width: "30%",
+    height: "100%",
+    // border: "solid 1px black",
+  },
+  personalInfo: {
+    // position: "absolute",
+    display: "inline-block",
+    width: "calc(70% - 10px)",
+    // border: "solid 1px black",
+    // top: "50%",
+    marginLeft: "10px",
+    // transform: "translateY(-50%)",
+    lineHeight: "200%",
+  },
+  recordsContainer: {
+    position: "relative",
+    width: "100%",
+    margin: "15px 0",
+    // border: "solid 1px black",
+  },
+  metaphorContainer: {
+    position: "relative",
+    width: "100%",
+    // border: "solid 1px black",
+  },
+  metaphorItem: {
+    position: "relative",
+    display: "inline-block",
+    width: "calc(100% / 3)",
+    // border: "solid 1px black",
+  },
+  badgeContainer: {
+    position: "relative",
+    width: "100%",
+    margin: "15px 0",
+    // border: "solid 1px black",
   },
 }));
+
+function ShowMetaphors(img, val) {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.metaphorItem}>
+      <img src={img} width="70%" style={{ maxWidth: "100px"}}/> 
+      <div style={{
+        position: "absolute",
+        display: "inline-block",
+        // border: "solid 1px black",
+        textAlign: "center",
+        width: "30%",
+        top: "50%",
+        transform: "translateY(-50%)"
+      }}>{val}</div>
+    </div>
+  )
+}
 
 export default function MyPage() {
   const classes = useStyles();
@@ -41,52 +143,89 @@ export default function MyPage() {
   }
 
   return (
-    <Box fontFamily="roboto" p={3} height="100vh">
-      <div>
-        <Box mb={2} bgcolor="#ffc400">
-          personal information
-        </Box>
-
-        <Box mt={2}>
-          <Typography>Records</Typography>
-          <Box bgcolor="primary.main">1000km 탔네요!</Box>
-        </Box>
-
-        <div className={classes.root}>
-          <Typography>Badge</Typography>
-
-          <Paper
-            className={classes.paper}
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            <ButtonBase className={classes.buttonBase}>
-              <Grid container spacing={2}>
-                <Grid item>
-                  <Box className={classes.badgeBox}>
-                    <img className={classes.badge} 
-                      src={process.env.PUBLIC_URL + logo} alt={"main badge"}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography variant="h6" align="left">
-                      배지 이름
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body2" align="left">
-                      배지 설명asdfasdfasdfasdfasdfasdfs
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </ButtonBase>
-          </Paper>
-        </div>
+    <div className={classes.page}>
+      <div className={classes.header}>
+        <div className={classes.verticalAlign}>My Page</div>
       </div>
-    </Box>
+
+      <div className={classes.content}>
+        <Box fontFamily="roboto" p={"10px"}>
+          <div>
+            <Box className={classes.roundBox}>
+              <div style={{ position: "relative" }}>
+                <div className={classes.avatar}>
+                  <div>
+                    <div style={{ display: "inline-block", marginBottom: "10px" }}>
+                      {/* <Avatar/> */}
+                      <img src={logo} width="100%" alt="" />
+                    </div>
+                  </div>
+                  Nayeon Min
+                </div>
+
+                <div className={classes.personalInfo}>
+                  Age: 28<br/>
+                  Gender: Female<br/>
+                  Job: Freelancer Designer<br/>
+                  상아가 배고프대<br/>
+                </div>
+              </div>
+            </Box>
+
+            <Box className={classes.recordsContainer}>
+              <Typography className={classes.bold}>Records</Typography>
+              <Box className={classes.roundBox}>
+                <Typography style={{ marginBottom: "10px", lineHeight: "200%" }}>
+                  You rode a bike for
+                  <div style={{ fontWeight: "bold", fontSize: "18px" }}>1000km and 1000hrs!</div>
+                </Typography>
+                <div className={classes.metaphorContainer}>
+                  {ShowMetaphors(taxi, 123)}
+                  {ShowMetaphors(burger, 123)}
+                  {ShowMetaphors(tree, 123)}
+                </div>
+              </Box>
+            </Box>
+
+            <Box className={classes.badgeContainer}>
+              <Typography className={classes.bold}>Badge</Typography>
+
+              <ButtonBase style={{ width: "100%" }}>
+                <Paper
+                  className={classes.roundBox}
+                  style={{ width: "100%" }}
+                  onClick={() => {
+                    handleClick();
+                  }}
+                >
+                  <Grid container>
+                    <Grid item style={{ width: "100px" }}>
+                      <Box style={{ position: "relative" }}>
+                        <img className={classes.badge} src={logo}/>
+                      </Box>
+                    </Grid>
+                    <Grid item xs container direction="column" style={{ width: "calc(100% - 100px)", marginLeft: "10px" }}>
+                      <Grid item xs>
+                        <Typography variant="h6" align="left">
+                          배지 이름
+                        </Typography>
+                      </Grid>
+                      <Grid item xs>
+                        <Typography variant="body2" align="left">
+                          배지 설명이에요<br/>
+                          정말 귀엽죠?<br/>
+                          asdcxbj<br/>
+                          aszcxs
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid> 
+                </Paper>
+              </ButtonBase>
+            </Box>
+          </div>
+        </Box>
+      </div>
+    </div>
   );
 }

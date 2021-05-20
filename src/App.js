@@ -1,6 +1,8 @@
 import "./App.css";
 
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { green, orange } from '@material-ui/core/colors';
 
 import BadgeDetail from "./container/BadgeDetail";
 import Friends from "./container/Friends";
@@ -13,6 +15,18 @@ import MyPage from "./container/MyPage";
 import NavigationBar from "./component/NavigationBar";
 import db from "./firebaseInit";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: green[500], // primary color
+    },
+    secondary: {
+      main: orange[500], // secondary color
+    },
+  },
+});
+
+
 const journalRef = "/nayeon/journals";
 const frequestRef = "/nayeon/frequests";
 const friendRef = "/nayeon/friends";
@@ -21,6 +35,8 @@ function App() {
   console.log(db);
 
   return (
+        <ThemeProvider theme={theme}>
+
     <BrowserRouter>
       <NavigationBar />
       <Switch>
@@ -65,7 +81,7 @@ function App() {
         />
         {/* <Redirect from="*" to="/" /> */}
       </Switch>
-    </BrowserRouter>
+    </BrowserRouter>    </ThemeProvider>
   );
 }
 

@@ -49,6 +49,7 @@ export default function LabelBottomNavigation() {
         icon={<DirectionsBikeIcon />}
         component={Link}
         to="/biky/journal"
+
       />
     </BottomNavigation>
   );

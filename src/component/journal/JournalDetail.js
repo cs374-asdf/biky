@@ -1,17 +1,20 @@
 import { getDivs, getMetaphors } from "./JournalItem";
 
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import { CardActions } from "@material-ui/core";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import { Link } from "react-router-dom";
-import PictureList from "./PictureList";
-import React from "react";
-import StaticMap from "../home/StaticMap";
-import dayjs from "dayjs";
-import { getFriends } from "./JournalItem";
-import { makeStyles } from "@material-ui/core/styles";
+
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import { CardActions } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import { Link } from 'react-router-dom';
+import PictureList from './PictureList';
+import React from 'react';
+import StaticMap from '../home/StaticMap'
+import dayjs from 'dayjs'
+import { getFriends } from './JournalItem';
+import { makeStyles } from '@material-ui/core/styles';
+import {nullToList} from '../../util/format'
+import {getIconComponent} from '../../util/icon'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,7 +51,11 @@ export default function JournalDetail({ journal, friends }) {
 
   if (!journal) return null;
 
-  console.log(journal.friends);
+
+  const emojis = nullToList(journal.emojis).map(getIconComponent)
+
+
+  console.log(journal.friends)
 
   return (
     <Card style={modalStyle} className={classes.paper}>
@@ -57,8 +64,10 @@ export default function JournalDetail({ journal, friends }) {
       {/* TODO 적절한 양식으로 friends 보여주기! object의 배열임에 주의*/}
       {/* <CardContent>{getDivs(journal.friends ? journal.friends : [])}</CardContent> */}
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
+
+      <CardContent>{emojis}</CardContent>
+      
       <CardContent>
-        {getDivs(journal.emojis)}
         <PictureList pictures={journal.photos} isEditing={false} />
       </CardContent>
       <CardContent>{journal.distance} km</CardContent>
