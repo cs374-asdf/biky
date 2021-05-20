@@ -1,4 +1,5 @@
 import { IconButton, Typography } from "@material-ui/core";
+
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Avatar from "@material-ui/core/Avatar";
@@ -25,18 +26,18 @@ const useStyles = makeStyles((theme) => ({
     padding: "18px",
   },
   mailIcon: {
-    position: "absolute", 
-    display: "inline-block", 
+    position: "absolute",
+    display: "inline-block",
     marginLeft: "10px"
   }
 }));
 
 function ReceivedElement(props) {
   return (
-    <div style={{ margin: "5px", marginTop: "5px", width: "100%"}}>
+    <div style={{ margin: "5px", marginTop: "5px", width: "100%" }}>
       <Accordion expanded={false} style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}>
         <AccordionSummary>
-          <Box 
+          <Box
             display="flex"
             alignItems="center"
             justifyContent="flex-start"
@@ -143,7 +144,7 @@ export default function Frequest(props) {
             <b>Received Frequests</b>
           </Typography>
           <Box display="flex" alignItems="center" flexDirection="column" style={{ paddingBottom: "5px" }}>
-            {props.frequests.length === 0 ? (
+            {props.frequests == null || props.frequests.length === 0 ? (
               <Typography variant="body1" color="textPrimary">
                 You have received no frequests
               </Typography>
@@ -168,7 +169,7 @@ export default function Frequest(props) {
   return (
     <div className={classes.mailIcon}>
       <IconButton onClick={handleOpen}>
-        {props.frequests.length === 0 ? (
+        {props.frequests == null || props.frequests.length === 0 ? (
           <MailIcon />
         ) : (
           <Badge badgeContent={props.frequests.length} color="primary">

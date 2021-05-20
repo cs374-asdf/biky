@@ -10,7 +10,7 @@ export default function FriendItem({ friend, removeFriend }) {
   return (
     <ListItem key={friend.id}>
       <ListItemAvatar>
-        <Avatar alt={friend.name} src={require("" + friend.picture).default} />
+        <Avatar alt={friend.name} src={process.env.PUBLIC_URL + friend.picture} />
       </ListItemAvatar>
       <ListItemText primary={friend.name} />
       <ListItemSecondaryAction>

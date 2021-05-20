@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { Distance, Dust, JournalModal, Map, StartButton, StopButton, Time, Weather } from '../component/home'
+import React, { useRef, useState } from 'react';
+
 import Avatar from '../component/Avatar';
-import { Weather, Dust, Distance, Time, Map, StartButton, StopButton, JournalModal } from '../component/home'
+import dayjs from 'dayjs'
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     page: {
@@ -82,7 +85,7 @@ const useStyles = makeStyles({
         // border: "solid 1px black", 
     }, 
     buttonText: {
-        position: "relative", 
+        position: "relative",
         // border: "solid 1px black", 
         textAlign: "center",
         fontWeight: "bold",
@@ -94,9 +97,9 @@ const useStyles = makeStyles({
     stopButton: {
 
     }
-  });
+});
 
-export default function Home() {
+export default function Home({ journalRef }) {
     const classes = useStyles();
     var [isRiding, setIsRiding] = useState(false);
     var [open, setOpen] = useState(false);
@@ -105,12 +108,45 @@ export default function Home() {
     var [route, setRoute] = useState([]);
     const increment = useRef(null);
 
+    const [hashtags, setHashtags] = useState(["happy"])
+    const [startTime, setStartTime] = useState(dayjs())
+
+    const createJournal = () => {
+        let id = journalRef.push().key
+
+        const endTime = startTime.add(time, 'minute')
+        let newJournal = {
+            id,
+            route,
+            hashtags,
+            distance,
+            startTime: startTime.toString(),
+            endTime: endTime.toString(),
+            title: "제목 없음",
+            desc: "내용 없음",
+            photos: ["/images/photo1.jpg"],
+            emojis: ["happy", "exited"],
+            metaphors: {
+                tree: 1,
+                taxi: 1,
+                burger: 1,
+            }
+        }
+
+        console.log(newJournal)
+
+        journalRef.child(id).set(newJournal)
+        return id;
+    }
+
+
     const startRide = () => {
+        setStartTime(dayjs())
         setIsRiding(true);
         increment.current = setInterval(() => {
             setDistance((distance) => distance + 1);
-            setTime((time) => time + 1/6);
-        }, 1000/6);
+            setTime((time) => time + 1 / 6);
+        }, 1000 / 6);
     }
 
     const stopRide = () => {
@@ -120,9 +156,18 @@ export default function Home() {
     }
 
     const closeModal = () => {
+        console.log("closing modal")
+        createJournal();
         setOpen(false);
         setDistance(0);
         setTime(0);
+    }
+
+    let history = useHistory();
+
+    const handleJournal = () => {
+        const id = createJournal();
+        history.push(`/edit/${id}`);
     }
 
     const formatTime = () => {
@@ -135,10 +180,10 @@ export default function Home() {
     }
 
     const formatDistance = () => {
-        if(distance < 1000) {
+        if (distance < 1000) {
             return `${distance}m`
         } else {
-            return `${distance/1000}km`
+            return `${distance / 1000}km`
         }
     }
 
@@ -178,7 +223,7 @@ export default function Home() {
 
             </div>
 
-            <JournalModal open={open} distance={formatDistance()} time={formatTime()} amount={distance} route={route} closeModal={closeModal} />
+            <JournalModal handleJournal={handleJournal} open={open} distance={formatDistance()} time={formatTime()} amount={distance} route={route} closeModal={closeModal} />
         </div>
     )
 }

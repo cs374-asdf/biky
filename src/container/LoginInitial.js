@@ -1,14 +1,15 @@
-import React from 'react';
-import { styled } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { spacing } from '@material-ui/system';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import logo from '../img/logo.png';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { spacing } from '@material-ui/system';
+import { styled } from '@material-ui/core/styles';
+
+const logo = '/images/logo.png'
 
 const MyButton = styled(Button)({
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -45,17 +46,17 @@ export default function LoginInitial() {
   const classes = useStyles();
 
   function handleClick() {
-    window.location.replace ("/login")
+    window.location.replace("/login")
   }
 
   return (
     <Container className={classes.background}>
       <CssBaseline />
       <Grid container className={classes.logo} justify="center">
-        <img src={logo}/>
+        <img src={process.env.PUBLIC_URL + logo} alt="logo" />
       </Grid>
       <Grid container alignItems="center" direction="column" spacing={1}>
-        <MyButton item onClick = {handleClick}>Log in</MyButton>
+        <MyButton item onClick={handleClick}>Log in</MyButton>
         <Typography item className={classes.character} align="center" variant="body2">
           Don't have an account? <b>SIGN UP</b>
         </Typography>

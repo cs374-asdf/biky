@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import tree from '../../image/home/metaphor_tree.png'
+
+const tree = '/images/home/metaphor_tree.png'
 
 const useStyles = makeStyles(theme => ({
     background: {
@@ -35,7 +36,7 @@ export default function MetaphorTree(props) {
 
     return (
         <div className={classes.background}>
-            <img src={tree} alt="" className={classes.img} />
+            <img src={process.env.PUBLIC_URL +tree} alt="" className={classes.img} />
             <div className={classes.text}>You planted {amount*1.5} trees!</div>
         </div>
     )

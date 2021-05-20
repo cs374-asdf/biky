@@ -1,5 +1,10 @@
-import { Button } from '@material-ui/core';
+import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
+import Button from '@material-ui/core/Button';
+import { ButtonBase } from "@material-ui/core";
+import FriendSimpleView from "./FriendSimpleView";
 import React from 'react';
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,17 +25,27 @@ const modalStyle = {
   transform: `translate(-${50}%, -${50}%)`,
 }
 
+export function FriendSelector({ friend, onClick, disabled }) {
+  return (
+    <ButtonBase onClick={onClick}>
+      <FriendSimpleView friend={friend} />
+    </ButtonBase>
+  );
+
+}
+
 export default function FriendAddPage({ allFriends, selectedFriends, addFriend }) {
 
   return <div>
-    {/* TODO 친구 리스트/아이템 공통 컴포넌트 적용 */}
 
     {allFriends.map(
-      friend => <div>
-        <Button onClick={() => addFriend(friend)}
+      friend =>
+        <FriendSelector
+          friend={friend}
+          onClick={() => addFriend(friend)}
           disabled={selectedFriends.includes(friend)}
-        > {friend.name} </Button>
-      </div>
+          key={friend.id}
+        />
     )}
 
     친구를 추가해보시지

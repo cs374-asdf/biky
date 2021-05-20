@@ -1,8 +1,9 @@
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+
+import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {

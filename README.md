@@ -21,5 +21,7 @@ git push
 npm run deploy
 
 약 3분정도 딜레이가 있을 수 있음
-여기[https://cs374-asdf.github.io/biky]서 확인!
+여기[biky]서 확인!
+
+[biky]: https://cs374-asdf.github.io/biky
 

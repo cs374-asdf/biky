@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import { DustBar } from './';
 import { makeStyles } from '@material-ui/core/styles';
-import dust from "../../image/home/dust.png";
+
+const dust = '/images/home/dust.png'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -49,7 +51,7 @@ export default function Dust() {
 
   return (
     <div className={classes.container}>
-      {/* <img src={dust} width="100%" alt="" /> */}
+      {/* <img src={dust} width="100%" alt="fine dust" /> */}
       <div className={classes.background}>
         <div>
           fine dust
