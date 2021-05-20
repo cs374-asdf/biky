@@ -10,10 +10,9 @@ import "@fontsource/roboto";
 
 const logo = '/images/logo.png'
 
-
-import taxi from "../image/home/metaphor_taxi.png"
-import burger from "../image/home/metaphor_burger.png"
-import tree from "../image/home/metaphor_tree.png"
+const taxi = '/images/home/metaphor_taxi.png'
+const burger = '/images/home/metaphor_burger.png'
+const tree = '/images/home/metaphor_tree.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,12 +115,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ShowMetaphors(img, val) {
+function ShowMetaphors(image, val) {
   const classes = useStyles();
 
   return (
     <div className={classes.metaphorItem}>
-      <img src={img} width="70%" style={{ maxWidth: "100px"}}/> 
+      <img src={process.env.PUBLIC_URL +image} width="70%" style={{ maxWidth: "100px"}}/> 
       <div style={{
         position: "absolute",
         display: "inline-block",
@@ -157,7 +156,7 @@ export default function MyPage() {
                   <div>
                     <div style={{ display: "inline-block", marginBottom: "10px" }}>
                       {/* <Avatar/> */}
-                      <img src={logo} width="100%" alt="" />
+                      <img src={process.env.PUBLIC_URL +logo} width="100%" alt="" />
                     </div>
                   </div>
                   Nayeon Min
@@ -183,6 +182,7 @@ export default function MyPage() {
                   {ShowMetaphors(taxi, 123)}
                   {ShowMetaphors(burger, 123)}
                   {ShowMetaphors(tree, 123)}
+                  {console.log(taxi)}
                 </div>
               </Box>
             </Box>
@@ -201,7 +201,7 @@ export default function MyPage() {
                   <Grid container>
                     <Grid item style={{ width: "100px" }}>
                       <Box style={{ position: "relative" }}>
-                        <img className={classes.badge} src={logo}/>
+                        <img className={classes.badge} src={process.env.PUBLIC_URL +logo}/>
                       </Box>
                     </Grid>
                     <Grid item xs container direction="column" style={{ width: "calc(100% - 100px)", marginLeft: "10px" }}>
