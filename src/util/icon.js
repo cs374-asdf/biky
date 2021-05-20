@@ -30,3 +30,49 @@ import taxiIcon from "@iconify-icons/twemoji/taxi"; // 택시
 import dollarBanknote from "@iconify-icons/twemoji/dollar-banknote"; // 돈
 
 <Icon icon={cloudIcon} />; // 이런식으로 불러다가 넣으면 됩니다
+
+export function getIconComponent(key)
+{
+  return <Icon icon={getIcon(key)} width="2em"/> 
+}
+
+
+export function getIcon(key)
+{
+  switch (key)
+  {
+    case "sad":
+    case "힝":
+    case "슬프다":
+      return cryingFace
+
+    case "angry":
+    case "화나네":
+      return faceWithSymbolsOnMouth
+    
+    case "excited":
+    case "happy":
+    case "행복해":
+    case "기부니가 좋아요":
+      return rollingOnTheFloorLaughing
+
+    case "tired":
+    case "exhausted":
+    case "졸림":
+    case "sleepy":
+      return sleepingFace
+
+    case "존맛":
+    case "delicious":
+    case "yummy":
+      return droolingFace
+
+    case "이시국":
+    case "fever":
+    case "sick":
+    case "아파요":
+      return faceWithThermometer
+  }
+  
+  return catIcon
+}

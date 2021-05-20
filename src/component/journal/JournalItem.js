@@ -6,6 +6,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import FriendSimpleView from './FriendSimpleView';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import {nullToList} from '../../util/format'
+import {getIconComponent} from '../../util/icon'
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>
@@ -31,6 +33,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal)
     return null;
 
+  const emojis = nullToList(journal.emojis).map(getIconComponent)
   console.log(journal)
   return (
     <Card onClick={() => openJournal(journal)}>
@@ -39,7 +42,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
       <CardContent>{journal.desc}</CardContent>
       <CardContent>{getFriends(friends)}</CardContent>
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
-      <CardContent>{getDivs(journal.emojis)}</CardContent>
+      <CardContent>{emojis}</CardContent>
       <CardContent>{journal.distance} km</CardContent>
       {/* TODO 적절한 양식으로 friends 보여주기! object의 배열임에 주의*/}
 

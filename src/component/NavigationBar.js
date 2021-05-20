@@ -18,21 +18,22 @@ const useStyles = makeStyles({
 
 export default function LabelBottomNavigation() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('home');
+  console.log(window.location.pathname)
+  const [value, setValue] = React.useState(window.location.pathname);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label="친구" value="friend" icon={<PeopleIcon />}
+    <BottomNavigation value={window.location.pathname} onChange={handleChange} className={classes.root}>
+      <BottomNavigationAction label="친구" value="/friend" icon={<PeopleIcon />}
         component={Link} to="/friend">
       </BottomNavigationAction>
-      <BottomNavigationAction label="홈" value="home" icon={<HomeIcon />}
+      <BottomNavigationAction label="홈" value="/" icon={<HomeIcon />}
         component={Link} to="/"
       />
-      <BottomNavigationAction label="기록" value="journal" icon={<DirectionsBikeIcon />}
+      <BottomNavigationAction label="기록" value="/journal" icon={<DirectionsBikeIcon />}
         component={Link} to="/journal"
       />
 
