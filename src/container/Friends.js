@@ -48,9 +48,10 @@ const useStyles = makeStyles({
     // border: "solid 1px black",
   },
   content: {
-    position: "relative",
-    height: "calc(100vh - 160px)",
-    // border: "solid 1px black",
+      position: "relative",
+      height: "calc(100vh - 160px)",
+      overflow: "scroll",
+      // border: "solid 1px black",
   },
 });
 
