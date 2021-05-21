@@ -3,6 +3,7 @@ import { List, ListItem } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FriendItem from "./FriendItem";
+import HashtagSelector from "./HashtagSelector";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import PictureList from "./PictureList";
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   hashtagGroup: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: 'wrap'
   },
 
   picture: {},
@@ -36,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
       "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
   },
 }));
+
+const hashtagsDB = [
+  "happy", "downside", "hello", "high", "hat", "huhuh", "hike", "bike", "dike"
+];
+
+
 
 export default function JournalForm({
   journal,
@@ -70,11 +78,9 @@ export default function JournalForm({
     });
   };
 
-  const addHashtag = (event) => {
-    event.preventDefault();
-    let hashtag = event.target.newTag.value;
-    setHashtags([...hashtags, hashtag]);
-    event.target.newTag.value = "";
+  const addHashtag = (hashtag) => {
+    if (!hashtags.includes(hashtag))
+      setHashtags([...hashtags, hashtag]);
   };
 
   const removeHashtag = (hashtag) => {
@@ -104,8 +110,7 @@ export default function JournalForm({
         defaultValue={journal.desc}
       />
       <Button onClick={handleSubmit} component={Link} to="/biky/journal">
-        {" "}
-        저장{" "}
+        저장
       </Button>
 
       <Button onClick={openPictureSelector}> 사진 추가 </Button>
@@ -132,7 +137,6 @@ export default function JournalForm({
       <div className={classes.hashtagGroup}>
         {hashtags.map((hashtag) => (
           <div key={hashtag}>
-            {" "}
             #{hashtag}
             <IconButton
               aria-label="delete"
@@ -142,9 +146,7 @@ export default function JournalForm({
             </IconButton>
           </div>
         ))}
-        <form onSubmit={addHashtag}>
-          <TextField id="newTag" placeholder="+ New Hashtag" />
-        </form>
+        <HashtagSelector handleSubmit={addHashtag} hashtags={hashtagsDB.filter(hashtag => !hashtags.includes(hashtag))}/>
       </div>
     </div>
   );
