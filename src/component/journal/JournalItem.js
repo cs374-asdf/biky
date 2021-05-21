@@ -15,7 +15,7 @@ const Hamburger = "/images/hamburger.png";
 const Taxi = "/images/taxi.png";
 const Tree = "/images/tree.png";
 
-function getDivs(items) {
+export function getDivs(items) {
   if (!items) return <div> empty </div>;
   return items.map((item) => (
     <div style={{ display: "inline" }} key={item}>
@@ -25,7 +25,7 @@ function getDivs(items) {
   ));
 }
 
-function getHashtags(hashtags) {
+export function getHashtags(hashtags) {
   return hashtags.map((hashtag) => (
     <div style={{ display: "inline" }} key={hashtag}>
       #{`${hashtag} `}
@@ -33,7 +33,7 @@ function getHashtags(hashtags) {
   ));
 }
 
-function getFriends(friends) {
+export function getFriends(friends) {
   if (!friends) return <div> no friends... </div>;
   return friends.map((friend) => (
   <FriendSimpleView key={friend.id} friend={friend} />
@@ -50,8 +50,9 @@ function getFriends(friends) {
   ));
 }
 
-function getMetaphor(metaphor, randomIndex) {
+export function getMetaphors(metaphor) {
   if (!metaphor) return <div> empty metaphor </div>;
+  var randomIndex = Math.floor(Math.random() * 3);
   if (randomIndex === 0) {
     return (
       <Card
@@ -275,8 +276,8 @@ export default function JournalItem({ journal, openJournal, friends }) {
             width: "160px",
           }}
         >
-          {/* {getMetaphor(journal.metaphor, Math.floor(Math.random() * 3))} */}
-          {getMetaphor(journal.metaphor, 1)}
+          {/* {getMetaphors(journal.metaphor, Math.floor(Math.random() * 3))} */}
+          {getMetaphors(journal.metaphor)}
         </div>
 
         <div
