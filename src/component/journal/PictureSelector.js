@@ -73,6 +73,7 @@ function MyAppBar({ onSubmit }) {
 export default function PictureSelector({ pictures, onSubmit }) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState(pictures)
+  console.log(pictures)
 
   const handleSubmit = () => {
     onSubmit(selected)
@@ -98,19 +99,21 @@ export default function PictureSelector({ pictures, onSubmit }) {
   //     </GridList>
   //   )));
 
+  if (!pictures)
+    return <div> 로딩중 </div>
 
   return <div>
     <MyAppBar onSubmit={handleSubmit} />
     {/* <Pictures /> */}
 
     <GridList cellHeight={200} className={classes.gridList} cols={3}>
-    {allPictures.map((pic) => (
-      <GridListTile key={pic} cols={1} onClick={() => togglePic(pic)}
-        className={selected.includes(pic) ? classes.selected : classes.unselected}
-      >
-        <img src={process.env.PUBLIC_URL + pic} alt="bike" />
-      </GridListTile>
-    ))}
+      {allPictures.map((pic) => (
+        <GridListTile key={pic} cols={1} onClick={() => togglePic(pic)}
+          className={selected.includes(pic) ? classes.selected : classes.unselected}
+        >
+          <img src={process.env.PUBLIC_URL + pic} alt="bike" />
+        </GridListTile>
+      ))}
     </GridList>
 
     사진을 추가해보시지

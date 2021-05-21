@@ -9,10 +9,10 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-const logo = '/images/logo.png'
-const badge1 = '/images/badge1.png'
-const badge2 = '/images/badge2.png'
-const badge3 = '/images/badge3.png'
+const logo = "/images/logo.png";
+const badge1 = "/images/badge1.png";
+const badge2 = "/images/badge2.png";
+const badge3 = "/images/badge3.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,9 +37,15 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonBase: {
     width: "100%",
+    borderBottom: "dotted 1px lightgray",
   },
   arrow: {
     margin: theme.spacing(1, 1),
+  },
+
+  bold: {
+    fontWeight: "bold",
+    fontSize: "20px",
   },
 }));
 
@@ -84,20 +90,32 @@ export default function BadgeDetail() {
   }
 
   function backward() {
-    window.location.replace("/myPage");
+    window.location.replace("/biky/myPage");
   }
 
-  const eachBadge = badges.map((badge) => (
+  const eachBadge = badges.map((badge, idx) => (
     <Paper
       onClick={() => {
         handleClick(badge.oid);
+        console.log(val);
       }}
     >
-      <ButtonBase className={classes.buttonBase}>
+      <ButtonBase
+        className={classes.buttonBase}
+        style={
+          idx === val.representativeBadge
+            ? { backgroundColor: "lightgray" }
+            : {}
+        }
+      >
         <Grid container spacing={2} className={classes.eachBadge}>
           <Grid item>
             <Box className={classes.badgeBox}>
-              <img className={classes.badge} src={badge.thumbnail} />
+              <img
+                className={classes.badge}
+                src={process.env.PUBLIC_URL + badge.thumbnail}
+                alt={badge.title}
+              />
             </Box>
           </Grid>
 
@@ -119,7 +137,7 @@ export default function BadgeDetail() {
   ));
 
   return (
-    <Box p={3} height="100vh">
+    <Box p={3}>
       <ButtonBase>
         <ArrowBackIosOutlinedIcon
           className={classes.arrow}
@@ -130,14 +148,20 @@ export default function BadgeDetail() {
       </ButtonBase>
 
       <div className={classes.root}>
-        <Typography>대표 Badge</Typography>
+        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+          Representative Badge
+        </Typography>
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item>
               <Box className={classes.badgeBox}>
                 <img
                   className={classes.badge}
-                  src={badges[val.representativeBadge].thumbnail}
+                  src={
+                    process.env.PUBLIC_URL +
+                    badges[val.representativeBadge].thumbnail
+                  }
+                  alt="대표 뱃지"
                 />
               </Box>
             </Grid>
@@ -158,8 +182,18 @@ export default function BadgeDetail() {
       </div>
 
       <div className={classes.root}>
-        <Typography>badge list</Typography>
-        {eachBadge}
+        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+          Other Badges
+        </Typography>
+        <Box
+          style={{
+            border: "solid 1px lightgray",
+            overflow: "scroll",
+            maxHeight: "calc(100vh - 390px)",
+          }}
+        >
+          {eachBadge}
+        </Box>
       </div>
     </Box>
   );

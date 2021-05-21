@@ -3,15 +3,20 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
+import FriendSimpleView from './FriendSimpleView';
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import React from "react";
+import {nullToList} from '../../util/format'
+import {getIconComponent} from '../../util/icon'
+import DateComponent from './DateComponent'
 
 const Hamburger = "/images/hamburger.png";
 const Taxi = "/images/taxi.png";
 const Tree = "/images/tree.png";
 
 function getDivs(items) {
+  if (!items) return <div> empty </div>;
   return items.map((item) => (
     <div style={{ display: "inline" }} key={item}>
       {" "}
@@ -29,7 +34,10 @@ function getHashtags(hashtags) {
 }
 
 function getFriends(friends) {
+  if (!friends) return <div> no friends... </div>;
   return friends.map((friend) => (
+  <FriendSimpleView key={friend.id} friend={friend} />
+  /*
     <div
       style={{
         display: "inline",
@@ -38,10 +46,12 @@ function getFriends(friends) {
       {" "}
       {friend}{" "}
     </div>
+    */
   ));
 }
 
 function getMetaphor(metaphor, randomIndex) {
+  if (!metaphor) return <div> empty metaphor </div>;
   if (randomIndex === 0) {
     return (
       <Card
@@ -156,7 +166,9 @@ function getMetaphor(metaphor, randomIndex) {
   }
 }
 
-export default function JournalItem({ journal, openJournal }) {
+export default function JournalItem({ journal, openJournal, friends }) {
+  if (!journal) return null;
+  const emojis = nullToList(journal.emojis).map(getIconComponent)
   return (
     <Card
       onClick={() => openJournal(journal)}
@@ -179,7 +191,8 @@ export default function JournalItem({ journal, openJournal }) {
           }}
         >
           {/* journal.startTime하니까 오류남.. */}
-          날짜
+          {journal.weather}
+          <DateComponent startTime={journal.startTime} endTime={journal.endTime}/>
         </div>
 
         <div
@@ -187,7 +200,7 @@ export default function JournalItem({ journal, openJournal }) {
             marginLeft: "auto",
           }}
         >
-          {getDivs(journal.emojis)}
+          {emojis}
         </div>
       </div>
 
@@ -279,7 +292,7 @@ export default function JournalItem({ journal, openJournal }) {
               marginLeft: "auto",
             }}
           >
-            {getDivs(journal.friends)}
+            {getFriends(friends)}
           </div>
           <div
             style={{
@@ -305,7 +318,6 @@ export default function JournalItem({ journal, openJournal }) {
         }}
       >
         map
-        {journal.map}
       </div> */}
     </Card>
   );

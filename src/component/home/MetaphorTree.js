@@ -16,13 +16,17 @@ const useStyles = makeStyles(theme => ({
         width: "15%",
     },
     text: {
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
         display: "inline-block",
         color: "white",
-        fontSize: "16px",
+        fontSize: "18px",
         fontWeight: "bold",
         margin: "0 auto",
         // border: "solid 1px black",
         width: "calc(85% - 20px)",
+        paddingLeft: "10px"
     }
 }));
 
@@ -32,7 +36,7 @@ export default function MetaphorTree(props) {
 
     return (
         <div className={classes.background}>
-            <img src={tree} alt="" className={classes.img} />
+            <img src={process.env.PUBLIC_URL +tree} alt="" className={classes.img} />
             <div className={classes.text}>You planted {amount*1.5} trees!</div>
         </div>
     )

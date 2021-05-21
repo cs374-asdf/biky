@@ -1,6 +1,8 @@
-import React from 'react';
+import { Button, Modal } from '@material-ui/core';
 import { MetaphorContainer, StaticMap } from './';
-import { Modal } from '@material-ui/core';
+
+import { Link } from 'react-router-dom';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -10,28 +12,44 @@ const useStyles = makeStyles(theme => ({
         transform: `translate(-50%, -50%)`,
         position: "absolute",
         width: "75%",
-        maxWidth: "412.5px",
+        maxHeight: "75vh",
+        overflowY: "scroll",
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing(4),
         outline: "none"
     },
     title: {
+        fontSize: "20px",
+        fontWeight: "bold",
         textAlign: "center",
+        paddingBottom: "10px",
     },
     half: {
         display: "inline-block",
-        width: "50%"
+        width: "50%",
+        paddingBottom: "10px"
+    },
+    label: {
+        display: "inline-block",
+        fontSize: "15px",
+        fontWeight: "bold",
+        padding: "5px",
+        paddingLeft: "0",
     },
     button: {
         width: "calc(100% - 20px)",
         textAlign: "center",
         // border: "solid 1px black",
-        backgroundColor: "lightblue",
+        color: "white",
+        fontWeight: "bold",
+        backgroundColor: "#4BA9FF",
         borderRadius: "10px",
-        padding: "10px"
+        padding: "10px",
+        marginTop: "10px"
     }
 }));
+
 
 export default function JournalModal(props) {
     const classes = useStyles();
@@ -45,33 +63,36 @@ export default function JournalModal(props) {
     return (
         <div>
             <Modal
-            open={open}
-            onClose={closeModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
+                open={open}
+                onClose={closeModal}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
             >
                 <div className={classes.modal}>
 
-                    <h2 id="modal-title" className={classes.title}>
+                    <div id="modal-title" className={classes.title}>
                         Today's Ride
-                    </h2>
+                    </div>
 
-                    <MetaphorContainer amount={amount}/>
+                    <MetaphorContainer amount={amount} />
 
-                    <hr/>
-                    
+                    <hr />
+
                     <div id="modal-description">
-                        <div className={classes.half}>시간 {time}</div>
-                        <div className={classes.half}>거리 {distance}</div>
-                        <br /><br />
-
-                        <div>
-                            이동경로
-                            <StaticMap route={route} zoom={15} width={"100%"} height={"300px"}/>
+                        <div className={classes.half}>
+                            <div className={classes.label}>시간</div> {time}
+                        </div>
+                        <div className={classes.half}>
+                            <div className={classes.label}>거리</div> {distance}
                         </div>
                         <br />
-                        
-                        <div className={classes.button}>Journal Ride</div>
+
+                        <div>
+                            <div className={classes.label}>이동경로</div>
+                            <StaticMap route={route} zoom={15} width={"100%"} height={"300px"} />
+                        </div>
+
+                        <Button className={classes.button} onClick={props.handleJournal}>Journal Ride</Button>
                     </div>
                 </div>
             </Modal>

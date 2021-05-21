@@ -5,7 +5,7 @@ export default function Distance(props) {
   var distance = props.distance;
 
   return (
-    <div className={style}>
+    <div className={style} style={{ width: "100px" }}>
         { distance }
     </div>
   )

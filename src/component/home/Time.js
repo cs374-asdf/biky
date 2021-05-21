@@ -5,7 +5,7 @@ export default function Time(props) {
   var time = props.time;
 
   return (
-    <div className={style}>
+    <div className={style} style={{ width: "120px" }}>
         { time }
     </div>
   )

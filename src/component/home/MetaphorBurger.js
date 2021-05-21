@@ -16,13 +16,16 @@ const useStyles = makeStyles(theme => ({
         width: "15%",
     },
     text: {
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
         display: "inline-block",
         color: "white",
-        fontSize: "16px",
+        fontSize: "18px",
         fontWeight: "bold",
-        margin: "0 auto",
         // border: "solid 1px black",
         width: "calc(85% - 20px)",
+        paddingLeft: "10px"
     }
 }));
 
@@ -32,7 +35,7 @@ export default function MetaphorBurger(props) {
 
     return (
         <div className={classes.background}>
-            <img src={burger} alt="burger" className={classes.img} />
+            <img src={process.env.PUBLIC_URL +burger} alt="burger" className={classes.img} />
             <div className={classes.text}>You skipped {amount*2} burgers!</div>
         </div>
     )

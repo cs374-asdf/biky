@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     position: "relative",
     width: "calc(50% - 15px)",
-    height: "110px",
+    height: "calc(100% - 40px)",
     padding: "10px",
     paddingRight: "5px",
     display: "inline-block",
@@ -54,7 +54,7 @@ export default function Weather() {
 
   return (
     <div className={classes.container}>
-      {/* <img src={currentWeather} width="100%" alt="" /> */}
+      {/* <img src={process.env.PUBLIC_URL +currentWeather} width="100%" alt="" /> */}
       <div className={classes.background} style={style}>
         {weather} <br />
         {temperature}&#8451;
