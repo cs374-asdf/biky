@@ -90,7 +90,7 @@ export default function BadgeDetail() {
   }
 
   function backward() {
-    window.location.replace("/biky/myPage");
+    window.location.href = "/biky/myPage";
   }
 
   const eachBadge = badges.map((badge, idx) => (

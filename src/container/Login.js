@@ -62,7 +62,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`아이디: ${val.id} 비밀번호: ${val.password}`);
-    window.location.replace("/biky/journal");
+    window.location.href = "/biky/journal";
   };
 
   const onChange = (e) => {

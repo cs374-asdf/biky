@@ -45,7 +45,7 @@ export default function LoginInitial() {
   const classes = useStyles();
 
   function handleClick() {
-    window.location.replace("/biky/login");
+    window.location.href = "/biky/login";
   }
 
   return (

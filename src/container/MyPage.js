@@ -146,7 +146,7 @@ export default function MyPage() {
   const classes = useStyles();
 
   function handleClick() {
-    window.location.replace("/biky/badgeDetail");
+    window.location.href = "/biky/badgeDetail";
   }
 
   return (
