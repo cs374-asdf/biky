@@ -35,7 +35,7 @@ export default function JournalMain() {
 
       <div
         style={{
-          height: "calc(100% - 260px)",
+          height: "calc(100% - 160px)",
         }}
       >
         <div

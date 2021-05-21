@@ -20,6 +20,14 @@ function getDivs(items) {
   ));
 }
 
+function getHashtags(hashtags) {
+  return hashtags.map((hashtag) => (
+    <div style={{ display: "inline" }} key={hashtag}>
+      #{`${hashtag} `}
+    </div>
+  ));
+}
+
 function getFriends(friends) {
   return friends.map((friend) => (
     <div
@@ -39,10 +47,8 @@ function getMetaphor(metaphor, randomIndex) {
       <Card
         style={{
           background: "linear-gradient(45deg, #73A15D, #94C25A)",
-          width: "100%",
-          height: "10vh",
+          height: "70px",
           borderRadius: "15px",
-          padding: "10%",
         }}
       >
         <div
@@ -52,22 +58,22 @@ function getMetaphor(metaphor, randomIndex) {
           }}
         >
           <img
-            src={Tree}
+            src={process.env.PUBLIC_URL + "/images/tree.png"}
             style={{
               position: "absolute",
-              width: "13%",
-              top: "auto",
-              left: "auto",
+              top: "17px",
+              left: "15px",
+              height: "35px",
             }}
           />
           <Typography
             variant="body1"
             style={{
-              fontSize: "1.3em",
+              fontSize: "1.2em",
               color: "white",
-              position: "absolute",
-              top: "auto",
-              left: "auto",
+              position: "relative",
+              top: "20px",
+              left: "70px",
             }}
           >
             {metaphor.tree} trees
@@ -80,40 +86,31 @@ function getMetaphor(metaphor, randomIndex) {
       <Card
         style={{
           background: "linear-gradient(45deg, #A0BFE3, #F0A2B0)",
-          width: "80%",
-          height: "10vh",
+          height: "70px",
           borderRadius: "15px",
         }}
       >
-        <div
+        <img
+          src={process.env.PUBLIC_URL + "/images/taxi.png"}
           style={{
-            display: "flex",
-            justifyContent: "spaceAround",
-            alignItems: "center",
+            position: "absolute",
+            top: "17px",
+            left: "15px",
+            height: "35px",
+          }}
+        />
+        <Typography
+          variant="body1"
+          style={{
+            fontSize: "1.1em",
+            color: "white",
+            position: "absolute",
+            top: "22px",
+            left: "61px",
           }}
         >
-          <img
-            src={Taxi}
-            style={{
-              position: "absolute",
-              width: "13%",
-              top: "15%",
-              left: "3%",
-            }}
-          />
-          <Typography
-            variant="body1"
-            style={{
-              fontSize: "1.3em",
-              color: "white",
-              position: "absolute",
-              top: "30%",
-              left: "20%",
-            }}
-          >
-            {metaphor.taxi} won
-          </Typography>
-        </div>
+          {metaphor.taxi} won
+        </Typography>
       </Card>
     );
   } else {
@@ -121,25 +118,24 @@ function getMetaphor(metaphor, randomIndex) {
       <Card
         style={{
           background: "linear-gradient(45deg, #EED28B, #DB7E61)",
-          width: "80%",
-          height: "10vh",
+          height: "70px",
           borderRadius: "15px",
         }}
       >
         <div
           style={{
             display: "flex",
-            justifyContent: "spaceAround",
             alignItems: "center",
+            margin: "auto",
           }}
         >
           <img
-            src={Hamburger}
+            src={process.env.PUBLIC_URL + "/images/hamburger.png"}
             style={{
               position: "absolute",
-              width: "12%",
-              top: "19%",
-              left: "2%",
+              top: "17px",
+              left: "15px",
+              height: "35px",
             }}
           />
           <Typography
@@ -147,9 +143,9 @@ function getMetaphor(metaphor, randomIndex) {
             style={{
               fontSize: "1.15em",
               color: "white",
-              position: "absolute",
-              top: "31%",
-              left: "16%",
+              position: "relative",
+              top: "21px",
+              left: "60px",
             }}
           >
             {metaphor.hamburger} burgers
@@ -171,10 +167,10 @@ export default function JournalItem({ journal, openJournal }) {
     >
       <div
         style={{
-          background: "#DDDDDD",
+          background: "#CCCCCC",
           display: "flex",
           flexWrap: "wrap",
-          height: "100px",
+          height: "30px",
         }}
       >
         <div
@@ -182,7 +178,7 @@ export default function JournalItem({ journal, openJournal }) {
             width: "50%",
           }}
         >
-          {/* startTime하니까 오류남.. */}
+          {/* journal.startTime하니까 오류남.. */}
           날짜
         </div>
 
@@ -193,23 +189,47 @@ export default function JournalItem({ journal, openJournal }) {
         >
           {getDivs(journal.emojis)}
         </div>
+      </div>
+
+      <div
+        style={{
+          background: "#DDDDDD",
+          position: "relative",
+          top: "30px",
+          display: "flex",
+          flexWrap: "noWrap",
+          height: "60px",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            background: "#CDCDCD",
+            minWidth: "50%",
+            width: "50%",
+            height: "30px",
+            fontSize: "20px",
+            marginTop: "auto",
+          }}
+        >
+          <div>{journal.title}</div>
+        </div>
 
         <div
           style={{
             marginTop: "auto",
-            width: "50%",
-            fontSize: "2em",
+            minWidth: "5vw",
           }}
-        >
-          {journal.title}
-        </div>
+        ></div>
+
         <div
           style={{
             marginLeft: "auto",
             marginTop: "auto",
+            height: "25px",
           }}
         >
-          {getDivs(journal.hashtags)}
+          {getHashtags(journal.hashtags)}
         </div>
       </div>
 
@@ -217,9 +237,10 @@ export default function JournalItem({ journal, openJournal }) {
         style={{
           background: "#BCBCBC",
           position: "relative",
-          top: "5vw",
+          top: "55px",
           width: "65%",
-          minHeight: "25vh",
+          height: "120px",
+          overflow: "hidden",
         }}
       >
         {journal.desc}
@@ -229,20 +250,20 @@ export default function JournalItem({ journal, openJournal }) {
         style={{
           background: "#CCCCCC",
           position: "relative",
-          top: "10vw",
+          top: "85px",
           width: "65%",
-          height: "15vh",
+          height: "70px",
           display: "flex",
-          flexWrap: "wrap",
+          flexWrap: "noWrap",
         }}
       >
         <div
           style={{
-            width: "35%",
+            width: "160px",
           }}
         >
           {/* {getMetaphor(journal.metaphor, Math.floor(Math.random() * 3))} */}
-          {getMetaphor(journal.metaphor, 2)}
+          {getMetaphor(journal.metaphor, 1)}
         </div>
 
         <div
@@ -270,7 +291,22 @@ export default function JournalItem({ journal, openJournal }) {
         </div>
       </div>
 
-      {/* <CardContent> {journal.map} </CardContent> */}
+      <div
+        style={{
+          height: "85px",
+        }}
+      ></div>
+
+      {/* <div
+        style={{
+          background: "#CCCCCC",
+          position: "relative",
+          float: "left",
+        }}
+      >
+        map
+        {journal.map}
+      </div> */}
     </Card>
   );
 }
