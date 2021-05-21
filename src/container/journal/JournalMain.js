@@ -53,29 +53,51 @@ export default function JournalMain({ journalRef, friendRef }) {
     setSelected(null);
   };
 
-
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <SearchBar />
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<FilterIcon />}
-        >
-          필터
-      </Button>
+      <div style={{ width: "100%", height: "50px", border: "1px black solid" }}>
+        Journal
+      </div>
+      <div style={{ width: "100%", height: "50px", border: "1px black solid" }}>
+        Nayoung Min
       </div>
 
-      <JournalList journals={journals} openJournal={handleOpen} friendsByJournal={friendsByJournal} />
-
-      <Modal
-        open={open}
-        onClose={handleClose}
+      <div
+        style={{
+          height: "calc(100% - 160px)",
+        }}
       >
-        <JournalDetail journal={selected} friends={selected ? friendsByJournal[selected.id] : null} />
-      </Modal>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: "20px",
+            border: "1px black solid",
+          }}
+        >
+          <SearchBar />
+          <Button
+            variant="contained"
+            color="secondary"
+            size="medium"
+            startIcon={<FilterIcon />}
+          >
+            Filter
+          </Button>
+        </div>
+
+        <div
+          style={{
+            border: "1px black solid",
+          }}
+        >
+          <JournalList journals={journals} openJournal={handleOpen} friendsByJournal={friendsByJournal}/>
+
+          <Modal open={open} onClose={handleClose}>
+            <JournalDetail journal={selected} friends={selected ? friendsByJournal[selected.id] : null}/>
+          </Modal>
+        </div>
+      </div>
     </div>
   );
-};
+}

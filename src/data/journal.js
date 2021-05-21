@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const initJournals =
   [
@@ -94,16 +94,17 @@ const initJournals =
 
 export const mockJournal = {
   // 수정 가능
-  title: '제목1', desc: '내용1',
-  friends: ['1'],
-  hashtags: ['happy'],
-  photos: ['../'],
+  title: "제목1",
+  desc: "내용1",
+  friends: ["1"],
+  hashtags: ["happy"],
+  photos: ["../"],
 
   // 수정 불가능
   emojis: ["happy", "exited"],
   distance: 100,
   startTime: dayjs(),
-  endTime: dayjs().add(2, 'hour'),
+  endTime: dayjs().add(2, "hour"),
   weather: "sunny",
   metaphor: { tree: 1, taxi: 2, hamburger: 3 },
   map: "../",
@@ -122,4 +123,4 @@ export const mockJournal = {
   ],
 };
 
-export default initJournals
+export default initJournals;
