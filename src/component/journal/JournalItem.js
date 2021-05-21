@@ -3,13 +3,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-import FriendSimpleView from './FriendSimpleView';
+import FriendSimpleView from "./FriendSimpleView";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import React from "react";
-import {nullToList} from '../../util/format'
-import {getIconComponent} from '../../util/icon'
-import DateComponent from './DateComponent'
+import { nullToList } from "../../util/format";
+import { getIconComponent } from "../../util/icon";
+import DateComponent from "./DateComponent";
+import { Box } from "@material-ui/core";
 
 const Hamburger = "/images/hamburger.png";
 const Taxi = "/images/taxi.png";
@@ -36,8 +37,8 @@ export function getHashtags(hashtags) {
 export function getFriends(friends) {
   if (!friends) return <div> no friends... </div>;
   return friends.map((friend) => (
-  <FriendSimpleView key={friend.id} friend={friend} />
-  /*
+    <FriendSimpleView key={friend.id} friend={friend} />
+    /*
     <div
       style={{
         display: "inline",
@@ -167,9 +168,30 @@ export function getMetaphors(metaphor) {
   }
 }
 
+function emojiItem(emoji) {
+  return (
+    <Box
+      borderRadius="50%"
+      flex={1}
+      style={{
+        backgroundColor: "white",
+        boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)",
+      }}
+      width="40px"
+      height="40px"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      mr={1}
+    >
+      <Box>{emoji}</Box>
+    </Box>
+  );
+}
+
 export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal) return null;
-  const emojis = nullToList(journal.emojis).map(getIconComponent)
+  const emojis = nullToList(journal.emojis).map(getIconComponent);
   return (
     <Card
       onClick={() => openJournal(journal)}
@@ -193,16 +215,23 @@ export default function JournalItem({ journal, openJournal, friends }) {
         >
           {/* journal.startTime하니까 오류남.. */}
           {journal.weather}
-          <DateComponent startTime={journal.startTime} endTime={journal.endTime}/>
+          <DateComponent
+            startTime={journal.startTime}
+            endTime={journal.endTime}
+          />
         </div>
 
-        <div
+        <Box
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="center"
           style={{
             marginLeft: "auto",
           }}
         >
-          {emojis}
-        </div>
+          {emojis.map((emoji) => emojiItem(emoji))}
+        </Box>
       </div>
 
       <div
