@@ -101,8 +101,7 @@ function showWeather(weather) {
       verticalAlign: "top",
       marginRight: "10px"
     }}>
-      cloudy<br/>
-      24
+      {weather}
     </div>
   )
 }
@@ -200,34 +199,37 @@ export default function JournalForm({
             className={classes.textField}
           />
 
-          
-
           <div>
             <div style={{ display: "inline-block", width: "50%", verticalAlign: "bottom" }}>
-              <Typography>{journal.startTime} ~ {journal.endTime}</Typography>
-              <Typography>Distance: {journal.distance} km</Typography>
-              {showWeather(journal.weather)}
+              <Typography style={{ marginBottom: "10px" }}>{journal.startTime} ~ {journal.endTime}</Typography>
+              <Typography style={{ marginBottom: "10px" }}>Distance: {journal.distance} km</Typography>
+              {/* {showWeather(journal.weather)} */}
+              <Typography style={{ marginBottom: "10px" }}>Weather: {journal.weather}</Typography>
+
+              <div>
+                <Typography style={{ marginBottom: "10px" }}>Friends</Typography>
+                <div style={{ display: "inline-block" }}>
+                  {/* <List dense> */}
+                    {friends.map((friend) => (
+                      <FriendItem
+                        key={friend.id}
+                        friend={friend}
+                        removeFriend={removeFriend}
+                      />
+                    ))}
+                    {/* <ListItem> */}
+                      <Button onClick={openFriendAddPage} style={{ height: "50px", marginTop: "-15px" }}>+</Button>
+                    {/* </ListItem> */}
+                  {/* </List> */}
+                </div>
+              </div>
             </div>
             
 
             <div style={{ display: "inline-block", width: "50%" }}>
-              <StaticMap route={journal.route} height="200px" zoom="14"/>
+              <StaticMap route={journal.route} zoom="14"/>
             </div>
           </div>
-
-          <Typography>Friends</Typography>
-          <List dense>
-            {friends.map((friend) => (
-              <FriendItem
-                key={friend.id}
-                friend={friend}
-                removeFriend={removeFriend}
-              />
-            ))}
-            <ListItem>
-              <Button onClick={openFriendAddPage}>+</Button>
-            </ListItem>
-          </List>
 
           {/* <div> 오늘 본 고양이는 누구였나요?? </div> */}
 
@@ -247,6 +249,16 @@ export default function JournalForm({
             rows={5}
           />
 
+          <div>
+            <Button onClick={openPictureSelector}> 사진 추가 </Button>
+
+            <PictureList
+              pictures={pictures}
+              removePicture={removePicture}
+              isEditing
+            />
+          </div>
+
           <div className={classes.hashtagGroup}>
             {hashtags.map((hashtag) => (
               <div key={hashtag}>
@@ -261,17 +273,7 @@ export default function JournalForm({
             ))}
             <HashtagSelector handleSubmit={addHashtag} hashtags={hashtagsDB.filter(hashtag => !hashtags.includes(hashtag))}/>  
           </div>
-
-          <div>
-            <Button onClick={openPictureSelector}> 사진 추가 </Button>
-
-            <PictureList
-              pictures={pictures}
-              removePicture={removePicture}
-              isEditing
-            />
-          </div>
-
+          
           <Button onClick={handleSubmit} component={Link} className={classes.submitButton} to="/biky/journal">
             Save
           </Button>
