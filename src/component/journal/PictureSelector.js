@@ -1,12 +1,9 @@
-import AppBar from "@material-ui/core/AppBar";
-import CheckIcon from "@material-ui/icons/Check";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import IconButton from "@material-ui/core/IconButton";
 import React from "react";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+
+import MyAppBar from "./AppBar";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,32 +45,6 @@ const allPictures = [
   "/images/photo3.jpg",
 ];
 
-function MyAppBar({ onSubmit }) {
-  const classes = useStyles();
-
-  return (
-    <div>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
-            Photos
-          </Typography>
-
-          <IconButton
-            edge="end"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={onSubmit}
-          >
-            <CheckIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-}
-
 export default function PictureSelector({ pictures, onSubmit }) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState(pictures);
@@ -105,7 +76,7 @@ export default function PictureSelector({ pictures, onSubmit }) {
 
   return (
     <div className={classes.paper}>
-      <MyAppBar onSubmit={handleSubmit} />
+      <MyAppBar onSubmit={handleSubmit} string="Photo" />
       {/* <Pictures /> */}
 
       <GridList

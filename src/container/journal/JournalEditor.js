@@ -125,6 +125,7 @@ export default function JournalEditor({ journalRef, friendRef }) {
           selectedFriends={friends}
           addFriend={addFriend}
           removeFriend={removeFriend}
+          close={() => setFriendAddPageOpen(false)}
         />
       </Modal>
 

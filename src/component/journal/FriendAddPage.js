@@ -6,6 +6,7 @@ import FriendSimpleView from "./FriendSimpleView";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import MyAppBar from "./AppBar";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     transform: `translate(-50%, -50%)`,
     maxHeight: "80vh",
     overflow: "scroll",
+    padding: 0,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -41,14 +46,18 @@ export default function FriendAddPage({
   selectedFriends,
   addFriend,
   removeFriend,
+  close,
 }) {
   const classes = useStyles();
   return (
     <div className={classes.paper}>
-      <div style={{ marginBottom: "15px" }}>
-        <b>Choose friends to add</b>
-      </div>
-      <Box display="flex" flexDirection="row" flexWrap="wrap">
+      <MyAppBar onSubmit={close} string="Frineds" />
+      <Box
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        style={{ padding: "1%" }}
+      >
         {allFriends.map((friend) => (
           <FriendSelector
             friend={friend}
