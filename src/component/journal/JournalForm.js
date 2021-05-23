@@ -232,13 +232,22 @@ export default function JournalForm({
             <Typography style={{ marginBottom: "10px" }}>Records</Typography>
             <StaticMap route={journal.route} />
 
-            <div style={{ margin: "10px 0" }}>
+            {/* <div style={{ margin: "10px 0" }}>
               <div style={{ display: "inline-block", width: "calc(100% - 180px)", height: "70px", backgroundColor: "green", verticalAlign: "middle", marginRight: "10px", padding: "10px" }}>
                 Show Metaphor {journal.metaphors.tree} trees
               </div>
 
               <div style={{ display: "inline-block", width: "150px" }}>
                 <Typography style={{ marginBottom: "10px" }}>Distance: {formatDistance(journal.distance)}</Typography>
+                <Typography style={{ marginBottom: "10px" }}>Time: {formatTime(journal.time)}</Typography>
+              </div>
+            </div> */}
+
+            <div style={{ margin: "10px 0" }}>
+              <div style={{ display: "inline-block", width: "50%" }}>
+                <Typography style={{ marginBottom: "10px" }}>Distance: {formatDistance(journal.distance)}</Typography>
+              </div>
+              <div style={{ display: "inline-block", width: "50%" }}>
                 <Typography style={{ marginBottom: "10px" }}>Time: {formatTime(journal.time)}</Typography>
               </div>
             </div>
