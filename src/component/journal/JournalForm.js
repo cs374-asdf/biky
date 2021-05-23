@@ -72,6 +72,12 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginTop: "10px"
   },
+  addButton: {
+    border: "solid 1px lightgray",
+    marginLeft: "10px",
+    display: "inline-block",
+    marginBottom: "10px"
+  },
   submitButton: {
     width: "100%",
     textAlign: "center",
@@ -140,6 +146,23 @@ function contentSuggestion(text) {
   )
 }
 
+const formatTime = (time) => {
+  const intTime = parseInt(time);
+  const getSeconds = `0${intTime % 60}`.slice(-2);
+  const minutes = `${Math.floor(intTime / 60)}`;
+  const getMinutes = `0${minutes % 60}`.slice(-2);
+  const getHours = `0${Math.floor(intTime / 3600)}`.slice(-2);
+  return `${getHours} : ${getMinutes} : ${getSeconds}`;
+};
+
+const formatDistance = (distance) => {
+  if (distance < 1000) {
+    return `${distance}m`;
+  } else {
+    return `${distance / 1000}km`;
+  }
+};
+
 export default function JournalForm({
   journal,
   onSubmit,
@@ -152,11 +175,11 @@ export default function JournalForm({
   openPictureSelector,
 }) {
   const classes = useStyles();
+  console.log(journal)
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
 
-  // console.log(journal.title);
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -199,36 +222,47 @@ export default function JournalForm({
             className={classes.textField}
           />
 
-          <div>
-            <div style={{ display: "inline-block", width: "50%", verticalAlign: "bottom" }}>
-              <Typography style={{ marginBottom: "10px" }}>{journal.startTime} ~ {journal.endTime}</Typography>
-              <Typography style={{ marginBottom: "10px" }}>Distance: {journal.distance} km</Typography>
-              {/* {showWeather(journal.weather)} */}
-              <Typography style={{ marginBottom: "10px" }}>Weather: {journal.weather}</Typography>
+          <div style={{ textAlign: "right" }}>
+            <Typography>{journal.date}</Typography>
+            <Typography>{journal.weather}</Typography>
+            {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
+          </div>
 
-              <div>
-                <Typography style={{ marginBottom: "10px" }}>Friends</Typography>
-                <div style={{ display: "inline-block" }}>
-                  {/* <List dense> */}
-                    {friends.map((friend) => (
-                      <FriendItem
-                        key={friend.id}
-                        friend={friend}
-                        removeFriend={removeFriend}
-                      />
-                    ))}
-                    {/* <ListItem> */}
-                      <Button onClick={openFriendAddPage} style={{ height: "50px", marginTop: "-15px" }}>+</Button>
-                    {/* </ListItem> */}
-                  {/* </List> */}
-                </div>
+          <div>
+            <Typography style={{ marginBottom: "10px" }}>Records</Typography>
+            <StaticMap route={journal.route} />
+
+            <div style={{ margin: "10px 0" }}>
+              <div style={{ display: "inline-block", width: "calc(100% - 180px)", height: "70px", backgroundColor: "green", verticalAlign: "middle", marginRight: "10px", padding: "10px" }}>
+                Show Metaphor {journal.metaphors.tree} trees
+              </div>
+
+              <div style={{ display: "inline-block", width: "150px" }}>
+                <Typography style={{ marginBottom: "10px" }}>Distance: {formatDistance(journal.distance)}</Typography>
+                <Typography style={{ marginBottom: "10px" }}>Time: {formatTime(journal.time)}</Typography>
               </div>
             </div>
             
-
-            <div style={{ display: "inline-block", width: "50%" }}>
-              <StaticMap route={journal.route} zoom="14"/>
+            <div>
+              <Typography style={{ marginBottom: "10px", display: "inline-block" }}>Friends</Typography>
+              <Button onClick={openFriendAddPage} className={classes.addButton}>Add +</Button>
+              <div>
+                {/* <List dense> */}
+                  {friends.map((friend) => (
+                    <FriendItem
+                      key={friend.id}
+                      friend={friend}
+                      removeFriend={removeFriend}
+                      style={{ display: "inline-block" }}
+                    />
+                  ))}
+                  {/* <ListItem> */}
+                    {/* <Button onClick={openFriendAddPage} style={{ height: "50px", marginTop: "-15px" }}>+</Button> */}
+                  {/* </ListItem> */}
+                {/* </List> */}
+              </div>
             </div>
+
           </div>
 
           {/* <div> 오늘 본 고양이는 누구였나요?? </div> */}
@@ -250,7 +284,8 @@ export default function JournalForm({
           />
 
           <div>
-            <Button onClick={openPictureSelector}> 사진 추가 </Button>
+            <Typography style={{ marginBottom: "10px", display: "inline-block" }}>Pictures</Typography>
+            <Button onClick={openPictureSelector} className={classes.addButton}>Add +</Button>
 
             <PictureList
               pictures={pictures}
@@ -273,7 +308,7 @@ export default function JournalForm({
             ))}
             <HashtagSelector handleSubmit={addHashtag} hashtags={hashtagsDB.filter(hashtag => !hashtags.includes(hashtag))}/>  
           </div>
-          
+
           <Button onClick={handleSubmit} component={Link} className={classes.submitButton} to="/biky/journal">
             Save
           </Button>

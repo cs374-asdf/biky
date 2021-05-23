@@ -36,7 +36,7 @@ export default function FriendItem({ friend, removeFriend }) {
             }}
           />
         </Box>
-        <Box mt={1} mb={1} style={{ minWidth: "60px" }} mr={1}>
+        <Box mt={1} mb={1} mr={1}>
           <Typography variant="body2" color="textPrimary">
             {friend.name}
           </Typography>

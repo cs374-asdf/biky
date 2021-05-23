@@ -41,12 +41,14 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export default function Weather() {
+export default function Weather(props) {
   const classes = useStyles();
-  const weatherTypes = ["sunny", "cloudy", "rainy"];
+  // const weatherTypes = ["sunny", "cloudy", "rainy"];
   // var [currentWeather, setCurrentWeather] = useState(weatherTypes[0]);
-  var [currentWeather, setCurrentWeather] = useState(randomInt(1, weatherTypes.length));
-  console.log(`currentWeather: ${currentWeather}`)
+  // var [currentWeather, setCurrentWeather] = useState(randomInt(1, weatherTypes.length));
+  // console.log(`currentWeather: ${currentWeather}`)
+
+  const currentWeather = props.weather;
 
   var style = (currentWeather === 1 ? { backgroundColor: "yellow", color: "black" } : currentWeather === 2 ? { backgroundColor: "lightblue" } : { backgroundColor: "darkblue" });
   var weather = (currentWeather === 1 ? "sunny" : currentWeather === 2 ? "cloudy" : "rainy");
