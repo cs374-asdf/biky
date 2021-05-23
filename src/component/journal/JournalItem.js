@@ -54,9 +54,8 @@ export function getFriends(friends) {
 }
 
 export function getMetaphors(metaphor) {
-  if (!metaphor) return <div> empty metaphor </div>
-  // var randomIndex = Math.floor(Math.random() * 3);
-  var randomIndex = 2
+  if (!metaphor) return <div> empty metaphor </div>;
+  var randomIndex = Math.floor(Math.random() * 3);
   if (randomIndex === 0) {
     return (
       <Card
@@ -171,9 +170,30 @@ export function getMetaphors(metaphor) {
   }
 }
 
+function emojiItem(emoji) {
+  return (
+    <Box
+      borderRadius="50%"
+      flex={1}
+      style={{
+        backgroundColor: "white",
+        boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)",
+      }}
+      width="40px"
+      height="40px"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      mr={1}
+    >
+      <Box>{emoji}</Box>
+    </Box>
+  );
+}
+
 export default function JournalItem({ journal, openJournal, friends }) {
-  if (!journal) return null
-  const emojis = nullToList(journal.emojis).map(getIconComponent)
+  if (!journal) return null;
+  const emojis = nullToList(journal.emojis).map(getIconComponent);
   return (
     <Card
       onClick={() => openJournal(journal)}
@@ -204,13 +224,17 @@ export default function JournalItem({ journal, openJournal, friends }) {
           />
         </div>
 
-        <div
+        <Box
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="center"
           style={{
             marginLeft: 'auto',
           }}
         >
-          {emojis}
-        </div>
+          {emojis.map((emoji) => emojiItem(emoji))}
+        </Box>
       </div>
 
       <div
@@ -264,7 +288,19 @@ export default function JournalItem({ journal, openJournal, friends }) {
       >
         <div
           style={{
-            width: '80%',
+            width: "160px",
+          }}
+        >
+          {/* {getMetaphors(journal.metaphor, Math.floor(Math.random() * 3))} */}
+          {getMetaphors(journal.metaphor)}
+        </div>
+
+        <div
+          style={{
+            marginLeft: "auto",
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
           }}
         >
           <div
