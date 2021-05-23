@@ -121,6 +121,7 @@ function contentSuggestion(text) {
       borderRadius: "5px",
       padding: "5px 10px",
       boxShadow: "0px 1.43351px 2.86702px rgba(0, 0, 0, 0.25)",
+      marginBottom: "10px",
     }}>
       <div style={{ 
         display: "inline-block", 
@@ -277,9 +278,11 @@ export default function JournalForm({
           {/* <div> 오늘 본 고양이는 누구였나요?? </div> */}
 
           {/* 내용 suggestion */}
-          {contentSuggestion("What did you do at Boramae Park?")}
-          {contentSuggestion("You rode a bike with Maengoo!")}
-
+          <div>
+            {contentSuggestion("What did you do at Boramae Park?")}
+            {contentSuggestion("You rode a bike with Maengoo!")}
+          </div>
+          
           <TextField
             onChange={handleDescChange}
             id="desc"
@@ -287,7 +290,6 @@ export default function JournalForm({
             variant="outlined"
             multiline
             defaultValue={journal.desc}
-            className={classes.textField}
             multiline={true}
             rows={5}
           />
