@@ -1,20 +1,19 @@
-import { getDivs, getMetaphors } from "./JournalItem";
+import { getDivs, GetMetaphors } from "./JournalItem";
 
-
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import { CardActions } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import { Link } from 'react-router-dom';
-import PictureList from './PictureList';
-import React from 'react';
-import StaticMap from '../home/StaticMap'
-import dayjs from 'dayjs'
-import { getFriends } from './JournalItem';
-import { makeStyles } from '@material-ui/core/styles';
-import {nullToList} from '../../util/format'
-import {getIconComponent} from '../../util/icon'
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import { CardActions } from "@material-ui/core";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import { Link } from "react-router-dom";
+import PictureList from "./PictureList";
+import React from "react";
+import StaticMap from "../home/StaticMap";
+import dayjs from "dayjs";
+import { getFriends } from "./JournalItem";
+import { makeStyles } from "@material-ui/core/styles";
+import { nullToList } from "../../util/format";
+import { getIconComponent } from "../../util/icon";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,11 +50,9 @@ export default function JournalDetail({ journal, friends }) {
 
   if (!journal) return null;
 
+  const emojis = nullToList(journal.emojis).map(getIconComponent);
 
-  const emojis = nullToList(journal.emojis).map(getIconComponent)
-
-
-  console.log(journal.friends)
+  console.log(journal.friends);
 
   return (
     <Card style={modalStyle} className={classes.paper}>
@@ -66,14 +63,14 @@ export default function JournalDetail({ journal, friends }) {
       <CardContent>{getDivs(journal.hashtags)}</CardContent>
 
       <CardContent>{emojis}</CardContent>
-      
+
       <CardContent>
         <PictureList pictures={journal.photos} isEditing={false} />
       </CardContent>
       <CardContent>{journal.distance} km</CardContent>
       <CardContent>{getTime(journal.startTime, journal.endTime)}</CardContent>
       <CardContent>{journal.weather} </CardContent>
-      <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
+      <CardContent>{GetMetaphors(journal.metaphor)} </CardContent>
       <CardContent>
         <StaticMap
           route={journal.route}

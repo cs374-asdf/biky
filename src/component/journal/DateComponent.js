@@ -9,9 +9,6 @@ export default function DateComponent({ startTime, endTime }) {
   return (
     <div>
       <Typography variant="h6">{formatted}</Typography>
-      <Typography variant="body2">
-        {start} 부터 {end} 까지
-      </Typography>
     </div>
   );
 }

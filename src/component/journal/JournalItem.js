@@ -15,6 +15,9 @@ import Divider from "@material-ui/core/Divider";
 import { PinDropSharp } from "@material-ui/icons";
 import mapboxgl from "mapbox-gl";
 import React, { useRef } from "react";
+import polyline from "@mapbox/polyline";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -35,6 +38,7 @@ export function getHashtags(hashtags) {
       style={{
         display: "flex",
         flexWrap: "wrap",
+        fontSize: "small",
       }}
     >
       {temp}
@@ -48,73 +52,77 @@ export function getFriends(friends) {
     <FriendSimpleView key={friend.id} friend={friend} />
   ));
   return (
-    <div
-      style={{
-        display: "flex",
-        float: "right",
-      }}
-    >
+    <Box display="flex" flexDirection="row" flexWrap="nowrap">
       {temp}
-    </div>
+    </Box>
   );
 }
+const useStyles = makeStyles((theme) => ({
+  tree: {
+    background: "linear-gradient(45deg, #73A15D, #94C25A)",
+    height: "40px",
+    width: "100%",
+    borderRadius: "15px",
+  },
+  taxi: {
+    background: "linear-gradient(45deg, #A0BFE3, #F0A2B0)",
+    height: "40px",
+    width: "100%",
+    borderRadius: "15px",
+  },
+  burger: {
+    background: "linear-gradient(45deg, #EED28B, #DB7E61)",
+    height: "40px",
+    width: "100%",
+    borderRadius: "15px",
+  },
+}));
 
-export function getMetaphors(metaphor) {
+export function GetMetaphors(metaphor) {
+  const classes = useStyles();
   if (!metaphor) return <div> empty metaphor </div>;
   var randomIndex = Math.floor(Math.random() * 3);
-  if (randomIndex === 0) {
-    return (
-      <Card
+  var sent = "";
+  var path = "";
+  var cn = "";
+  switch (randomIndex) {
+    case 0: {
+      console.log("tree");
+      sent = metaphor.tree + " trees";
+      path = "/images/tree.png";
+      cn = classes.tree;
+      break;
+    }
+
+    case 1: {
+      console.log("taxi");
+      sent = metaphor.taxi + " won";
+      path = "/images/taxi.png";
+      cn = classes.taxi;
+      break;
+    }
+
+    case 2: {
+      console.log("burger");
+      sent = metaphor.hamburger + " burgers";
+      path = "/images/hamburger.png";
+      cn = classes.burger;
+      break;
+    }
+  }
+  return (
+    <Card className={cn}>
+      <div
         style={{
-          background: "linear-gradient(45deg, #73A15D, #94C25A)",
-          height: "70px",
-          borderRadius: "15px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/images/tree.png"}
-            style={{
-              position: "absolute",
-              top: "17px",
-              left: "15px",
-              height: "35px",
-            }}
-          />
-          <Typography
-            variant="body1"
-            style={{
-              fontSize: "1.2em",
-              color: "white",
-              position: "relative",
-              top: "20px",
-              left: "70px",
-            }}
-          >
-            {metaphor.tree} trees
-          </Typography>
-        </div>
-      </Card>
-    );
-  } else if (randomIndex === 1) {
-    return (
-      <Card
-        style={{
-          background: "linear-gradient(45deg, #A0BFE3, #F0A2B0)",
-          height: "70px",
-          borderRadius: "15px",
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <img
-          src={process.env.PUBLIC_URL + "/images/taxi.png"}
+          src={process.env.PUBLIC_URL + path}
           style={{
-            position: "absolute",
-            top: "17px",
+            position: "relative",
+            top: "2px",
             left: "15px",
             height: "35px",
           }}
@@ -122,58 +130,18 @@ export function getMetaphors(metaphor) {
         <Typography
           variant="body1"
           style={{
-            fontSize: "1.1em",
+            fontSize: "1.2em",
             color: "white",
-            position: "absolute",
-            top: "22px",
-            left: "61px",
+            position: "relative",
+            top: "2px",
+            left: "50px",
           }}
         >
-          {metaphor.taxi} won
+          {sent}
         </Typography>
-      </Card>
-    );
-  } else {
-    return (
-      <Card
-        style={{
-          background: "linear-gradient(45deg, #EED28B, #DB7E61)",
-          height: "70px",
-          borderRadius: "15px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-          }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/images/hamburger.png"}
-            style={{
-              position: "absolute",
-              top: "17px",
-              left: "15px",
-              height: "35px",
-            }}
-          />
-          <Typography
-            variant="body1"
-            style={{
-              fontSize: "1.15em",
-              color: "white",
-              position: "relative",
-              top: "21px",
-              left: "65px",
-            }}
-          >
-            {metaphor.burger} burgers
-          </Typography>
-        </div>
-      </Card>
-    );
-  }
+      </div>
+    </Card>
+  );
 }
 
 function emojiItem(emoji) {
@@ -196,6 +164,28 @@ function emojiItem(emoji) {
   );
 }
 
+function generateurl(route) {
+  var url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/";
+  var urlb =
+    ")/auto/100x100?access_token=pk.eyJ1IjoiYmFieWNyb2MiLCJhIjoiY2tvaW5rMWlpMDE3czJ3cWYyMXZkZmxidiJ9.8m_FmwtsgjCBUq2Jq9wVcg";
+  var corRoute = [];
+  route.map((el) => corRoute.push([el[1], el[0]]));
+  const out = encodeURIComponent(polyline.encode(corRoute));
+  url +=
+    "pin-s+0000ff(" +
+    corRoute[0][1] +
+    "," +
+    corRoute[0][0] +
+    "),pin-s+ff0000(" +
+    corRoute[corRoute.length - 1][1] +
+    "," +
+    corRoute[corRoute.length - 1][0] +
+    "),path(";
+  url = url.concat(out, urlb);
+  // console.log(url);
+  return url;
+}
+
 export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal) return null;
   const emojis = nullToList(journal.emojis).map(getIconComponent);
@@ -210,7 +200,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
       display="flex"
       id={journal.id + "main"}
     >
-      <Box flex={1} minHeight="60px" display="flex" flexDirection="row">
+      <Box flex={1} minHeight="40px" display="flex" flexDirection="row">
         <Box flex={4}>
           <DateComponent
             startTime={journal.startTime}
@@ -221,35 +211,55 @@ export default function JournalItem({ journal, openJournal, friends }) {
           {emojis.map((emoji) => emojiItem(emoji))}
         </Box>
       </Box>
-      <Box flex={1} minHeight="60px" display="flex" flexDirection="row">
-        <Box flex={4} style={{ maxWidth: "calc(100%-60px)" }}>
-          <Typography variant="h3" display="inline">
-            {journal.title}
-          </Typography>
-        </Box>
-
+      <Box flex={1} display="flex" flexDirection="row">
         <Box
-          flex={1}
-          display="flex"
-          flexDirection="row-reverse"
-          minWidth="60px"
+          component="div"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          style={{
+            wordWrap: "breakWord",
+            whiteSpace: "nowrap",
+            fontSize: "x-large",
+          }}
         >
-          {getHashtags(journal.hashtags)}
+          {journal.title}
         </Box>
       </Box>
-      <Box flex={4} display="flex" flexDirection="row">
-        <Box flex={1} display="flex" flexDirection="column">
-          <Box flex={4}>{journal.desc}</Box>
-          <Box flex={1}>{getMetaphors(journal.metaphors)}</Box>
+      <Box flex={1} display="flex" flexDirection="row-reverse">
+        {getHashtags(journal.hashtags)}
+      </Box>
+      <Divider />
+      <Box flex={4} display="flex" flexDirection="row" height="110px" p={1}>
+        <Box
+          my={2}
+          component="div"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          mr={2}
+          flex={4}
+          style={{ wordWrap: "breakWord", whiteSpace: "nowrap" }}
+        >
+          {journal.desc}
+          {/* <Box mt={1}>{getFriends(friends)}</Box> */}
+          <Box mt={1}>{GetMetaphors(journal.metaphor)}</Box>
         </Box>
+
         <Box flex={1}>
-          <img
-            alt="static Mapbox map of the San Francisco bay area"
-            src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/path(wdzcFm_seWRENCPCF%3FfC%5DJkHkCAAkFKwDnC%7D%40)/auto/100x100?access_token=pk.eyJ1IjoiYmFieWNyb2MiLCJhIjoiY2tvaW5rMWlpMDE3czJ3cWYyMXZkZmxidiJ9.8m_FmwtsgjCBUq2Jq9wVcg"
-          />
+          <Grid container justify="center">
+            <img
+              alt="static Mapbox map"
+              src={generateurl(journal.route)}
+              style={{
+                textAlign: "center",
+              }}
+            />
+          </Grid>
         </Box>
       </Box>
       <Divider />
+      <Box flex={1} mt={1}>
+        {getFriends(friends)}
+      </Box>
     </Card>
   );
 }

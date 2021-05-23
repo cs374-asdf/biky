@@ -20,7 +20,7 @@ export default function FriendSimpleView({ friend, disabled }) {
       alignItems="center"
       justifyContent="flex-start"
       flexDirection="row"
-      width="100%"
+      width="120px"
       borderRadius="borderRadius"
       className={disabled ? classes.disabled : classes.abled}
       style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}
