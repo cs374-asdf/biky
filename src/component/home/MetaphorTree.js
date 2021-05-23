@@ -6,7 +6,7 @@ const tree = '/images/home/metaphor_tree.png'
 const useStyles = makeStyles(theme => ({
     background: {
         position: "relative",
-        backgroundColor: "green",
+        background: "linear-gradient(45deg, #73A15D, #94C25A)",
         borderRadius: "10px",
         padding: "10px"
     },
@@ -36,7 +36,7 @@ export default function MetaphorTree(props) {
 
     return (
         <div className={classes.background}>
-            <img src={process.env.PUBLIC_URL +tree} alt="" className={classes.img} />
+            <img src={process.env.PUBLIC_URL + tree} alt="" className={classes.img} />
             <div className={classes.text}>You planted {amount*1.5} trees!</div>
         </div>
     )

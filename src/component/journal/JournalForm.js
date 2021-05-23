@@ -112,6 +112,15 @@ function showWeather(weather) {
   )
 }
 
+function weatherIcon(weather) {
+  if(weather === "sunny") return "(sunny icon)"
+  //☀️;
+  if(weather === "cloudy") return "(cloudy icon)"
+  //☁️;
+  if(weather === "rainy") return "(rainy icon)"
+  //🌧;
+}
+
 function contentSuggestion(text) {
   const length = text.length;
   return (
@@ -223,13 +232,15 @@ export default function JournalForm({
             className={classes.textField}
           />
 
-          <div style={{ textAlign: "right" }}>
-            <Typography>{journal.date}</Typography>
-            <Typography>{journal.weather}</Typography>
-            {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
-          </div>
+          
 
           <div>
+            <div style={{ position: "absolute", right: "10px" }}>
+              <Typography>{weatherIcon(journal.weather)} {journal.date}</Typography>
+              {/* <Typography>{journal.weather}</Typography> */}
+              {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
+            </div>
+
             <Typography style={{ marginBottom: "10px" }}>Records</Typography>
             <StaticMap route={journal.route} />
 

@@ -21,9 +21,10 @@ const useStyles = makeStyles(theme => ({
       borderRadius: "10px",
       color: "white",
       textAlign: "center",
-      fontSize: "11px",
+      fontSize: "10px",
       fontWeight: "bold",
       border: "solid 2px white",
+      paddingTop: "2px"
     },
 }));
 

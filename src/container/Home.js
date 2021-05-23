@@ -50,7 +50,8 @@ const useStyles = makeStyles({
   weatherContainer: {
     position: "relative",
     width: "100%",
-    height: "25%",
+    // height: "25%",
+    height: "135px"
     // border: "solid 1px black",
   },
   measuresContainer: {
@@ -80,7 +81,8 @@ const useStyles = makeStyles({
   buttonContainer: {
     position: "relative",
     width: "100%",
-    height: "15%",
+    height: "calc(40% - 135px)",
+    minHeight: "50px",
     // border: "solid 1px black",
   },
   button: {

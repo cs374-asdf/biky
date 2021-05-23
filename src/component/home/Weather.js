@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+const sunny = '/images/home/weather_cloudy.png'
 const cloudy = '/images/home/weather_cloudy.png'
+const rainy = '/images/home/weather_cloudy.png'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -22,8 +24,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "darkgray",
     borderRadius: "10px",
     padding: "10px",
-    color: "white",
-    fontWeight: "bold"
+    color: "black",
+    fontWeight: "bold",
+    fontSize: "15px",
     // border: "solid 1px black"
   },
   status: {
@@ -50,7 +53,7 @@ export default function Weather(props) {
 
   const currentWeather = props.weather;
 
-  var style = (currentWeather === 1 ? { backgroundColor: "yellow", color: "black" } : currentWeather === 2 ? { backgroundColor: "lightblue" } : { backgroundColor: "darkblue" });
+  var style = (currentWeather === 1 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + sunny})` } : currentWeather === 2 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + cloudy})` } : { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + rainy})` });
   var weather = (currentWeather === 1 ? "sunny" : currentWeather === 2 ? "cloudy" : "rainy");
   var [temperature, setTemperature] = useState(currentWeather === 1 ? randomInt(20, 30) : currentWeather === 2 ? randomInt(15, 25) : randomInt(10, 20));
 

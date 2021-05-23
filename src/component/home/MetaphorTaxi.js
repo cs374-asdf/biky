@@ -6,7 +6,7 @@ const taxi = '/images/home/metaphor_taxi.png'
 const useStyles = makeStyles(theme => ({
     background: {
         position: "relative",
-        backgroundColor: "pink",
+        background: "linear-gradient(45deg, #A0BFE3, #F0A2B0)",
         borderRadius: "10px",
         padding: "10px"
     },
