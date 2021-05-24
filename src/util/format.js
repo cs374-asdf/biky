@@ -17,5 +17,5 @@ export function formatTime(time) {
 }
 
 export function formatDistance(distance) {
-  return `${distance} km`;
+  return `${distance.toFixed(2)} km`;
 }

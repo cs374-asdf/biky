@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import StaticMap from "../home/StaticMap";
+import CancelIcon from "@material-ui/icons/Cancel";
+import Box from "@material-ui/core/Box";
 import { getIconComponent, hashtagsDB } from "../../util/icon";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   hashtagGroup: {
     display: "flex",
     flexDirection: "row",
-    flexWrap: 'wrap'
+    flexWrap: "wrap",
   },
 
   picture: {},
@@ -71,13 +73,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   textField: {
-    marginTop: "10px"
+    marginTop: "10px",
+    flexGrow: 1,
   },
   addButton: {
     border: "solid 1px lightgray",
     marginLeft: "10px",
     display: "inline-block",
-    marginBottom: "10px"
+    marginBottom: "10px",
   },
   submitButton: {
     width: "100%",
@@ -88,66 +91,80 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#4BA9FF",
     borderRadius: "10px",
     padding: "10px",
-    marginTop: "10px"
-}
+    marginTop: "10px",
+  },
 }));
+
 
 function showWeather(weather) {
   return (
-    <div style={{
-      display: "inline-block",
-      width: "calc(100% - 30px)",
-      backgroundColor: "lightblue",
-      borderRadius: "5px",
-      padding: "10px",
-      height: "100px",
-      verticalAlign: "top",
-      marginRight: "10px"
-    }}>
+    <div
+      style={{
+        display: "inline-block",
+        width: "calc(100% - 30px)",
+        backgroundColor: "lightblue",
+        borderRadius: "5px",
+        padding: "10px",
+        height: "100px",
+        verticalAlign: "top",
+        marginRight: "10px",
+      }}
+    >
       {weather}
     </div>
-  )
+  );
 }
 
 function weatherIcon(weather) {
   return (
-    <div style={{ display: "inline-block", verticalAlign: "top" }}>{getIconComponent(weather)}</div>
-  )
+    <div style={{ display: "inline-block", verticalAlign: "top" }}>
+      {getIconComponent(weather)}
+    </div>
+  );
 }
 
 function contentSuggestion(text) {
   const length = text.length;
   return (
-    <div style={{
-      width: "calc(100% - 20px)",
-      // border: "solid 1px lightgray",
-      borderRadius: "5px",
-      padding: "5px 10px",
-      boxShadow: "0px 1.43351px 2.86702px rgba(0, 0, 0, 0.25)",
-      marginBottom: "10px",
-    }}>
-      <div style={{ 
-        display: "inline-block", 
-        backgroundColor: "pink", 
-        color: "white",
-        width: "15px",
-        height: "15px",
-        textAlign: "center",
-        padding: "3px",
-        fontWeight: "bold",
-        fontSize: "14px",
-        borderRadius: "20px",
-        marginRight: "10px",
-        // verticalAlign: "top",
-        
-      }}>{text[length-1]}</div>
-      <div style={{ 
-        display: "inline-block",
-        width: "calc(100% - 31px)",
+    <div
+      style={{
+        width: "calc(100% - 20px)",
         // border: "solid 1px lightgray",
-      }}>{text}</div>
+        borderRadius: "5px",
+        padding: "5px 10px",
+        boxShadow: "0px 1.43351px 2.86702px rgba(0, 0, 0, 0.25)",
+        marginBottom: "10px",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-block",
+          backgroundColor: "pink",
+          color: "white",
+          width: "15px",
+          height: "15px",
+          textAlign: "center",
+          padding: "3px",
+          fontWeight: "bold",
+          fontSize: "14px",
+          borderRadius: "20px",
+          marginRight: "10px",
+          // verticalAlign: "top",
+        }}
+      >
+        {text[length - 1]}
+      </div>
+      <div
+        style={{
+          display: "inline-block",
+          width: "calc(100% - 31px)",
+          // border: "solid 1px lightgray",
+        }}
+      >
+        {text}
+      </div>
     </div>
-  )
+  );
 }
 
 const formatTime = (time) => {
@@ -179,7 +196,7 @@ export default function JournalForm({
   openPictureSelector,
 }) {
   const classes = useStyles();
-  console.log(journal)
+  console.log(journal);
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
@@ -201,8 +218,7 @@ export default function JournalForm({
   };
 
   const addHashtag = (hashtag) => {
-    if (!hashtags.includes(hashtag))
-      setHashtags([...hashtags, hashtag]);
+    if (!hashtags.includes(hashtag)) setHashtags([...hashtags, hashtag]);
   };
 
   const removeHashtag = (hashtag) => {
@@ -217,20 +233,32 @@ export default function JournalForm({
 
       <div className={classes.content}>
         <div className={classes.root} noValidate autoComplete="off">
-          <TextField
-            onChange={handleTitleChange}
-            id="title"
-            label="Title"
-            variant="outlined"
-            defaultValue={journal.title}
-            className={classes.textField}
-          />
-
-          
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                setTitle("");
+              }}
+              className={classes.title}
+            >
+              <CancelIcon />
+            </IconButton>
+            <TextField
+              onChange={handleTitleChange}
+              id="title"
+              label="Title"
+              variant="outlined"
+              value={title}
+              defaultValue={journal.title}
+              className={classes.textField}
+            />
+          </Box>
 
           <div>
             <div style={{ position: "absolute", right: "10px" }}>
-              <Typography>{weatherIcon(journal.weather)} {journal.date}</Typography>
+              <Typography>
+                {weatherIcon(journal.weather)} {journal.date}
+              </Typography>
               {/* <Typography>{journal.weather}</Typography> */}
               {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
             </div>
@@ -251,33 +279,42 @@ export default function JournalForm({
 
             <div style={{ margin: "10px 0" }}>
               <div style={{ display: "inline-block", width: "50%" }}>
-                <Typography style={{ marginBottom: "10px" }}>Distance: {formatDistance(journal.distance)}</Typography>
+                <Typography style={{ marginBottom: "10px" }}>
+                  Distance: {formatDistance(journal.distance)}
+                </Typography>
               </div>
               <div style={{ display: "inline-block", width: "50%" }}>
-                <Typography style={{ marginBottom: "10px" }}>Time: {formatTime(journal.time)}</Typography>
-              </div>
-            </div>
-            
-            <div>
-              <Typography style={{ marginBottom: "10px", display: "inline-block" }}>Friends</Typography>
-              <Button onClick={openFriendAddPage} className={classes.addButton}>Add +</Button>
-              <div>
-                {/* <List dense> */}
-                  {friends.map((friend) => (
-                    <FriendItem
-                      key={friend.id}
-                      friend={friend}
-                      removeFriend={removeFriend}
-                      style={{ display: "inline-block" }}
-                    />
-                  ))}
-                  {/* <ListItem> */}
-                    {/* <Button onClick={openFriendAddPage} style={{ height: "50px", marginTop: "-15px" }}>+</Button> */}
-                  {/* </ListItem> */}
-                {/* </List> */}
+                <Typography style={{ marginBottom: "10px" }}>
+                  Time: {formatTime(journal.time)}
+                </Typography>
               </div>
             </div>
 
+            <div>
+              <Typography
+                style={{ marginBottom: "10px", display: "inline-block" }}
+              >
+                Friends
+              </Typography>
+              <Button onClick={openFriendAddPage} className={classes.addButton}>
+                Add +
+              </Button>
+              <div>
+                {/* <List dense> */}
+                {friends.map((friend) => (
+                  <FriendItem
+                    key={friend.id}
+                    friend={friend}
+                    removeFriend={removeFriend}
+                    style={{ display: "inline-block" }}
+                  />
+                ))}
+                {/* <ListItem> */}
+                {/* <Button onClick={openFriendAddPage} style={{ height: "50px", marginTop: "-15px" }}>+</Button> */}
+                {/* </ListItem> */}
+                {/* </List> */}
+              </div>
+            </div>
           </div>
 
           {/* <div> 오늘 본 고양이는 누구였나요?? </div> */}
@@ -287,7 +324,7 @@ export default function JournalForm({
             {contentSuggestion("What did you do at Boramae Park?")}
             {contentSuggestion("You rode a bike with Maengoo!")}
           </div>
-          
+
           <TextField
             onChange={handleDescChange}
             id="desc"
@@ -300,8 +337,14 @@ export default function JournalForm({
           />
 
           <div>
-            <Typography style={{ marginBottom: "10px", display: "inline-block" }}>Pictures</Typography>
-            <Button onClick={openPictureSelector} className={classes.addButton}>Add +</Button>
+            <Typography
+              style={{ marginBottom: "10px", display: "inline-block" }}
+            >
+              Pictures
+            </Typography>
+            <Button onClick={openPictureSelector} className={classes.addButton}>
+              Add +
+            </Button>
 
             <PictureList
               pictures={pictures}
@@ -322,10 +365,20 @@ export default function JournalForm({
                 </IconButton>
               </div>
             ))}
-            <HashtagSelector handleSubmit={addHashtag} hashtags={hashtagsDB.filter(hashtag => !hashtags.includes(hashtag))}/>  
+            <HashtagSelector
+              handleSubmit={addHashtag}
+              hashtags={hashtagsDB.filter(
+                (hashtag) => !hashtags.includes(hashtag)
+              )}
+            />
           </div>
 
-          <Button onClick={handleSubmit} component={Link} className={classes.submitButton} to="/biky/journal">
+          <Button
+            onClick={handleSubmit}
+            component={Link}
+            className={classes.submitButton}
+            to="/biky/journal"
+          >
             Save
           </Button>
         </div>
