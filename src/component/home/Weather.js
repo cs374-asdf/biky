@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+const sunny = '/images/home/weather_sunny.png'
 const cloudy = '/images/home/weather_cloudy.png'
+const rainy = '/images/home/weather_rainy.png'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -22,8 +24,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "darkgray",
     borderRadius: "10px",
     padding: "10px",
-    color: "white",
-    fontWeight: "bold"
+    color: "black",
+    fontWeight: "bold",
+    fontSize: "15px",
     // border: "solid 1px black"
   },
   status: {
@@ -41,14 +44,16 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export default function Weather() {
+export default function Weather(props) {
   const classes = useStyles();
-  const weatherTypes = ["sunny", "cloudy", "rainy"];
+  // const weatherTypes = ["sunny", "cloudy", "rainy"];
   // var [currentWeather, setCurrentWeather] = useState(weatherTypes[0]);
-  var [currentWeather, setCurrentWeather] = useState(randomInt(1, weatherTypes.length));
-  console.log(`currentWeather: ${currentWeather}`)
+  // var [currentWeather, setCurrentWeather] = useState(randomInt(1, weatherTypes.length));
+  // console.log(`currentWeather: ${currentWeather}`)
 
-  var style = (currentWeather === 1 ? { backgroundColor: "yellow", color: "black" } : currentWeather === 2 ? { backgroundColor: "lightblue" } : { backgroundColor: "darkblue" });
+  const currentWeather = props.weather;
+
+  var style = (currentWeather === 1 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + sunny})` } : currentWeather === 2 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + cloudy})` } : { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + rainy})` });
   var weather = (currentWeather === 1 ? "sunny" : currentWeather === 2 ? "cloudy" : "rainy");
   var [temperature, setTemperature] = useState(currentWeather === 1 ? randomInt(20, 30) : currentWeather === 2 ? randomInt(15, 25) : randomInt(10, 20));
 

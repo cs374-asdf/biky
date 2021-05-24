@@ -97,6 +97,13 @@ export function getIcon(key)
     case "아파요":
       return faceWithThermometer
 
+    case "sunny":
+      return sunIcon
+    case "cloudy":
+      return cloudIcon
+    case "rainy":
+      return cloudWithRain
+
     default:
     return catIcon
   }

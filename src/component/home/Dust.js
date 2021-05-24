@@ -25,16 +25,23 @@ const useStyles = makeStyles(theme => ({
       padding: "10px",
       color: "white",
       fontWeight: "bold",
+      fontSize: "12px",
       // border: "solid 1px black"
     },
+    text: {
+      position: "relative",
+      display: "inline-block",
+      margin: "2px"
+    },
     status: {
+      position: "absolute",
+      right: "10px",
       display: "inline-block",
       color: "darkgray",
-      fontSize: "11px",
+      fontSize: "10px",
       backgroundColor: "white",
       padding: "3px 10px", 
       borderRadius: "10px",
-      float: "right",
     }
 }));
 
@@ -54,13 +61,13 @@ export default function Dust() {
       {/* <img src={dust} width="100%" alt="fine dust" /> */}
       <div className={classes.background}>
         <div>
-          fine dust
+          <div className={classes.text}>fine dust</div>
           <div className={classes.status}>{fineDustStatus}</div>
           <DustBar amount={fineDustAmount} percentage={fineDustAmount/200} />
         </div>
         <br/>
         <div>
-          ultra-fine dust
+          <div className={classes.text}>ultra-fine dust</div>
           <div className={classes.status}>{ultraFineDustStatus}</div>
           <DustBar amount={ultraFineDustAmount} percentage={ultraFineDustAmount/100}  />
         </div>

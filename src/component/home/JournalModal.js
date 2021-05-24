@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: "0",
     },
     button: {
-        width: "calc(100% - 20px)",
+        width: "100%",
         textAlign: "center",
         // border: "solid 1px black",
         color: "white",
@@ -80,15 +80,15 @@ export default function JournalModal(props) {
 
                     <div id="modal-description">
                         <div className={classes.half}>
-                            <div className={classes.label}>시간</div> {time}
+                            <div className={classes.label}>Time</div> {time}
                         </div>
                         <div className={classes.half}>
-                            <div className={classes.label}>거리</div> {distance}
+                            <div className={classes.label}>Distance</div> {distance}
                         </div>
                         <br />
 
                         <div>
-                            <div className={classes.label}>이동경로</div>
+                            <div className={classes.label}>Route</div>
                             <StaticMap route={route} zoom={15} width={"100%"} height={"300px"} />
                         </div>
 

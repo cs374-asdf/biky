@@ -50,7 +50,8 @@ const useStyles = makeStyles({
   weatherContainer: {
     position: "relative",
     width: "100%",
-    height: "25%",
+    // height: "25%",
+    height: "135px"
     // border: "solid 1px black",
   },
   measuresContainer: {
@@ -80,7 +81,8 @@ const useStyles = makeStyles({
   buttonContainer: {
     position: "relative",
     width: "100%",
-    height: "15%",
+    height: "calc(40% - 135px)",
+    minHeight: "50px",
     // border: "solid 1px black",
   },
   button: {
@@ -104,6 +106,10 @@ const useStyles = makeStyles({
   stopButton: {},
 });
 
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 export default function Home({ journalRef }) {
   const classes = useStyles();
   var [isRiding, setIsRiding] = useState(false);
@@ -111,6 +117,10 @@ export default function Home({ journalRef }) {
   var [distance, setDistance] = useState(0);
   var [time, setTime] = useState(0);
   var [route, setRoute] = useState([]);
+
+  const weatherTypes = ["sunny", "cloudy", "rainy"];
+  var [weather, setWeather] = useState(randomInt(1, weatherTypes.length));
+
   const increment = useRef(null);
 
   const [hashtags, setHashtags] = useState(["happy"]);
@@ -125,16 +135,19 @@ export default function Home({ journalRef }) {
       route,
       hashtags,
       distance,
+      time,
+      date: endTime.format("YYYY. MM. DD"),
+      weather: weatherTypes[weather - 1],
       startTime: startTime.toString(),
       endTime: endTime.toString(),
-      title: "제목 없음",
-      desc: "내용 없음",
+      title: "Today's Bike Ride",
+      desc: `I rode ${distance} km at Boramae Park!`,
       photos: ["/images/photo1.jpg"],
       emojis: ["happy", "exited"],
       metaphors: {
-        tree: 1,
-        taxi: 1,
-        burger: 1,
+        tree: distance*1.5,
+        taxi: distance*3000,
+        burger: distance*2,
       },
     };
 
@@ -211,7 +224,7 @@ export default function Home({ journalRef }) {
 
       <div className={classes.content}>
         <div className={classes.weatherContainer}>
-          <Weather />
+          <Weather weather={weather}/>
           <Dust />
         </div>
 

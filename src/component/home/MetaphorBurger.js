@@ -6,7 +6,7 @@ const burger = '/images/home/metaphor_burger.png'
 const useStyles = makeStyles(theme => ({
     background: {
         position: "relative",
-        backgroundColor: "orange",
+        background: "linear-gradient(45deg, #EED28B, #DB7E61)",
         borderRadius: "10px",
         padding: "10px"
     },
