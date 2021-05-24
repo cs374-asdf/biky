@@ -5,7 +5,6 @@ import JournalList from "../../component/journal/JournalList";
 import Modal from "@material-ui/core/Modal";
 import React from "react";
 import SearchBar from "../../component/common/SearchBar";
-import initJournals from "../../data/journal";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../component/Avatar";
 
@@ -33,6 +32,13 @@ const useStyles = makeStyles({
   avatar: {
     position: "relative",
     height: "50px",
+    // border: "solid 1px black",
+    borderBottom: "solid 1px black",
+  },
+  content: {
+    position: "relative",
+    height: "calc(100vh - 160px)",
+    overflow: "scroll",
     // border: "solid 1px black",
   },
 });
@@ -100,17 +106,13 @@ export default function JournalMain({ journalRef, friendRef }) {
         </div>
       </div>
 
-      <div
-        style={{
-          height: "calc(100% - 160px)",
-        }}
-      >
+      <div className={classes.content}>
         <div
           style={{
             display: "flex",
             justifyContent: "flex-end",
             padding: "20px",
-            border: "1px black solid",
+            borderBottom: "solid 1px black",
           }}
         >
           <SearchBar />
@@ -124,11 +126,7 @@ export default function JournalMain({ journalRef, friendRef }) {
           </Button>
         </div>
 
-        <div
-          style={{
-            border: "1px black solid",
-          }}
-        >
+        <div>
           <JournalList
             journals={journals}
             openJournal={handleOpen}

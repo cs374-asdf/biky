@@ -1,23 +1,15 @@
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import FriendSimpleView from "./FriendSimpleView";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import { nullToList } from "../../util/format";
 import { getIconComponent } from "../../util/icon";
 import DateComponent from "./DateComponent";
-import StaticMap from "../home/StaticMap";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import { PinDropSharp } from "@material-ui/icons";
-import mapboxgl from "mapbox-gl";
-import React, { useRef } from "react";
+import React from "react";
 import polyline from "@mapbox/polyline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -30,29 +22,29 @@ export function getDivs(items) {
 }
 
 export function getHashtags(hashtags) {
-  var temp = hashtags.map((hashtag) => (
-    <div key={hashtag}>#{`${hashtag}`}</div>
-  ));
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        fontSize: "small",
-      }}
-    >
-      {temp}
-    </div>
-  );
+  if (!hashtags) return "no hashtags yet";
+  var temp = "";
+  hashtags.map((hashtag) => (temp += "#" + hashtag + " "));
+  return temp;
 }
 
 export function getFriends(friends) {
   if (!friends) return <div> no friends... </div>;
   var temp = friends.map((friend) => (
-    <FriendSimpleView key={friend.id} friend={friend} />
+    <Box mr={1}>
+      <Avatar
+        alt={friend.name}
+        src={process.env.PUBLIC_URL + friend.picture}
+        style={{
+          border: "1.5px solid lightgray",
+          width: "30px",
+          height: "30px",
+        }}
+      />
+    </Box>
   ));
   return (
-    <Box display="flex" flexDirection="row" flexWrap="nowrap">
+    <Box display="flex" flexDirection="row" flexWrap="wrap">
       {temp}
     </Box>
   );
@@ -130,11 +122,11 @@ export function GetMetaphors(metaphor) {
         <Typography
           variant="body1"
           style={{
-            fontSize: "1.2em",
+            fontSize: "1em",
             color: "white",
             position: "relative",
             top: "2px",
-            left: "50px",
+            left: "25px",
           }}
         >
           {sent}
@@ -225,8 +217,19 @@ export default function JournalItem({ journal, openJournal, friends }) {
           {journal.title}
         </Box>
       </Box>
-      <Box flex={1} display="flex" flexDirection="row-reverse">
-        {getHashtags(journal.hashtags)}
+      <Box flex={1} mt={1} display="flex" flexDirection="row-reverse">
+        <Box
+          component="div"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          style={{
+            wordWrap: "breakWord",
+            whiteSpace: "nowrap",
+            fontSize: "x-small",
+          }}
+        >
+          {getHashtags(journal.hashtags)}
+        </Box>
       </Box>
       <Divider />
       <Box flex={4} display="flex" flexDirection="row" height="110px" p={1}>
@@ -241,7 +244,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
         >
           {journal.desc}
           {/* <Box mt={1}>{getFriends(friends)}</Box> */}
-          <Box mt={1}>{GetMetaphors(journal.metaphor)}</Box>
+          <Box mt={2}>{GetMetaphors(journal.metaphor)}</Box>
         </Box>
 
         <Box flex={1}>
@@ -257,7 +260,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
         </Box>
       </Box>
       <Divider />
-      <Box flex={1} mt={1}>
+      <Box flex={1} mt={1} ml={1}>
         {getFriends(friends)}
       </Box>
     </Card>
