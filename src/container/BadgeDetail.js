@@ -9,10 +9,10 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
-const logo = '/images/logo.png'
-const badge1 = '/images/badge1.png'
-const badge2 = '/images/badge2.png'
-const badge3 = '/images/badge3.png'
+const badge0 = '/images/sick.jpg'
+const badge1 = '/images/cat.png'
+const badge2 = '/images/fry.png'
+const badge3 = '/images/squirrel.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,12 +25,16 @@ const useStyles = makeStyles((theme) => ({
   badgeBox: {
     width: '100%',
     height: '100%',
+    maxHeight: '50px',
+    maxWidth: '50px',
+    overflow: 'hidden',
   },
   badge: {
     margin: 'auto',
     display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
   },
   eachBadge: {
     margin: theme.spacing(2, 0),
@@ -79,27 +83,30 @@ const useStyles = makeStyles((theme) => ({
 const badges = [
   {
     oid: 0,
-    thumbnail: logo,
-    title: '배지 이름0',
-    description: '배지 설명0',
+    thumbnail: badge0,
+    title: 'Ride a Bike Too Much',
+    description:
+      'You rode a bike too much and even did lots of assignments. You should take care of your body.',
   },
   {
     oid: 1,
     thumbnail: badge1,
-    title: '배지 이름1',
-    description: '배지 설명1',
+    title: 'Meet lots of cute cats',
+    description: 'You met lots of cute cats. Cats are perfect.',
   },
   {
     oid: 2,
     thumbnail: badge2,
-    title: '배지 이름2',
-    description: '배지 설명2',
+    title: 'Become fried egg',
+    description:
+      'You rode a bike in sunny day very often. You may become fried egg.',
   },
   {
     oid: 3,
     thumbnail: badge3,
-    title: '배지 이름3',
-    description: '배지 설명3',
+    title: 'Wow a squirrel',
+    description:
+      'You met a squirrel while riding a bike. It is very unique experience',
   },
 ]
 
@@ -121,46 +128,42 @@ export default function BadgeDetail() {
   }
 
   const eachBadge = badges.map((badge, idx) => (
-    <Paper
+    <ButtonBase
+      className={classes.buttonBase}
+      style={
+        idx === val.representativeBadge ? { backgroundColor: 'lightgray' } : {}
+      }
       onClick={() => {
         handleClick(badge.oid)
         console.log(val)
       }}
+      key={idx}
     >
-      <ButtonBase
-        className={classes.buttonBase}
-        style={
-          idx === val.representativeBadge
-            ? { backgroundColor: 'lightgray' }
-            : {}
-        }
-      >
-        <Grid container spacing={2} className={classes.eachBadge}>
-          <Grid item>
-            <Box className={classes.badgeBox}>
-              <img
-                className={classes.badge}
-                src={process.env.PUBLIC_URL + badge.thumbnail}
-                alt={badge.title}
-              />
-            </Box>
-          </Grid>
+      <Grid container spacing={2} className={classes.eachBadge}>
+        <Grid item>
+          <Box className={classes.badgeBox}>
+            <img
+              className={classes.badge}
+              src={process.env.PUBLIC_URL + badge.thumbnail}
+              alt={badge.title}
+            />
+          </Box>
+        </Grid>
 
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography variant="h6" align="left">
-                {badge.title}
-              </Typography>
-            </Grid>
-            <Grid item xs>
-              <Typography variant="body2" align="left">
-                {badge.description}
-              </Typography>
-            </Grid>
+        <Grid item xs container direction="column" spacing={2}>
+          <Grid item xs>
+            <Typography variant="h6" align="left">
+              {badge.title}
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <Typography variant="body2" align="left">
+              {badge.description}
+            </Typography>
           </Grid>
         </Grid>
-      </ButtonBase>
-    </Paper>
+      </Grid>
+    </ButtonBase>
   ))
 
   return (

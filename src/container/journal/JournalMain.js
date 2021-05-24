@@ -137,6 +137,7 @@ export default function JournalMain({ journalRef, friendRef }) {
             <JournalDetail
               journal={selected}
               friends={selected ? friendsByJournal[selected.id] : null}
+              handleClose={handleClose}
             />
           </Modal>
         </div>

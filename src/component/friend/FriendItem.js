@@ -27,29 +27,19 @@ export function JournalEntry({ journal }) {
       <div
         style={{
           display: "inline-block",
-          width: "20%",
+          width: "30%",
         }}
       >
-        {journal.startTime}
+        {dayjs(journal.startTime).format("YYYY. M. D.")}
       </div>
       <div
         style={{
           display: "inline-block",
-          width: "35%",
+          width: "70%",
         }}
       >
         {journal.title}
       </div>
-
-      {/* TODO emojis, hashtags 리스트이므로 맞춰서 렌더링 */}
-      {/* <div style={{
-        display: "inline-block",
-        width: "15%"
-      }}>{journal.emojis}</div>
-      <div style={{
-        display: "inline-block",
-        width: "30%"
-      }}>{journal.hashtags}</div> */}
     </div>
   );
 }
@@ -74,9 +64,7 @@ export default function FriendItem({ friend, journals }) {
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <FriendListItemInner key={friend.id} friend={friend} />
       </AccordionSummary>
-      <AccordionDetails
-        style={{ backgroundColor: "lightgray", padding: "10px" }}
-      >
+      <AccordionDetails style={{ backgroundColor: "#f0f0f0", padding: "10px" }}>
         <div style={{ width: "100%" }}>
           <div style={{ display: "inline-block", width: "50%" }}>
             <b>Time: </b>

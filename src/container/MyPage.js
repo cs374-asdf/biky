@@ -144,7 +144,7 @@ function ShowMetaphors(image, val) {
 
 export default function MyPage() {
   const classes = useStyles()
-
+  const [badge, setBadge] = React.useState({})
   function handleClick() {
     window.location.href = '/biky/badgeDetail'
   }
