@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: "0",
     },
     button: {
-        width: "calc(100% - 20px)",
+        width: "100%",
         textAlign: "center",
         // border: "solid 1px black",
         color: "white",

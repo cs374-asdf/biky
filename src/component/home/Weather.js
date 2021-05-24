@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const sunny = '/images/home/weather_cloudy.png'
+const sunny = '/images/home/weather_sunny.png'
 const cloudy = '/images/home/weather_cloudy.png'
-const rainy = '/images/home/weather_cloudy.png'
+const rainy = '/images/home/weather_rainy.png'
 
 const useStyles = makeStyles(theme => ({
   container: {
