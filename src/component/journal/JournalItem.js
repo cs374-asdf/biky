@@ -1,20 +1,21 @@
+import React, { useRef } from "react";
+
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-import FriendSimpleView from "./FriendSimpleView";
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
-import { nullToList } from "../../util/format";
-import { getIconComponent } from "../../util/icon";
 import DateComponent from "./DateComponent";
-import StaticMap from "../home/StaticMap";
-import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
+import FriendSimpleView from "./FriendSimpleView";
+import { Link } from "react-router-dom";
 import { PinDropSharp } from "@material-ui/icons";
+import StaticMap from "../home/StaticMap";
+import Typography from "@material-ui/core/Typography";
+import { getIconComponent } from "../../util/icon";
 import mapboxgl from "mapbox-gl";
-import React, { useRef } from "react";
+import { nullToList } from "../../util/format";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -43,6 +44,7 @@ export function getHashtags(hashtags) {
 }
 
 export function getFriends(friends) {
+  console.log(friends)
   if (!friends) return <div> no friends... </div>;
   var temp = friends.map((friend) => (
     <FriendSimpleView key={friend.id} friend={friend} />
@@ -176,7 +178,7 @@ export function getMetaphors(metaphor) {
   }
 }
 
-function emojiItem(emoji) {
+export function emojiItem(emoji) {
   return (
     <Box
       borderRadius="50%"

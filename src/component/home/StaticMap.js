@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import mapboxgl from "mapbox-gl";
 
@@ -40,6 +41,9 @@ export default function StaticMap(props) {
       zoom: zoom,
     });
     map.current.on("load", function () {
+      // if (props.resize) 
+      // map.resize();
+
       map.current.addSource("route", {
         type: "geojson",
         data: {
