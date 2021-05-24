@@ -1,19 +1,21 @@
+import React, { useRef } from "react";
+
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-import FriendSimpleView from './FriendSimpleView';
-import Typography from "@material-ui/core/Typography";
+import DateComponent from "./DateComponent";
+import Divider from "@material-ui/core/Divider";
+import FriendSimpleView from "./FriendSimpleView";
 import { Link } from "react-router-dom";
-import React from "react";
-import {nullToList} from '../../util/format'
-import {getIconComponent} from '../../util/icon'
-import DateComponent from './DateComponent'
-
-const Hamburger = "/images/hamburger.png";
-const Taxi = "/images/taxi.png";
-const Tree = "/images/tree.png";
+import { PinDropSharp } from "@material-ui/icons";
+import StaticMap from "../home/StaticMap";
+import Typography from "@material-ui/core/Typography";
+import { getIconComponent } from "../../util/icon";
+import mapboxgl from "mapbox-gl";
+import { nullToList } from "../../util/format";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -26,28 +28,37 @@ export function getDivs(items) {
 }
 
 export function getHashtags(hashtags) {
-  return hashtags.map((hashtag) => (
-    <div style={{ display: "inline" }} key={hashtag}>
-      #{`${hashtag} `}
-    </div>
+  var temp = hashtags.map((hashtag) => (
+    <div key={hashtag}>#{`${hashtag}`}</div>
   ));
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+      }}
+    >
+      {temp}
+    </div>
+  );
 }
 
 export function getFriends(friends) {
+  console.log(friends)
   if (!friends) return <div> no friends... </div>;
-  return friends.map((friend) => (
-  <FriendSimpleView key={friend.id} friend={friend} />
-  /*
+  var temp = friends.map((friend) => (
+    <FriendSimpleView key={friend.id} friend={friend} />
+  ));
+  return (
     <div
       style={{
-        display: "inline",
+        display: "flex",
+        float: "right",
       }}
     >
-      {" "}
-      {friend}{" "}
+      {temp}
     </div>
-    */
-  ));
+  );
 }
 
 export function getMetaphors(metaphor) {
@@ -156,10 +167,10 @@ export function getMetaphors(metaphor) {
               color: "white",
               position: "relative",
               top: "21px",
-              left: "60px",
+              left: "65px",
             }}
           >
-            {metaphor.hamburger} burgers
+            {metaphor.burger} burgers
           </Typography>
         </div>
       </Card>
@@ -167,159 +178,82 @@ export function getMetaphors(metaphor) {
   }
 }
 
+export function emojiItem(emoji) {
+  return (
+    <Box
+      borderRadius="50%"
+      style={{
+        backgroundColor: "white",
+        boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)",
+      }}
+      width="40px"
+      height="40px"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      mr={1}
+    >
+      <Box>{emoji}</Box>
+    </Box>
+  );
+}
+
 export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal) return null;
-  const emojis = nullToList(journal.emojis).map(getIconComponent)
+  const emojis = nullToList(journal.emojis).map(getIconComponent);
   return (
     <Card
       onClick={() => openJournal(journal)}
       style={{
         margin: "35px",
         padding: "35px",
+        flexDirection: "column",
       }}
+      display="flex"
+      id={journal.id + "main"}
     >
-      <div
-        style={{
-          background: "#CCCCCC",
-          display: "flex",
-          flexWrap: "wrap",
-          height: "30px",
-        }}
-      >
-        <div
-          style={{
-            width: "50%",
-          }}
-        >
-          {/* journal.startTime하니까 오류남.. */}
-          {journal.weather}
-          <DateComponent startTime={journal.startTime} endTime={journal.endTime}/>
-        </div>
+      <Box flex={1} minHeight="60px" display="flex" flexDirection="row">
+        <Box flex={4}>
+          <DateComponent
+            startTime={journal.startTime}
+            endTime={journal.endTime}
+          />
+        </Box>
+        <Box flex={4} display="flex" flexDirection="row-reverse">
+          {emojis.map((emoji) => emojiItem(emoji))}
+        </Box>
+      </Box>
+      <Box flex={1} minHeight="60px" display="flex" flexDirection="row">
+        <Box flex={4} style={{ maxWidth: "calc(100%-60px)" }}>
+          <Typography variant="h3" display="inline">
+            {journal.title}
+          </Typography>
+        </Box>
 
-        <div
-          style={{
-            marginLeft: "auto",
-          }}
-        >
-          {emojis}
-        </div>
-      </div>
-
-      <div
-        style={{
-          background: "#DDDDDD",
-          position: "relative",
-          top: "30px",
-          display: "flex",
-          flexWrap: "noWrap",
-          height: "60px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            background: "#CDCDCD",
-            minWidth: "50%",
-            width: "50%",
-            height: "30px",
-            fontSize: "20px",
-            marginTop: "auto",
-          }}
-        >
-          <div>{journal.title}</div>
-        </div>
-
-        <div
-          style={{
-            marginTop: "auto",
-            minWidth: "5vw",
-          }}
-        ></div>
-
-        <div
-          style={{
-            marginLeft: "auto",
-            marginTop: "auto",
-            height: "25px",
-          }}
+        <Box
+          flex={1}
+          display="flex"
+          flexDirection="row-reverse"
+          minWidth="60px"
         >
           {getHashtags(journal.hashtags)}
-        </div>
-      </div>
-
-      <div
-        style={{
-          background: "#BCBCBC",
-          position: "relative",
-          top: "55px",
-          width: "65%",
-          height: "120px",
-          overflow: "hidden",
-        }}
-      >
-        {journal.desc}
-      </div>
-
-      <div
-        style={{
-          background: "#CCCCCC",
-          position: "relative",
-          top: "85px",
-          width: "65%",
-          height: "70px",
-          display: "flex",
-          flexWrap: "noWrap",
-        }}
-      >
-        <div
-          style={{
-            width: "160px",
-          }}
-        >
-          {/* {getMetaphors(journal.metaphor, Math.floor(Math.random() * 3))} */}
-          {getMetaphors(journal.metaphor)}
-        </div>
-
-        <div
-          style={{
-            marginLeft: "auto",
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
-          }}
-        >
-          <div
-            style={{
-              marginLeft: "auto",
-            }}
-          >
-            {getFriends(friends)}
-          </div>
-          <div
-            style={{
-              marginTop: "auto",
-            }}
-          >
-            {journal.distance} km
-          </div>
-        </div>
-      </div>
-
-      <div
-        style={{
-          height: "85px",
-        }}
-      ></div>
-
-      {/* <div
-        style={{
-          background: "#CCCCCC",
-          position: "relative",
-          float: "left",
-        }}
-      >
-        map
-      </div> */}
+        </Box>
+      </Box>
+      <Box flex={4} display="flex" flexDirection="row">
+        <Box flex={1} display="flex" flexDirection="column">
+          <Box flex={4}>{journal.desc}</Box>
+          <Box flex={1}>{getMetaphors(journal.metaphors)}</Box>
+        </Box>
+        <Box flex={1}>
+          <img
+            alt="static Mapbox map of the San Francisco bay area"
+            src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/path(wdzcFm_seWRENCPCF%3FfC%5DJkHkCAAkFKwDnC%7D%40)/auto/100x100?access_token=pk.eyJ1IjoiYmFieWNyb2MiLCJhIjoiY2tvaW5rMWlpMDE3czJ3cWYyMXZkZmxidiJ9.8m_FmwtsgjCBUq2Jq9wVcg"
+          />
+        </Box>
+      </Box>
+      <Divider />
     </Card>
   );
 }
+
+// https://stackoverflow.com/questions/42483449/mapbox-gl-js-export-map-to-png-or-pdf

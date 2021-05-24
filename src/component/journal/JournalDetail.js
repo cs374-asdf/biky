@@ -1,37 +1,35 @@
-import { getDivs, getMetaphors } from "./JournalItem";
-
+import { emojiItem, getFriends, getHashtags } from './JournalItem'
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import { CardActions } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import { Link } from 'react-router-dom';
 import PictureList from './PictureList';
 import React from 'react';
 import StaticMap from '../home/StaticMap'
 import dayjs from 'dayjs'
-import { getFriends } from './JournalItem';
+import {getIconComponent} from '../../util/icon'
 import { makeStyles } from '@material-ui/core/styles';
 import {nullToList} from '../../util/format'
-import {getIconComponent} from '../../util/icon'
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    width: "80%",
-    position: "absolute",
-    maxHeight: "80%",
-    padding: theme.spacing(2, 4, 3),
+  row: {
+    flex: 1, display:'flex',  flexDirection: "row", justifyContent: 'space-between', alignItems: 'flex-end',
+    marginBottom: '20px'
   },
-}));
 
-const modalStyle = {
-  top: "50%",
-  left: "50%",
-  position: "absolute",
-  overflow: "scroll",
-  transform: `translate(-${50}%, -${50}%)`,
-};
+  centeredRow: {
+    flex: 1, display:'flex',  flexDirection: "row", justifyContent: 'space-between', alignItems: 'center',
+    marginBottom: '20px'
+  },
+
+  actions: {
+    flex: 1, display:'flex',  flexDirection: "row", justifyContent: 'flex-end', alignItems: 'center',
+        marginBottom: '20px'
+
+  }
+
+
+}));
 
 function formatTime(time) {
   console.log("time: ", time);
@@ -54,44 +52,98 @@ export default function JournalDetail({ journal, friends }) {
 
   const emojis = nullToList(journal.emojis).map(getIconComponent)
 
-
-  console.log(journal.friends)
-
   return (
-    <Card style={modalStyle} className={classes.paper}>
-      <CardHeader title={journal.title} />
-      <CardContent>{journal.desc}</CardContent>
-      {/* TODO 적절한 양식으로 friends 보여주기! object의 배열임에 주의*/}
-      {/* <CardContent>{getDivs(journal.friends ? journal.friends : [])}</CardContent> */}
-      <CardContent>{getDivs(journal.hashtags)}</CardContent>
-
-      <CardContent>{emojis}</CardContent>
-      
-      <CardContent>
-        <PictureList pictures={journal.photos} isEditing={false} />
-      </CardContent>
-      <CardContent>{journal.distance} km</CardContent>
-      <CardContent>{getTime(journal.startTime, journal.endTime)}</CardContent>
-      <CardContent>{journal.weather} </CardContent>
-      <CardContent>{getMetaphors(journal.metaphor)} </CardContent>
-      <CardContent>
-        <StaticMap
-          route={journal.route}
-          zoom={15}
-          width={"100%"}
-          height={"300px"}
-        />
-      </CardContent>
-      <CardActions>
+    <Card
+      style={{
+        margin: "20px",
+        padding: "20px",
+        maxHeight: '90%',
+        overflow: "scroll",
+        flexDirection: "column",
+      }}
+      display="flex"    
+    >
+      <div className={classes.actions}>
+        <div style={{display: 'inline-block', maxWidth: '50%'}}>
         <Button
           disabled={false}
           component={Link}
           to={`/biky/edit/${journal.id}`}
         >
-          수정
+        <img
+          alt="edit button"
+            src={process.env.PUBLIC_URL + "/images/edit.png"}
+          />
         </Button>
-        <Button onClick={() => alert("삭제")}>삭제</Button>
-      </CardActions>
+        </div>
+        <div style={{display: 'inline-block', maxWidth: '50%'}}>
+            <Button onClick={() => alert("삭제")}>
+              <img
+              alt="delete button"
+            src={process.env.PUBLIC_URL + "/images/delete.png"}
+          />
+
+            </Button>
+        </div>
+      </div>   
+
+
+      <div className={classes.row}>
+          <div style={{display: 'inline-block', fontSize: 30, maxWidth: '70%'}}>
+            {journal.title}
+          </div>
+          <div style={{display: 'inline-block'}}>
+            {journal.date}
+          </div>
+      </div>
+
+      <div className={classes.row}>
+        <div style={{display: 'inline-block', maxWidth: '50%'}}>
+          <div style={{display: 'flex'}}>
+            {emojis.map((emoji) => emojiItem(emoji))}
+          </div>
+        </div>
+        <div style={{display: 'inline-block'}}>
+          <div style={{display: 'flex'}}>
+            {getHashtags(journal.hashtags)}
+          </div>
+        </div>
+      </div>
+
+      <div className={classes.row}>
+        <div style={{flexWrap: 'wrap'}}>
+          {getFriends(friends)}
+        </div>
+      </div>
+
+
+      <div className={classes.row}>
+        {journal.desc}
+      </div>   
+
+      <div className={classes.centeredRow}>
+        <div style={{display: 'inline-block', maxWidth: '50%'}}>
+          메타포
+        </div>
+        <div style={{display: 'inline-block'}}>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            <div style={{fontSize: 24}}> {journal.distance}km </div>
+            <div style={{fontSize: 15}}> 2h 0m </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={classes.centeredRow}>
+          <PictureList pictures={journal.photos} isEditing={false}/>
+      </div>   
+
+      <div>
+        <StaticMap
+        route={journal.route}
+        zoom={15}
+        width={"100%"}
+        />      
+      </div>
     </Card>
   );
 }
