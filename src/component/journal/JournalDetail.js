@@ -49,8 +49,7 @@ export default function JournalDetail({ journal, friends }) {
 
   if (!journal) return null;
 
-
-  const emojis = nullToList(journal.emojis).map(getIconComponent)
+  const emojis = nullToList(journal.emojis).map(getIconComponent);
 
   return (
     <Card
