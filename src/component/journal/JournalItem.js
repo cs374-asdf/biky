@@ -10,6 +10,7 @@ import { getIconComponent } from "../../util/icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { nullToList } from "../../util/format";
 import polyline from "@mapbox/polyline";
+import { formatTime, formatDistance } from "../../util/format";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -29,7 +30,7 @@ export function getHashtags(hashtags) {
 }
 
 export function getFriends(friends) {
-  console.log(friends)
+  console.log(friends);
   if (!friends) return <div> no friends... </div>;
   var temp = friends.map((friend) => (
     <Box mr={1}>
@@ -243,8 +244,10 @@ export default function JournalItem({ journal, openJournal, friends }) {
           flexDirection="column"
           style={{ textAlign: "right" }}
         >
-          <Box style={{ fontSize: "x-small" }}>시간</Box>
-          <Box style={{ fontSize: "x-large" }}>{journal.distance}km</Box>
+          <Box style={{ fontSize: "x-small" }}>{formatTime(journal.time)}</Box>
+          <Box style={{ fontSize: "x-large" }}>
+            {formatDistance(journal.distance)}
+          </Box>
         </Box>
       </Box>
     </Card>
