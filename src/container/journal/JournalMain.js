@@ -1,3 +1,4 @@
+import Avatar from "../../component/Avatar";
 import Button from "@material-ui/core/Button";
 import FilterIcon from "@material-ui/icons/FilterList";
 import JournalDetail from "../../component/journal/JournalDetail";
@@ -6,7 +7,6 @@ import Modal from "@material-ui/core/Modal";
 import React from "react";
 import SearchBar from "../../component/common/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "../../component/Avatar";
 
 const useStyles = makeStyles({
   page: {
@@ -91,7 +91,7 @@ export default function JournalMain({ journalRef, friendRef }) {
   return (
     <div className={classes.page}>
       <div className={classes.header}>
-        <div className={classes.verticalAlign}>Jornal</div>
+        <div className={classes.verticalAlign}>Journal</div>
       </div>
 
       <div className={classes.avatar}>

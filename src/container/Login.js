@@ -61,7 +61,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert(`아이디: ${val.id} 비밀번호: ${val.password}`)
+    // alert(`아이디: ${val.id} 비밀번호: ${val.password}`)
     window.location.href = '/biky/home'
   }
 

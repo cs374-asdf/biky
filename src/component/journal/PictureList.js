@@ -83,11 +83,7 @@ const getGridListCellHeight = (width) => {
       return 300;
     }
 
-    if (isWidthUp('md', width)) {
-      return 200;
-    }
-
-    return 100;
+    return 200;
 }
 
 export default function PictureList({ pictures, removePicture, isEditing }) {

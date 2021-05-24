@@ -131,6 +131,7 @@ export default function Home({ journalRef }) {
 
     const endTime = startTime.add(time, "minute");
     let newJournal = {
+      createdAt: new Date(),
       id,
       route,
       hashtags,
@@ -142,7 +143,7 @@ export default function Home({ journalRef }) {
       endTime: endTime.toString(),
       title: "Today's Bike Ride",
       desc: `I rode ${distance} km at Boramae Park!`,
-      photos: ["/images/photo1.jpg"],
+      photos: ["/images/photo1.jpg", "/images/photo2.jpg"],
       emojis: ["happy", "exited"],
       metaphors: {
         tree: distance*1.5,
@@ -215,7 +216,7 @@ export default function Home({ journalRef }) {
           className={classes.verticalAlign}
           style={{ right: "10px", transform: "translateY(-50%)" }}
         >
-          Nayeon Min{" "}
+          Nayeon Min
           <div style={{ display: "inline-block" }}>
             <Avatar />
           </div>

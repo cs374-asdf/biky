@@ -23,6 +23,10 @@ export default function LabelBottomNavigation() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  if (window.location.pathname === '/biky' || window.location.pathname === '/biky/login')
+      return null
+
   return (
     <BottomNavigation
       value={value}
@@ -38,10 +42,10 @@ export default function LabelBottomNavigation() {
       ></BottomNavigationAction>
       <BottomNavigationAction
         label="홈"
-        value="/biky/"
+        value="/biky/home"
         icon={<HomeIcon />}
         component={Link}
-        to="/biky/"
+        to="/biky/home"
       />
       <BottomNavigationAction
         label="기록"
