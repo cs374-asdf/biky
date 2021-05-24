@@ -7,7 +7,7 @@ export default function JournalList({ journals, openJournal, friendsByJournal })
       아직 게시글이 없어요!
     </p>)
 
-  var journalList =  _.sortBy(journals, 'createdAt').map(journal => <JournalItem
+  var journalList =  _.sortBy(journals, 'createdAt').reverse().map(journal => <JournalItem
     key={journal.id}
     openJournal={openJournal}
     journal={journal}
