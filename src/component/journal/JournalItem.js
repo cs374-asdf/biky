@@ -103,7 +103,7 @@ export function GetMetaphors(metaphor) {
     }
   }
   return (
-    <Card className={cn}>
+    <Card className={cn} style={{ width: "140px", height: "40px" }}>
       <div
         style={{
           display: "flex",
@@ -186,7 +186,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
       onClick={() => openJournal(journal)}
       style={{
         margin: "35px",
-        padding: "35px",
+        padding: "15px",
         flexDirection: "column",
       }}
       display="flex"
@@ -217,7 +217,8 @@ export default function JournalItem({ journal, openJournal, friends }) {
           {journal.title}
         </Box>
       </Box>
-      <Box flex={1} mt={1} display="flex" flexDirection="row-reverse">
+      {/* <Divider /> */}
+      <Box flex={2} my={2}>
         <Box
           component="div"
           textOverflow="ellipsis"
@@ -225,43 +226,24 @@ export default function JournalItem({ journal, openJournal, friends }) {
           style={{
             wordWrap: "breakWord",
             whiteSpace: "nowrap",
-            fontSize: "x-small",
+            fontSize: "small",
           }}
         >
           {getHashtags(journal.hashtags)}
         </Box>
       </Box>
-      <Divider />
-      <Box flex={4} display="flex" flexDirection="row" height="110px" p={1}>
-        <Box
-          my={2}
-          component="div"
-          textOverflow="ellipsis"
-          overflow="hidden"
-          mr={2}
-          flex={4}
-          style={{ wordWrap: "breakWord", whiteSpace: "nowrap" }}
-        >
-          {journal.desc}
-          {/* <Box mt={1}>{getFriends(friends)}</Box> */}
-          <Box mt={2}>{GetMetaphors(journal.metaphor)}</Box>
-        </Box>
 
-        <Box flex={1}>
-          <Grid container justify="center">
-            <img
-              alt="static Mapbox map"
-              src={generateurl(journal.route)}
-              style={{
-                textAlign: "center",
-              }}
-            />
-          </Grid>
+      <Box flex={1} my={1} display="flex" flexDirection="row">
+        <Box flex={1}>{getFriends(friends)}</Box>
+        <Box
+          flex={1}
+          display="flex"
+          flexDirection="column"
+          style={{ textAlign: "right" }}
+        >
+          <Box style={{ fontSize: "x-small" }}>시간</Box>
+          <Box style={{ fontSize: "x-large" }}>{journal.distance}km</Box>
         </Box>
-      </Box>
-      <Divider />
-      <Box flex={1} mt={1} ml={1}>
-        {getFriends(friends)}
       </Box>
     </Card>
   );
