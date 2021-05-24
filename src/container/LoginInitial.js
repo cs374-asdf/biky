@@ -64,7 +64,7 @@ export default function LoginInitial() {
           align="center"
           variant="body2"
         >
-          Don't have an account? <b>SIGN UP</b>
+          Don't have an account? <div onClick={() => alert("Please look for next update for sign up!")}> <b>SIGN UP</b> </div>
         </Typography>
       </Grid>
     </Container>

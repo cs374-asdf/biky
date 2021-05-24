@@ -182,7 +182,7 @@ function generateurl(route) {
 
 export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal) return null;
-  const emojis = nullToList(journal.emojis).map(getIconComponent);
+  const emojis = nullToList(journal.hashtags).map(getIconComponent);
   return (
     <Card
       onClick={() => openJournal(journal)}
