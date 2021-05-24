@@ -104,7 +104,16 @@ export function getIcon(key)
     case "rainy":
       return cloudWithRain
 
+    case "dog":
+      return dogIcon
+
     default:
     return catIcon
   }
 }
+
+export const hashtagsDB = [
+    "happy", "sick", "dog", "cat", "angry", 
+    "excited", "tired", "exhausted", "sleepy", 
+    "delicious", "yummy", "sunny", "cloudy", "rainy"
+]

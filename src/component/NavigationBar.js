@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import PeopleIcon from "@material-ui/icons/People";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -16,18 +18,28 @@ const useStyles = makeStyles({
   },
 });
 
-export default function LabelBottomNavigation() {
+const noNavBar = (pathname) => {
+  console.log(pathname)
+  return (pathname === '/biky' || pathname === '/biky/login')
+}
+
+const NavBar = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(window.location.pathname);
+  let history = useHistory();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  }
 
-  if (window.location.pathname === '/biky' || window.location.pathname === '/biky/login')
-      return null
+    history.listen((location, action) => {
+        setValue(location.pathname)
+        console.log(action, location.pathname, location.state)
+    });
 
-  return (
+    return (
+      <div>
+        {noNavBar(value) ? null : 
     <BottomNavigation
       value={value}
       onChange={handleChange}
@@ -56,5 +68,10 @@ export default function LabelBottomNavigation() {
 
       />
     </BottomNavigation>
-  );
 }
+    </div>
+  );
+
+};
+
+export default withRouter(NavBar);

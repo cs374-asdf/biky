@@ -21,10 +21,10 @@ export default function FriendSimpleView({ friend, disabled }) {
       justifyContent="flex-start"
       flexDirection="row"
       width="120px"
-      borderRadius="borderRadius"
+      borderRadius={10}
       className={disabled ? classes.disabled : classes.abled}
       style={{ boxShadow: "0px 1.77918px 3.55836px rgba(0, 0, 0, 0.25)" }}
-      mr={2}
+      m={1}
     >
       <Box flex={1} mr={1} mt={1} mb={1} ml={1}>
         <Avatar

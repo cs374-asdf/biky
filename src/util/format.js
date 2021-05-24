@@ -10,12 +10,12 @@ export function nullToList(list) {
 
 export function formatTime(time) {
   const hours = parseInt(time / 60);
-  const minutes = time % 60;
+  const minutes = parseInt(time % 60);
   return `${hours > 0 ? `${hours} hr${hours > 1 ? "s" : ""} ` : " "}${
     minutes >= 0 ? `${minutes} min${minutes > 1 ? "s" : ""}` : ""
   }`;
 }
 
 export function formatDistance(distance) {
-  return `${distance} km`;
+  return `${distance.toFixed(2)} km`;
 }

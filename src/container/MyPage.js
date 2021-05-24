@@ -7,6 +7,8 @@ import Avatar from "../component/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import "@fontsource/roboto";
+import { badges } from '../data/badge'
+import { useHistory } from "react-router-dom";
 
 const logo = "/images/logo.png";
 
@@ -17,21 +19,10 @@ const tree = "/images/home/metaphor_tree.png";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    padding: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
-  },
-  badgeBox: {
-    width: "100%",
-    height: "100%",
-  },
-  badge: {
-    // position: "absolute",
-    // margin: "0 auto",
-    display: "inline-block",
-    width: "100%",
-    top: "100%",
-    // transform: "translateY(-50%)"
   },
 
   page: {
@@ -107,12 +98,21 @@ const useStyles = makeStyles((theme) => ({
     width: "calc(100% / 3)",
     // border: "solid 1px black",
   },
-  badgeContainer: {
-    position: "relative",
+    badgeBox: {
     width: "100%",
-    margin: "15px 0",
-    // border: "solid 1px black",
+    height: "100%",
+    maxHeight: "50px",
+    maxWidth: "50px",
+    overflow: "hidden",
   },
+  badge: {
+    margin: "auto",
+    display: "block",
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+  },
+
 }));
 
 function ShowMetaphors(image, val) {
@@ -142,11 +142,12 @@ function ShowMetaphors(image, val) {
   );
 }
 
-export default function MyPage() {
+export default function MyPage({mainBadge}) {
   const classes = useStyles();
+  let history = useHistory();
 
   function handleClick() {
-    window.location.href = "/biky/badgeDetail";
+    history.push("/biky/badgeDetail")
   }
 
   return (
@@ -209,7 +210,42 @@ export default function MyPage() {
               </Box>
             </Box>
 
-            <Box className={classes.badgeContainer}>
+      <div>
+        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+          Representative Badge
+        </Typography>
+        <Paper className={classes.paper} onClick={handleClick}>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Box className={classes.badgeBox}>
+                <img
+                  className={classes.badge}
+                  src={
+                    process.env.PUBLIC_URL +
+                    badges[mainBadge].thumbnail
+                  }
+                  alt="대표 뱃지"
+                />
+              </Box>
+            </Grid>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography variant="h6">
+                  {badges[mainBadge].title}
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography variant="body2">
+                  {badges[mainBadge].description}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+      </div>
+
+
+            {/* <Box className={classes.badgeContainer}>
               <Typography className={classes.bold}>Badge</Typography>
 
               <ButtonBase style={{ width: "100%" }}>
@@ -259,7 +295,11 @@ export default function MyPage() {
                   </Grid>
                 </Paper>
               </ButtonBase>
-            </Box>
+            </Box> */}
+
+
+
+
           </div>
         </Box>
       </div>

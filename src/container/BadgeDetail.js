@@ -8,11 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-const logo = "/images/logo.png";
-const badge1 = "/images/badge1.png";
-const badge2 = "/images/badge2.png";
-const badge3 = "/images/badge3.png";
+import { badges } from '../data/badge'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,18 +22,22 @@ const useStyles = makeStyles((theme) => ({
   badgeBox: {
     width: "100%",
     height: "100%",
+    maxHeight: "50px",
+    maxWidth: "50px",
+    overflow: "hidden",
   },
   badge: {
     margin: "auto",
     display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
   },
   eachBadge: {
     margin: theme.spacing(2, 0),
   },
   buttonBase: {
-    width: "100%",
+    width: "98%",
     borderBottom: "dotted 1px lightgray",
   },
   arrow: {
@@ -49,91 +50,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const badges = [
-  {
-    oid: 0,
-    thumbnail: logo,
-    title: "배지 이름0",
-    description: "배지 설명0",
-  },
-  {
-    oid: 1,
-    thumbnail: badge1,
-    title: "배지 이름1",
-    description: "배지 설명1",
-  },
-  {
-    oid: 2,
-    thumbnail: badge2,
-    title: "배지 이름2",
-    description: "배지 설명2",
-  },
-  {
-    oid: 3,
-    thumbnail: badge3,
-    title: "배지 이름3",
-    description: "배지 설명3",
-  },
-];
 
-export default function BadgeDetail() {
+export default function BadgeDetail({mainBadge, changeMainBadge}) {
   const classes = useStyles();
-
-  const [val, setVal] = useState({
-    representativeBadge: 0,
-  });
-
-  function handleClick(value) {
-    setVal({
-      representativeBadge: value,
-    });
-  }
+  let history = useHistory();
 
   function backward() {
-    window.location.href = "/biky/myPage";
+    history.push("/biky/myPage");
   }
 
   const eachBadge = badges.map((badge, idx) => (
-    <Paper
+    <ButtonBase
+      className={classes.buttonBase}
+      style={
+        idx === mainBadge ? { backgroundColor: "lightgray" } : {}
+      }
       onClick={() => {
-        handleClick(badge.oid);
-        console.log(val);
+        changeMainBadge(badge.oid);
+        console.log(mainBadge);
       }}
+      key={idx}
     >
-      <ButtonBase
-        className={classes.buttonBase}
-        style={
-          idx === val.representativeBadge
-            ? { backgroundColor: "lightgray" }
-            : {}
-        }
-      >
-        <Grid container spacing={2} className={classes.eachBadge}>
-          <Grid item>
-            <Box className={classes.badgeBox}>
-              <img
-                className={classes.badge}
-                src={process.env.PUBLIC_URL + badge.thumbnail}
-                alt={badge.title}
-              />
-            </Box>
-          </Grid>
+      <Grid container spacing={2} className={classes.eachBadge}>
+        <Grid item>
+          <Box className={classes.badgeBox}>
+            <img
+              className={classes.badge}
+              src={process.env.PUBLIC_URL + badge.thumbnail}
+              alt={badge.title}
+            />
+          </Box>
+        </Grid>
 
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography variant="h6" align="left">
-                {badge.title}
-              </Typography>
-            </Grid>
-            <Grid item xs>
-              <Typography variant="body2" align="left">
-                {badge.description}
-              </Typography>
-            </Grid>
+        <Grid item xs container direction="column" spacing={2}>
+          <Grid item xs>
+            <Typography variant="h6" align="left">
+              {badge.title}
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <Typography variant="body2" align="left">
+              {badge.description}
+            </Typography>
           </Grid>
         </Grid>
-      </ButtonBase>
-    </Paper>
+      </Grid>
+    </ButtonBase>
   ));
 
   return (
@@ -159,7 +121,7 @@ export default function BadgeDetail() {
                   className={classes.badge}
                   src={
                     process.env.PUBLIC_URL +
-                    badges[val.representativeBadge].thumbnail
+                    badges[mainBadge].thumbnail
                   }
                   alt="대표 뱃지"
                 />
@@ -168,12 +130,12 @@ export default function BadgeDetail() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography variant="h6">
-                  {badges[val.representativeBadge].title}
+                  {badges[mainBadge].title}
                 </Typography>
               </Grid>
               <Grid item xs>
                 <Typography variant="body2">
-                  {badges[val.representativeBadge].description}
+                  {badges[mainBadge].description}
                 </Typography>
               </Grid>
             </Grid>
