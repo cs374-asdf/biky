@@ -23,13 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 
   actions: {
-    flex: 1, display:'flex',  flexDirection: "row", justifyContent: 'flex-end', alignItems: 'center',
+    flex: 1, display:'flex',  flexDirection: "row",  alignItems: 'center',
         marginBottom: '20px'
 
   }
 
 
 }));
+
+
 
 function formatTime(time) {
   console.log("time: ", time);
@@ -44,12 +46,12 @@ function getTime(start, end) {
   );
 }
 
-export default function JournalDetail({ journal, friends }) {
+export default function JournalDetail({ journal, friends, handleClose }) {
   const classes = useStyles();
 
   if (!journal) return null;
 
-  const emojis = nullToList(journal.emojis).map(getIconComponent);
+  const emojis = nullToList(journal.hashtags).map(getIconComponent);
 
   return (
     <Card
@@ -62,30 +64,41 @@ export default function JournalDetail({ journal, friends }) {
       }}
       display="flex"    
     >
+
+
+
       <div className={classes.actions}>
-        <div style={{display: 'inline-block', maxWidth: '50%'}}>
-        <Button
-          disabled={false}
-          component={Link}
-          to={`/biky/edit/${journal.id}`}
-        >
-        <img
-          alt="edit button"
-            src={process.env.PUBLIC_URL + "/images/edit.png"}
-          />
-        </Button>
-        </div>
-        <div style={{display: 'inline-block', maxWidth: '50%'}}>
-            <Button onClick={() => alert("삭제")}>
-              <img
+        <div style={{display: 'inline-block', justifyContent: 'flex-start', flex:1 }}>
+          <Button onClick={() => alert("You should not delete your precious memory. If you want to really delete, please look for the next update!")}>
+            <img
               alt="delete button"
-            src={process.env.PUBLIC_URL + "/images/delete.png"}
-          />
-
-            </Button>
+              src={process.env.PUBLIC_URL + "/images/delete.png"}
+            />
+          </Button>
         </div>
-      </div>   
 
+        <div style={{display: 'flex',justifyContent: 'flex-end'}}> 
+          <Button
+            disabled={false}
+            component={Link}
+            to={`/biky/edit/${journal.id}`}
+          >
+            <img
+              alt="edit button"
+                src={process.env.PUBLIC_URL + "/images/edit.png"}
+              />
+          </Button>
+
+          <Button onClick={handleClose}>
+            <img
+              alt="close button"
+              src={process.env.PUBLIC_URL + "/images/close.png"}
+            />
+          </Button>
+        </div>
+       
+
+      </div>   
 
       <div className={classes.row}>
           <div style={{display: 'inline-block', fontSize: 30, maxWidth: '70%'}}>
@@ -140,8 +153,7 @@ export default function JournalDetail({ journal, friends }) {
         <StaticMap
         route={journal.route}
         zoom={15}
-        width={"100%"}
-        />      
+        width={"100%"}/>      
       </div>
     </Card>
   );

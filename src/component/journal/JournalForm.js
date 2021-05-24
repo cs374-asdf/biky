@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import StaticMap from "../home/StaticMap";
-import { getIconComponent } from "../../util/icon";
+import { getIconComponent, hashtagsDB } from "../../util/icon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,10 +91,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px"
 }
 }));
-
-const hashtagsDB = [
-  "happy", "downside", "hello", "high", "hat", "huhuh", "hike", "bike", "dike"
-];
 
 function showWeather(weather) {
   return (
