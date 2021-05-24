@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import { styled } from '@material-ui/core/styles'
+import { useHistory } from "react-router-dom";
 
 const logo = '/images/logo.png'
 
@@ -25,12 +26,16 @@ const MyButton = styled(Button)({
 
 const useStyles = makeStyles((theme) => ({
   background: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+
     background: 'linear-gradient(0deg, #FFEDE8, #FFFFF5)',
-    backgroundPosition: 'center',
+    // backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    width: '100vw',
-    height: '100vh',
-    bottom: 0,
+    width: '100%',
+    height: '100%',
+    // bottom: 0,
   },
   grid: {
     margin: 'auto',
@@ -38,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '60vw',
     background: '#FFFFFF',
+    marginBottom: '2vh'
   },
   submit: {
     marginTop: '3vh',
@@ -49,6 +55,12 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(12),
     paddingBottom: theme.spacing(15),
   },
+
+  form: {
+    display: "flex",
+    alignItems:"center",
+    flexDirection:"column",
+  }
 }))
 
 export default function Login() {
@@ -59,10 +71,25 @@ export default function Login() {
     password: 'password123',
   })
 
+  let history = useHistory();
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (val.id.length === 0)
+    {
+      alert("You should enter ID!")
+      return
+    }
+
+    if (val.password.length === 0)
+    {
+      alert("You should enter password!")
+      return
+    }
+
     // alert(`아이디: ${val.id} 비밀번호: ${val.password}`)
-    window.location.href = '/biky/home'
+    history.push(`/biky/home`);
   }
 
   const onChange = (e) => {
@@ -74,17 +101,18 @@ export default function Login() {
   }
 
   return (
-    <Container className={classes.background}>
-      <Box className={classes.root}>
+    <div className={classes.background}>
+      {/* <Box className={classes.root}> */}
         <Grid container className={classes.logo} justify="center">
           <img src={process.env.PUBLIC_URL + logo} alt="logo" />
         </Grid>
 
-        <Grid container alignItems="center" direction="column" spacing={1}>
-          <Typography variant="h5" className={classes.login}>
-            Login
-          </Typography>
-          <Grid item xs={8}>
+
+        <div className={classes.form}>
+            <Typography variant="h5" className={classes.login}>
+              Login
+            </Typography>
+            
             <TextField
               type="id"
               name="id"
@@ -95,9 +123,8 @@ export default function Login() {
               placeholder="Enter ID"
               className={classes.textField}
             />
-          </Grid>
-
-          <Grid item xs={12}>
+            
+            <form onSubmit={handleSubmit}>
             <TextField
               type="password"
               name="password"
@@ -108,13 +135,13 @@ export default function Login() {
               placeholder="Enter password"
               className={classes.textField}
             />
-          </Grid>
+          </form>
 
           <MyButton onClick={handleSubmit} className={classes.submit}>
             Submit
           </MyButton>
-        </Grid>
-      </Box>
-    </Container>
+        </div>
+
+    </div>
   )
 }
