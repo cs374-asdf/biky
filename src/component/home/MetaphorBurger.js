@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         transform: "translateY(-50%)",
         display: "inline-block",
         color: "white",
-        fontSize: "18px",
+        fontSize: "15px",
         fontWeight: "bold",
         // border: "solid 1px black",
         width: "calc(85% - 20px)",
