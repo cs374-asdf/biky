@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         transform: "translateY(-50%)",
         display: "inline-block",
         color: "white",
-        fontSize: "18px",
+        fontSize: "15px",
         fontWeight: "bold",
         margin: "0 auto",
         // border: "solid 1px black",
@@ -37,7 +37,7 @@ export default function MetaphorTaxi(props) {
     return (
         <div className={classes.background}>
             <img src={process.env.PUBLIC_URL + taxi} alt="taxi" className={classes.img} />
-            <div className={classes.text}>You saved {amount*3000} won!</div>
+            <div className={classes.text}>You saved {amount*1000} won!</div>
         </div>
     )
 }

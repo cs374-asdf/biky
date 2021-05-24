@@ -177,10 +177,10 @@ const formatTime = (time) => {
 };
 
 const formatDistance = (distance) => {
-  if (distance < 1000) {
-    return `${distance}m`;
+  if (distance < 1) {
+    return `${distance * 1000}m`;
   } else {
-    return `${distance / 1000}km`;
+    return `${distance}km`;
   }
 };
 
@@ -256,9 +256,7 @@ export default function JournalForm({
 
           <div>
             <div style={{ position: "absolute", right: "10px" }}>
-              <Typography>
-                {weatherIcon(journal.weather)} {journal.date}
-              </Typography>
+              <Typography>{weatherIcon(journal.weather)} <div style={{ display: "inline-block", margin: "5px"}}>{journal.date}</div></Typography>
               {/* <Typography>{journal.weather}</Typography> */}
               {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
             </div>
@@ -328,7 +326,7 @@ export default function JournalForm({
           <TextField
             onChange={handleDescChange}
             id="desc"
-            label="내용"
+            label="Description"
             variant="outlined"
             multiline
             defaultValue={journal.desc}

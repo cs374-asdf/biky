@@ -35,7 +35,7 @@ body {
   display: block;
   position: absolute;
   top: 51px;
-  width: 280px;
+  width: calc(100% - 2px);
   border: 1px solid #aaa;
   background-color: #fff;
   font-family: Helvetica, sans-serif;
