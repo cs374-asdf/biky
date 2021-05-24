@@ -1,18 +1,18 @@
-import Box from "@material-ui/core/Box";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import React from "react";
-import Avatar from "../component/Avatar";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import "@fontsource/roboto";
+import Box from '@material-ui/core/Box'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import React from 'react'
+import Avatar from '../component/Avatar'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import '@fontsource/roboto'
 
-const logo = "/images/logo.png";
+const logo = '/images/logo.png'
 
-const taxi = "/images/home/metaphor_taxi.png";
-const burger = "/images/home/metaphor_burger.png";
-const tree = "/images/home/metaphor_tree.png";
+const taxi = '/images/home/metaphor_taxi.png'
+const burger = '/images/home/metaphor_burger.png'
+const tree = '/images/home/metaphor_tree.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,131 +22,131 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   badgeBox: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   badge: {
     // position: "absolute",
     // margin: "0 auto",
-    display: "inline-block",
-    width: "100%",
-    top: "100%",
+    display: 'inline-block',
+    width: '100%',
+    top: '100%',
     // transform: "translateY(-50%)"
   },
 
   page: {
-    position: "relative",
+    position: 'relative',
     // maxWidth: "550px",
-    margin: "0 auto",
+    margin: '0 auto',
     // border: "solid 1px blue",
   },
   verticalAlign: {
-    position: "absolute",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
-    display: "inline-block",
+    position: 'absolute',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'inline-block',
   },
   header: {
-    position: "relative",
-    height: "49px",
-    fontSize: "30px",
-    fontWeight: "bold",
-    borderBottom: "solid 1px black",
-    textAlign: "center",
+    position: 'relative',
+    height: '49px',
+    fontSize: '30px',
+    fontWeight: 'bold',
+    borderBottom: 'solid 1px black',
+    textAlign: 'center',
   },
   content: {
-    position: "relative",
-    height: "calc(100vh - 110px)",
-    overflow: "scroll",
-    // border: "solid 1px black",
+    position: 'relative',
+    height: 'calc(100vh - 110px)',
+    overflow: 'scroll',
+    // border: 'solid 1px black',
   },
 
   bold: {
-    fontWeight: "bold",
-    fontSize: "20px",
+    fontWeight: 'bold',
+    fontSize: '20px',
   },
 
   roundBox: {
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    borderRadius: "5px",
-    padding: "15px",
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    borderRadius: '5px',
+    padding: '15px',
     // border: "solid 1px black",
   },
   avatar: {
-    position: "relative",
-    display: "inline-block",
-    textAlign: "center",
-    width: "30%",
-    height: "100%",
+    position: 'relative',
+    display: 'inline-block',
+    textAlign: 'center',
+    width: '30%',
+    height: '100%',
     // border: "solid 1px black",
   },
   personalInfo: {
     // position: "absolute",
-    display: "inline-block",
-    width: "calc(70% - 10px)",
+    display: 'inline-block',
+    width: 'calc(70% - 10px)',
     // border: "solid 1px black",
     // top: "50%",
-    marginLeft: "10px",
+    marginLeft: '10px',
     // transform: "translateY(-50%)",
-    lineHeight: "200%",
+    lineHeight: '200%',
   },
   recordsContainer: {
-    position: "relative",
-    width: "100%",
-    margin: "15px 0",
+    position: 'relative',
+    width: '100%',
+    margin: '15px 0',
     // border: "solid 1px black",
   },
   metaphorContainer: {
-    position: "relative",
-    width: "100%",
+    position: 'relative',
+    width: '100%',
     // border: "solid 1px black",
   },
   metaphorItem: {
-    position: "relative",
-    display: "inline-block",
-    width: "calc(100% / 3)",
+    position: 'relative',
+    display: 'inline-block',
+    width: 'calc(100% / 3)',
     // border: "solid 1px black",
   },
   badgeContainer: {
-    position: "relative",
-    width: "100%",
-    margin: "15px 0",
+    position: 'relative',
+    width: '100%',
+    margin: '15px 0',
     // border: "solid 1px black",
   },
-}));
+}))
 
 function ShowMetaphors(image, val) {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.metaphorItem}>
       <img
         src={process.env.PUBLIC_URL + image}
         width="70%"
-        style={{ maxWidth: "100px" }}
+        style={{ maxWidth: '100px' }}
       />
       <div
         style={{
-          position: "absolute",
-          display: "inline-block",
+          position: 'absolute',
+          display: 'inline-block',
           // border: "solid 1px black",
-          textAlign: "center",
-          width: "30%",
-          top: "50%",
-          transform: "translateY(-50%)",
+          textAlign: 'center',
+          width: '30%',
+          top: '50%',
+          transform: 'translateY(-50%)',
         }}
       >
         {val}
       </div>
     </div>
-  );
+  )
 }
 
 export default function MyPage() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   function handleClick() {
-    window.location.href = "/biky/badgeDetail";
+    window.location.href = '/biky/badgeDetail'
   }
 
   return (
@@ -156,14 +156,14 @@ export default function MyPage() {
       </div>
 
       <div className={classes.content}>
-        <Box fontFamily="roboto" p={"10px"}>
+        <Box fontFamily="roboto" p={'10px'}>
           <div>
             <Box className={classes.roundBox}>
-              <div style={{ position: "relative" }}>
+              <div style={{ position: 'relative' }}>
                 <div className={classes.avatar}>
                   <div>
                     <div
-                      style={{ display: "inline-block", marginBottom: "10px" }}
+                      style={{ display: 'inline-block', marginBottom: '10px' }}
                     >
                       {/* <Avatar/> */}
                       <img
@@ -183,7 +183,7 @@ export default function MyPage() {
                   <br />
                   Job: Freelancer Designer
                   <br />
-                  상아가 배고프대
+                  <Typography>Sang-A is hungry..</Typography>
                   <br />
                 </div>
               </div>
@@ -193,10 +193,10 @@ export default function MyPage() {
               <Typography className={classes.bold}>Records</Typography>
               <Box className={classes.roundBox}>
                 <Typography
-                  style={{ marginBottom: "10px", lineHeight: "200%" }}
+                  style={{ marginBottom: '10px', lineHeight: '200%' }}
                 >
                   You rode a bike for
-                  <div style={{ fontWeight: "bold", fontSize: "18px" }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '18px' }}>
                     1000km and 1000hrs!
                   </div>
                 </Typography>
@@ -212,17 +212,17 @@ export default function MyPage() {
             <Box className={classes.badgeContainer}>
               <Typography className={classes.bold}>Badge</Typography>
 
-              <ButtonBase style={{ width: "100%" }}>
+              <ButtonBase style={{ width: '100%' }}>
                 <Paper
                   className={classes.roundBox}
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   onClick={() => {
-                    handleClick();
+                    handleClick()
                   }}
                 >
                   <Grid container>
-                    <Grid item style={{ width: "100px" }}>
-                      <Box style={{ position: "relative" }}>
+                    <Grid item style={{ width: '100px' }}>
+                      <Box style={{ position: 'relative' }}>
                         <img
                           className={classes.badge}
                           src={process.env.PUBLIC_URL + logo}
@@ -235,8 +235,8 @@ export default function MyPage() {
                       container
                       direction="column"
                       style={{
-                        width: "calc(100% - 100px)",
-                        marginLeft: "10px",
+                        width: 'calc(100% - 100px)',
+                        marginLeft: '10px',
                       }}
                     >
                       <Grid item xs>
@@ -264,5 +264,5 @@ export default function MyPage() {
         </Box>
       </div>
     </div>
-  );
+  )
 }
