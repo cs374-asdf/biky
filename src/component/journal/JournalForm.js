@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import StaticMap from "../home/StaticMap";
+import { getIconComponent } from "../../util/icon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,12 +114,9 @@ function showWeather(weather) {
 }
 
 function weatherIcon(weather) {
-  if(weather === "sunny") return "(sunny icon)"
-  //☀️;
-  if(weather === "cloudy") return "(cloudy icon)"
-  //☁️;
-  if(weather === "rainy") return "(rainy icon)"
-  //🌧;
+  return (
+    <div style={{ display: "inline-block", verticalAlign: "top" }}>{getIconComponent(weather)}</div>
+  )
 }
 
 function contentSuggestion(text) {
