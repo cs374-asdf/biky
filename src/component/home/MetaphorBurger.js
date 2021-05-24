@@ -36,7 +36,7 @@ export default function MetaphorBurger(props) {
     return (
         <div className={classes.background}>
             <img src={process.env.PUBLIC_URL +burger} alt="burger" className={classes.img} />
-            <div className={classes.text}>You skipped {amount*2} burgers!</div>
+            <div className={classes.text}>You skipped {amount*0.1} burgers!</div>
         </div>
     )
 }
