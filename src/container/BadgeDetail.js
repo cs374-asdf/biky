@@ -8,11 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-const badge0 = "/images/sick.jpg";
-const badge1 = "/images/cat.png";
-const badge2 = "/images/fry.png";
-const badge3 = "/images/squirrel.png";
+import { badges } from '../data/badge'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0),
   },
   buttonBase: {
-    width: "100%",
+    width: "98%",
     borderBottom: "dotted 1px lightgray",
   },
   arrow: {
@@ -53,62 +50,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const badges = [
-  {
-    oid: 0,
-    thumbnail: badge0,
-    title: "Ride a Bike Too Much",
-    description:
-      "You rode a bike too much and even did lots of assignments. You should take care of your body.",
-  },
-  {
-    oid: 1,
-    thumbnail: badge1,
-    title: "Meet lots of cute cats",
-    description: "You met lots of cute cats. Cats are perfect.",
-  },
-  {
-    oid: 2,
-    thumbnail: badge2,
-    title: "Become fried egg",
-    description:
-      "You rode a bike in sunny day very often. You may become fried egg.",
-  },
-  {
-    oid: 3,
-    thumbnail: badge3,
-    title: "Wow a squirrel",
-    description:
-      "You met a squirrel while riding a bike. It is very unique experience",
-  },
-];
 
-export default function BadgeDetail() {
+export default function BadgeDetail({mainBadge, changeMainBadge}) {
   const classes = useStyles();
-
-  const [val, setVal] = useState({
-    representativeBadge: 0,
-  });
-
-  function handleClick(value) {
-    setVal({
-      representativeBadge: value,
-    });
-  }
+  let history = useHistory();
 
   function backward() {
-    window.location.href = "/biky/myPage";
+    history.push("/biky/myPage");
   }
 
   const eachBadge = badges.map((badge, idx) => (
     <ButtonBase
       className={classes.buttonBase}
       style={
-        idx === val.representativeBadge ? { backgroundColor: "lightgray" } : {}
+        idx === mainBadge ? { backgroundColor: "lightgray" } : {}
       }
       onClick={() => {
-        handleClick(badge.oid);
-        console.log(val);
+        changeMainBadge(badge.oid);
+        console.log(mainBadge);
       }}
       key={idx}
     >
@@ -162,7 +121,7 @@ export default function BadgeDetail() {
                   className={classes.badge}
                   src={
                     process.env.PUBLIC_URL +
-                    badges[val.representativeBadge].thumbnail
+                    badges[mainBadge].thumbnail
                   }
                   alt="대표 뱃지"
                 />
@@ -171,12 +130,12 @@ export default function BadgeDetail() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography variant="h6">
-                  {badges[val.representativeBadge].title}
+                  {badges[mainBadge].title}
                 </Typography>
               </Grid>
               <Grid item xs>
                 <Typography variant="body2">
-                  {badges[val.representativeBadge].description}
+                  {badges[mainBadge].description}
                 </Typography>
               </Grid>
             </Grid>

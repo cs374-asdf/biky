@@ -14,6 +14,8 @@ import LoginInitial from './container/LoginInitial'
 import MyPage from './container/MyPage'
 import NavigationBar from './component/NavigationBar'
 import db from './firebaseInit'
+import React from 'react'
+
 
 const theme = createMuiTheme({
   palette: {
@@ -31,7 +33,7 @@ const frequestRef = '/nayeon/frequests'
 const friendRef = '/nayeon/friends'
 
 function App() {
-  console.log(db)
+  const [mainBadge, setMainBadge] = React.useState(0)
 
   return (
     <ThemeProvider theme={theme}>
@@ -65,8 +67,14 @@ function App() {
           />
           <Route path="/biky/login" exact component={Login} />
           <Route path="/biky/" exact component={LoginInitial} />
-          <Route path="/biky/myPage" exact component={MyPage} />
-          <Route path="/biky/badgeDetail" exact component={BadgeDetail} />
+          <Route path="/biky/myPage" exact render={() => <MyPage
+                      mainBadge={mainBadge}          
+          />} />
+          <Route path="/biky/badgeDetail" exact render={() => 
+          <BadgeDetail
+            changeMainBadge={(id)=>setMainBadge(id)}
+            mainBadge={mainBadge}
+          />}/>
           <Route
             path="/biky/friend"
             render={() => (
@@ -79,7 +87,7 @@ function App() {
           />
           {/* <Redirect from="*" to="/" /> */}
         </Switch>
-      </BrowserRouter>{' '}
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
