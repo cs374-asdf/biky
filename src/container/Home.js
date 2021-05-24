@@ -176,7 +176,7 @@ export default function Home({ journalRef }) {
 
   const closeModal = () => {
     console.log("closing modal");
-    // createJournal();
+    createJournal();
     setOpen(false);
     setDistance(0);
     setTime(0);
