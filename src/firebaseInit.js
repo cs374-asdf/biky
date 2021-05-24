@@ -8,13 +8,11 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_ID,
   appId: process.env.REACT_APP_APP_ID,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
 };
 
-console.log(firebaseConfig.databaseURL)
+console.log(firebaseConfig.databaseURL);
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
 
 export default db;
