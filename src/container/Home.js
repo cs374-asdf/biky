@@ -195,7 +195,7 @@ export default function Home({ journalRef }) {
     setIsRiding(true);
     increment.current = setInterval(() => {
       setDistance((distance) => distance + 0.1);
-      setTime((time) => time + 1000 / 60);
+      setTime((time) => time + 1000 / 3600);
       console.log(distance, time);
     }, 1000 / 6); // 100m/s
   };

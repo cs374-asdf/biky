@@ -42,7 +42,7 @@ export default function MetaphorTaxi(props) {
     <div className={classes.background}>
       <Icon icon={oncomingTaxi} className={classes.img} />
       <div className={classes.text}>
-        You saved {(amount * 1000).toFixed(2)} won!
+        You saved {(amount * 1000).toFixed(0)} won!
       </div>
     </div>
   );

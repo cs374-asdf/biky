@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 const noNavBar = (pathname) => {
   console.log(pathname)
-  return (pathname === '/biky' || pathname === '/biky/login')
+  return (pathname === '/biky' || pathname === '/biky/login' || pathname === '/biky/404')
 }
 
 const NavBar = () => {

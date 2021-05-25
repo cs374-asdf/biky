@@ -13,6 +13,7 @@ import Login from "./container/Login";
 import LoginInitial from "./container/LoginInitial";
 import MyPage from "./container/MyPage";
 import NavigationBar from "./component/NavigationBar";
+import NotFound from "./NotFound";
 import React from "react";
 import db from "./firebaseInit";
 
@@ -39,9 +40,11 @@ const friendRef = "/nayeon/friends";
 
 function App() {
   const [mainBadge, setMainBadge] = React.useState(0);
-  const [journalRef, setJournalRef] = React.useState("/nayeon/journals");
-  const [frequestRef, setFrequestsRef] = React.useState("/nayeon/frequests");
-  const [friendRef, setFriendRef] = React.useState("/nayeon/friends");
+  const [journalRef, setJournalRef] = React.useState(null);
+  const [frequestRef, setFrequestsRef] = React.useState(null);
+  const [friendRef, setFriendRef] = React.useState(null);
+
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -51,27 +54,36 @@ function App() {
           <Route
             path="/biky/home"
             exact
-            render={() => <Home journalRef={db.ref(journalRef)} />} //
+            render={() =>{
+              if (journalRef)
+               return <Home journalRef={db.ref(journalRef)} />
+              window.location.href = "/biky"
+              } }//
           />
           <Route
             path="/biky/journal"
             exact
-            render={() => (
+            render={() => {
+              if (journalRef && friendRef)
+              return (
               <JournalMain
                 journalRef={db.ref(journalRef)}
                 friendRef={db.ref(friendRef)}
-              />
-            )}
+              />)
+            window.location.href = "/biky"
+            }}
           />
           <Route
             path="/biky/edit/:id"
             exact
-            render={() => (
-              <JournalEditor
+            render={() => {
+              if (journalRef && friendRef)
+               return <JournalEditor
                 journalRef={db.ref(journalRef)}
                 friendRef={db.ref(friendRef)}
               />
-            )}
+            window.location.href = "/biky"
+            }}
           />
           <Route
             path="/biky/login"
@@ -93,29 +105,44 @@ function App() {
           <Route
             path="/biky/myPage"
             exact
-            render={() => <MyPage mainBadge={mainBadge} />}
+            render={() =>{
+              if (journalRef)
+                return <MyPage mainBadge={mainBadge} />
+              window.location.href = "/biky"
+              }}
           />
           <Route
             path="/biky/badgeDetail"
             exact
-            render={() => (
-              <BadgeDetail
+            render={() => {
+              if (friendRef && frequestRef && journalRef)
+              return <BadgeDetail
                 changeMainBadge={(id) => setMainBadge(id)}
                 mainBadge={mainBadge}
               />
-            )}
+              
+              window.location.href = "/biky"
+            }}
           />
           <Route
             path="/biky/friend"
-            render={() => (
-              <Friends
-                friendRef={db.ref(friendRef)}
-                frequestRef={db.ref(frequestRef)}
-                journalRef={db.ref(journalRef)}
-              />
-            )}
+            render={() => {
+              if (friendRef && frequestRef && journalRef)
+                return <Friends
+                  friendRef={db.ref(friendRef)}
+                  frequestRef={db.ref(frequestRef)}
+                  journalRef={db.ref(journalRef)}
+                />
+
+              window.location.href = "/biky"
+            }}
           />
-          {/* <Redirect from="*" to="/" /> */}
+
+          <Route
+            path="/biky/404"
+            render={() => <NotFound/>}
+          />
+          <Redirect from="*" to="/biky/404" />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
