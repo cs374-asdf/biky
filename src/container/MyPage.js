@@ -82,14 +82,15 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     display: 'inline-block',
     textAlign: 'center',
-    width: '30%',
+    // width: '30%',
+    width: "90px",
     height: '100%',
     // border: "solid 1px black",
   },
   personalInfo: {
     // position: "absolute",
     display: 'inline-block',
-    width: 'calc(70% - 10px)',
+    width: 'calc(100% - 90px - 10px)',
     // border: "solid 1px black",
     // top: "50%",
     marginLeft: '10px',
@@ -136,11 +137,11 @@ function ShowMetaphors(image, val) {
   const classes = useStyles()
 
   return (
-    <div className={classes.metaphorItem}>
+    <div className={classes.metaphorItem} style={ image === taxi ? { minWidth: "130px" } : {}}>
       <img
         src={process.env.PUBLIC_URL + image}
         width="60%"
-        style={{ maxWidth: '50px' }}
+        style={{ width: '50px' }}
       />
       <div
         style={{
@@ -189,7 +190,7 @@ export default function MyPage({mainBadge}) {
                       {/* <Avatar/> */}
                       <img
                         src={process.env.PUBLIC_URL + '/images/nayeon.png'}
-                        width="80%"
+                        width="80px"
                         alt=""
                       />
                     </div>
@@ -197,7 +198,7 @@ export default function MyPage({mainBadge}) {
                   Nayeon Min
                 </div>
 
-                <div className={classes.personalInfo}>
+                <div className={classes.personalInfo} style={{ whiteSpace: "nowrap" }}>
                   {/* <Typography> */}
                     Age: 28
                     <br />
@@ -205,7 +206,7 @@ export default function MyPage({mainBadge}) {
                     <br />
                     Job: Freelancer Designer
                     <br />
-                    Favorite Place: Boramae Park
+                    Favorite: Boramae Park
                     <br />
                   {/* </Typography> */}
                 </div>
@@ -218,8 +219,8 @@ export default function MyPage({mainBadge}) {
                 <Typography
                   style={{ marginBottom: '10px', lineHeight: '200%' }}
                 >
-                  You rode a bike for
-                  <div style={{ fontWeight: 'bold', fontSize: '18px' }}>
+                  You rode a bike for &nbsp;
+                  <div style={{ fontWeight: 'bold', fontSize: '18px', display: "inline-block" }}>
                     1029.9km and 47.7hrs!
                   </div>
                 </Typography>
