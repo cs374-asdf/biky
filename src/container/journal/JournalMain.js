@@ -112,9 +112,11 @@ export default function JournalMain({ journalRef, friendRef }) {
           <SearchBar />
           <Button
             variant="contained"
-            color="secondary"
             size="medium"
             startIcon={<FilterIcon />}
+            style={{
+              backgroundColor: 'white',
+            }}
           >
             Filter
           </Button>

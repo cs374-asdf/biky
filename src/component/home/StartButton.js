@@ -5,8 +5,13 @@ export default function StartButton(props) {
   const style = props.style
 
   return (
-
-    <Button className={style.button} variant="contained" color="primary">
+    <Button
+      className={style.button}
+      style={{
+        backgroundColor: '#FF85AC',
+      }}
+      variant="contained"
+    >
       <Typography className={style.text} color="textPrimary">
         Start Ride
       </Typography>
