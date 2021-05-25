@@ -7,8 +7,15 @@ import {
   StopButton,
   Time,
   Weather,
-} from "../component/home";
-import React, { useRef, useState } from "react";
+} from '../component/home'
+import React, { useRef, useState } from 'react'
+
+import { Button } from '@material-ui/core'
+import Profile from './Profile'
+import dayjs from 'dayjs'
+import {getRandomPhoto} from '../data/photo';
+import { makeStyles } from '@material-ui/core/styles'
+import { useHistory } from 'react-router-dom'
 
 import { Button } from "@material-ui/core";
 import Avatar from "../component/Avatar";
@@ -98,11 +105,10 @@ const useStyles = makeStyles({
     // border: "solid 1px black",
   },
   buttonText: {
-    position: "relative",
-    // border: "solid 1px black",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: "20px",
+    position: 'relative',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: '50px',
   },
   startButton: {},
   stopButton: {},
@@ -110,6 +116,20 @@ const useStyles = makeStyles({
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function getRandomTitle()
+{
+  const randomTitles = [
+    "Met a beautiful cat",
+    "No play and all work makes Jack a dull boy",
+    "Come along with me",
+    "Dundun dance",
+    "Here's Jonny",
+    "Open the pot, HAL"
+  ]
+  let selector = randomInt(0, randomTitles.length-1)
+  return randomTitles[selector]
 }
 
 export default function Home({ journalRef }) {
@@ -132,7 +152,10 @@ export default function Home({ journalRef }) {
   const createJournal = () => {
     let id = journalRef.push().key;
 
-    const endTime = startTime.add(time, "minute");
+    const endTime = startTime.add(time, 'minute')
+    const randomPhotos = getRandomPhoto(3)
+    const randomTitle = getRandomTitle()
+
     let newJournal = {
       createdAt: new Date(),
       id,
@@ -144,11 +167,11 @@ export default function Home({ journalRef }) {
       weather: weatherTypes[weather - 1],
       startTime: startTime.toString(),
       endTime: endTime.toString(),
-      title: "Today's Bike Ride",
+      title: randomTitle,
 
-      desc: `I rode ${parseInt(distance * 10) / 10} km at Boramae Park!`,
-      photos: ["/images/photo1.jpg", "/images/photo2.jpg"],
-      emojis: ["happy", "exited"],
+      desc: `I rode ${(parseInt(distance * 10) / 10)} km at Boramae Park!`,
+      photos: randomPhotos,
+      emojis: hashtags,
       metaphors: {
         tree: (parseInt(distance * 10) / 10) * 0.05,
         taxi: (parseInt(distance * 10) / 10) * 1000,
@@ -156,11 +179,9 @@ export default function Home({ journalRef }) {
       },
     };
 
-    console.log(newJournal);
-
-    journalRef.child(id).set(newJournal);
-    return id;
-  };
+    journalRef.child(id).set(newJournal)
+    return id
+  }
 
   const startRide = () => {
     setStartTime(dayjs());
@@ -217,7 +238,7 @@ export default function Home({ journalRef }) {
         <div className={classes.verticalAlign}>Home</div>
       </div>
 
-      <div className={classes.avatar}>
+      {/* <div className={classes.avatar}>
         <div
           className={classes.verticalAlign}
           style={{ right: "10px", transform: "translateY(-50%)" }}
@@ -227,7 +248,8 @@ export default function Home({ journalRef }) {
             <Avatar />
           </div>
         </div>
-      </div>
+      </div> */}
+      <Profile/>
 
       <div className={classes.content}>
         <div className={classes.weatherContainer}>
@@ -255,11 +277,11 @@ export default function Home({ journalRef }) {
         >
           {!isRiding ? (
             <StartButton
-              style={{ button: classes.button, text: classes.verticalAlign }}
+              style={{ button: classes.button, text: classes.buttonText }}
             />
           ) : (
             <StopButton
-              style={{ button: classes.button, text: classes.verticalAlign }}
+              style={{ button: classes.button, text: classes.buttonText }}
             />
           )}
         </div>

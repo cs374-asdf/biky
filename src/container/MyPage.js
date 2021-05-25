@@ -1,15 +1,15 @@
+import "@fontsource/roboto";
+
+import Avatar from "../component/Avatar";
 import Box from "@material-ui/core/Box";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
-import Avatar from "../component/Avatar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import "@fontsource/roboto";
 import { badges } from '../data/badge'
+import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-
 
 const logo = '/images/logo.png'
 
@@ -190,8 +190,8 @@ export default function MyPage({mainBadge}) {
                       {/* <Avatar/> */}
                       <img
                         src={process.env.PUBLIC_URL + '/images/nayeon.png'}
-                        width="80px"
-                        alt=""
+                        width="100%"
+                        alt="profile"
                       />
                     </div>
                   </div>
@@ -214,8 +214,9 @@ export default function MyPage({mainBadge}) {
             </Box>
 
             <Box className={classes.recordsContainer}>
-              <Typography className={classes.bold}>Records</Typography>
               <Box className={classes.roundBox}>
+                              <Typography className={classes.bold}>Records</Typography>
+
                 <Typography
                   style={{ marginBottom: '10px', lineHeight: '200%' }}
                 >
@@ -233,10 +234,11 @@ export default function MyPage({mainBadge}) {
             </Box>
 
       <div>
-        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+        <Paper className={classes.paper} onClick={handleClick}>
+          <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
           Representative Badge
         </Typography>
-        <Paper className={classes.paper} onClick={handleClick}>
+
           <Grid container spacing={2}>
             <Grid item>
               <Box className={classes.badgeBox}>
@@ -265,62 +267,6 @@ export default function MyPage({mainBadge}) {
           </Grid>
         </Paper>
       </div>
-
-
-            {/* <Box className={classes.badgeContainer}>
-              <Typography className={classes.bold}>Badge</Typography>
-
-              <ButtonBase style={{ width: '100%' }}>
-                <Paper
-                  className={classes.roundBox}
-                  style={{ width: '100%' }}
-                  onClick={() => {
-                    handleClick()
-                  }}
-                >
-                  <Grid container>
-                    <Grid item style={{ width: '100px' }}>
-                      <Box style={{ position: 'relative' }}>
-                        <img
-                          className={classes.badge}
-                          src={process.env.PUBLIC_URL + logo}
-                        />
-                      </Box>
-                    </Grid>
-                    <Grid
-                      item
-                      xs
-                      container
-                      direction="column"
-                      style={{
-                        width: 'calc(100% - 100px)',
-                        marginLeft: '10px',
-                      }}
-                    >
-                      <Grid item xs>
-                        <Typography variant="h6" align="left">
-                          배지 이름
-                        </Typography>
-                      </Grid>
-                      <Grid item xs>
-                        <Typography variant="body2" align="left">
-                          배지 설명이에요
-                          <br />
-                          정말 귀엽죠?
-                          <br />
-                          asdcxbj
-                          <br />
-                          aszcxs
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </ButtonBase>
-            </Box> */}
-
-
-
 
           </div>
         </Box>

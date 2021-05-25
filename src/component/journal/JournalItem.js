@@ -1,3 +1,5 @@
+import { formatDistance, formatTime } from "../../util/format";
+
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
@@ -10,7 +12,6 @@ import { getIconComponent } from "../../util/icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { nullToList } from "../../util/format";
 import polyline from "@mapbox/polyline";
-import { formatTime, formatDistance } from "../../util/format";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -30,7 +31,7 @@ export function getHashtags(hashtags) {
 }
 
 export function getFriends(friends) {
-  console.log(friends);
+  // console.log(friends);
   if (!friends) return <div> no friends... </div>;
   var temp = friends.map((friend) => (
     <Box mr={1}>
