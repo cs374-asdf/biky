@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import mapboxgl from "mapbox-gl";
 
@@ -13,9 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYmFieWNyb2MiLCJhIjoiY2tvaW5rMWlpMDE3czJ3cWYyMXZkZmxidiJ9.8m_FmwtsgjCBUq2Jq9wVcg";
-
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API
 export default function StaticMap(props) {
   const classes = useStyles();
   var route = props.route ? props.route : [];

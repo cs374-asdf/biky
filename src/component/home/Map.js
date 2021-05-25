@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import mapboxgl from 'mapbox-gl';
 
@@ -165,7 +166,7 @@ const useStyles = makeStyles({
     },
   });
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYmFieWNyb2MiLCJhIjoiY2tvaW5rMWlpMDE3czJ3cWYyMXZkZmxidiJ9.8m_FmwtsgjCBUq2Jq9wVcg';
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API
 
 function swapColumns(array) {
   var newArray = [];

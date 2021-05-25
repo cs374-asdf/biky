@@ -44,7 +44,6 @@ function App() {
   const [frequestRef, setFrequestsRef] = React.useState(null);
   const [friendRef, setFriendRef] = React.useState(null);
 
-  
 
   return (
     <ThemeProvider theme={theme}>

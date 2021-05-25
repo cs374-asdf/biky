@@ -14,8 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYmFieWNyb2MiLCJhIjoiY2tvaW5rMWlpMDE3czJ3cWYyMXZkZmxidiJ9.8m_FmwtsgjCBUq2Jq9wVcg";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API
 
 export default function StaticMap(props) {
   const classes = useStyles();
