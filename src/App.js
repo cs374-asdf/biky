@@ -115,7 +115,7 @@ function App() {
             path="/biky/badgeDetail"
             exact
             render={() => {
-              if (friendRef && frequestRef && journalRef)
+              if (friendRef && journalRef)
               return <BadgeDetail
                 changeMainBadge={(id) => setMainBadge(id)}
                 mainBadge={mainBadge}
@@ -127,7 +127,7 @@ function App() {
           <Route
             path="/biky/friend"
             render={() => {
-              if (friendRef && frequestRef && journalRef)
+              if (friendRef && journalRef)
                 return <Friends
                   friendRef={db.ref(friendRef)}
                   frequestRef={db.ref(frequestRef)}

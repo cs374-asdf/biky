@@ -104,7 +104,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: '50px',
+    fontSize: '25px',
+    color: 'white'
   },
   startButton: {
     position: "relative",
@@ -112,11 +113,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: "10px",
     fontWeight: "bold",
-    fontSize: "20px",
+    fontSize: "25px",
     margin: "10px",
     width: "calc(100% - 20px)",
     color: theme.palette.primary.main
-
   },
   stopButton: {},
 }));
@@ -164,7 +164,7 @@ export default function Home({ journalRef }) {
     const randomTitle = getRandomTitle()
 
     let newJournal = {
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
       id,
       route,
       hashtags,

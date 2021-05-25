@@ -58,7 +58,8 @@ const journal = {
   distance: 0.7,
   emojis: ["happy", "exited"],
   endTime: "Tue, 25 May 2021 12:17:15 GMT",
-  hashtags: ["happy"],
+  hashtags: ["sad"],
+  createdAt: new Date().toString(),
   id: "j0",
   metaphors: {
     burger: 0.06999999999999999,
@@ -78,7 +79,7 @@ const journal = {
   ],
   startTime: "Tue, 25 May 2021 10:03:55 GMT",
   time: 133.33333333333334,
-  title: "Today's Bike Ride",
+  title: "To the moon 🚀",
   weather: "rainy",
 };
 
@@ -133,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
 function setDB(db, user) {
   const ref = db.ref("/" + user);
   ref.once("value").then(function (snapshot) {
-    var existed = snapshot.hasChild("journal");
+    var existed = snapshot.hasChild("journals");
     if (!existed) {
       const frequestRef = ref.child("frequests");
       const friendRef = ref.child("friends");

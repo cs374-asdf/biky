@@ -6,7 +6,9 @@ export default function StopButton(props) {
   const style = props.style;
 
   return (
-    <Button className={style.button} variant="contained" style={{backgroundColor: 'red'}}>
+    <Button className={style.button} variant="contained" style={{
+      backgroundColor: "#A9A9A9"
+    }}>
       <Typography className={style.text} color="white">
         Stop Ride
       </Typography>

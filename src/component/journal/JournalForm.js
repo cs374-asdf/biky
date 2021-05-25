@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     padding: "10px",
     marginTop: "10px",
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 

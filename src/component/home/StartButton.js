@@ -7,7 +7,12 @@ export default function StartButton(props) {
 
   return (
 
-    <Button className={style.button} style={{backgroundColor: '#ff85ac'}} variant="contained">
+    <Button
+      className={style.button}
+      style={{
+        backgroundColor: '#FF85AC',
+      }}
+      variant="contained">
       <Typography className={style.text} color="textPrimary">
         Start Ride
       </Typography>
