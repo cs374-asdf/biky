@@ -70,7 +70,13 @@ export default function JournalDetail({ journal, friends, handleClose }) {
       }}
       display="flex"
     >
-      <div className={classes.actions}>
+      <div
+        className={classes.actions}
+        style={{
+          paddingBottom: '10px',
+          borderBottom: '1px solid #BBBBBB',
+        }}
+      >
         <div
           style={{
             display: 'inline-block',
