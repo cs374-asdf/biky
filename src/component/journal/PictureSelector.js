@@ -2,6 +2,7 @@ import { allPhotos, getRandomPhoto } from '../../data/photo'
 
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import Loading from '../Loading'
 import MyAppBar from "./AppBar";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -53,7 +54,7 @@ export default function PictureSelector({ pictures, onSubmit }) {
     else setSelected([...selected, pic]);
   };
 
-  if (!pictures) return <div> 로딩중 </div>;
+  if (!pictures) return <Loading/>;
 
   return (
     <div className={classes.paper}>

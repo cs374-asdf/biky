@@ -1,6 +1,7 @@
 import Avatar from '../component/Avatar'
 import FrequestComponent from '../component/friend/Frequest'
 import FriendList from '../component/friend/Friends'
+import Loading from '../component/Loading'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -102,7 +103,8 @@ export default function Friends({ friendRef, frequestRef, journalRef }) {
     frequestRef.child(fid).remove()
   }
 
-  if (!journalsByFriend) return <div> 로딩중... </div>
+  if (!journalsByFriend) return <Loading/>;
+  
   return (
     <div className={classes.page}>
       <div className={classes.header}>
