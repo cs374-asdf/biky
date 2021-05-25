@@ -1,21 +1,20 @@
-import './App.css'
+import "./App.css";
 
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import { green, orange } from '@material-ui/core/colors'
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { green, orange } from "@material-ui/core/colors";
 
-import BadgeDetail from './container/BadgeDetail'
-import Friends from './container/Friends'
-import Home from './container/Home'
-import JournalEditor from './container/journal/JournalEditor'
-import JournalMain from './container/journal/JournalMain'
-import Login from './container/Login'
-import LoginInitial from './container/LoginInitial'
-import MyPage from './container/MyPage'
-import NavigationBar from './component/NavigationBar'
-import db from './firebaseInit'
-import React from 'react'
-
+import BadgeDetail from "./container/BadgeDetail";
+import Friends from "./container/Friends";
+import Home from "./container/Home";
+import JournalEditor from "./container/journal/JournalEditor";
+import JournalMain from "./container/journal/JournalMain";
+import Login from "./container/Login";
+import LoginInitial from "./container/LoginInitial";
+import MyPage from "./container/MyPage";
+import NavigationBar from "./component/NavigationBar";
+import db from "./firebaseInit";
+import React from "react";
 
 const theme = createMuiTheme({
   palette: {
@@ -26,14 +25,17 @@ const theme = createMuiTheme({
       main: orange[500], // secondary color
     },
   },
-})
+});
 
-const journalRef = '/nayeon/journals'
-const frequestRef = '/nayeon/frequests'
-const friendRef = '/nayeon/friends'
+const journalRef = "/nayeon/journals";
+const frequestRef = "/nayeon/frequests";
+const friendRef = "/nayeon/friends";
 
 function App() {
-  const [mainBadge, setMainBadge] = React.useState(0)
+  const [mainBadge, setMainBadge] = React.useState(0);
+  const [journalRef, setJournalRef] = React.useState("/nayeon/journals");
+  const [frequestRef, setFrequestsRef] = React.useState("/nayeon/frequests");
+  const [friendRef, setFriendRef] = React.useState("/nayeon/friends");
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,7 +45,7 @@ function App() {
           <Route
             path="/biky/home"
             exact
-            render={() => <Home journalRef={db.ref(journalRef)} />}
+            render={() => <Home journalRef={db.ref(journalRef)} />} //
           />
           <Route
             path="/biky/journal"
@@ -65,16 +67,38 @@ function App() {
               />
             )}
           />
-          <Route path="/biky/login" exact component={Login} />
+          <Route
+            path="/biky/login"
+            exact
+            render={() => (
+              <Login
+                db={db}
+                setJournalRef={(name) =>
+                  setJournalRef("/" + name + "/journals")
+                }
+                setFriendRef={(name) => setFriendRef("/" + name + "/friends")}
+                setFrequestsRef={(name) =>
+                  setFrequestsRef("/" + name + "/frequests")
+                }
+              />
+            )}
+          />
           <Route path="/biky/" exact component={LoginInitial} />
-          <Route path="/biky/myPage" exact render={() => <MyPage
-                      mainBadge={mainBadge}          
-          />} />
-          <Route path="/biky/badgeDetail" exact render={() => 
-          <BadgeDetail
-            changeMainBadge={(id)=>setMainBadge(id)}
-            mainBadge={mainBadge}
-          />}/>
+          <Route
+            path="/biky/myPage"
+            exact
+            render={() => <MyPage mainBadge={mainBadge} />}
+          />
+          <Route
+            path="/biky/badgeDetail"
+            exact
+            render={() => (
+              <BadgeDetail
+                changeMainBadge={(id) => setMainBadge(id)}
+                mainBadge={mainBadge}
+              />
+            )}
+          />
           <Route
             path="/biky/friend"
             render={() => (
@@ -89,7 +113,7 @@ function App() {
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

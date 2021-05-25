@@ -1,5 +1,9 @@
-import { List, ListItem } from "@material-ui/core";
+import { formatDistance, formatTime } from "../../util/format";
+import { getIconComponent, hashtagsDB } from "../../util/icon";
+
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import CancelIcon from "@material-ui/icons/Cancel";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FriendItem from "./FriendItem";
 import HashtagSelector from "./HashtagSelector";
@@ -7,14 +11,10 @@ import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import PictureList from "./PictureList";
 import React from "react";
+import StaticMap from "../home/StaticMap";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import StaticMap from "../home/StaticMap";
-import CancelIcon from "@material-ui/icons/Cancel";
-import Box from "@material-ui/core/Box";
-import { getIconComponent, hashtagsDB } from "../../util/icon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,7 +95,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function showWeather(weather) {
   return (
     <div
@@ -167,22 +166,14 @@ function contentSuggestion(text) {
   );
 }
 
-const formatTime = (time) => {
-  const intTime = parseInt(time);
-  const getSeconds = `0${intTime % 60}`.slice(-2);
-  const minutes = `${Math.floor(intTime / 60)}`;
-  const getMinutes = `0${minutes % 60}`.slice(-2);
-  const getHours = `0${Math.floor(intTime / 3600)}`.slice(-2);
-  return `${getHours} : ${getMinutes} : ${getSeconds}`;
-};
-
-const formatDistance = (distance) => {
-  if (distance < 1) {
-    return `${distance * 1000}m`;
-  } else {
-    return `${distance}km`;
-  }
-};
+// const formatTime = (time) => {
+//   const intTime = parseInt(time);
+//   const getSeconds = `0${intTime % 60}`.slice(-2);
+//   const minutes = `${Math.floor(intTime / 60)}`;
+//   const getMinutes = `0${minutes % 60}`.slice(-2);
+//   const getHours = `0${Math.floor(intTime / 3600)}`.slice(-2);
+//   return `${getHours} : ${getMinutes} : ${getSeconds}`;
+// };
 
 export default function JournalForm({
   journal,
@@ -256,7 +247,12 @@ export default function JournalForm({
 
           <div>
             <div style={{ position: "absolute", right: "10px" }}>
-              <Typography>{weatherIcon(journal.weather)} <div style={{ display: "inline-block", margin: "5px"}}>{journal.date}</div></Typography>
+              <Typography>
+                {weatherIcon(journal.weather)}{" "}
+                <div style={{ display: "inline-block", margin: "5px" }}>
+                  {journal.date}
+                </div>
+              </Typography>
               {/* <Typography>{journal.weather}</Typography> */}
               {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
             </div>
@@ -295,7 +291,7 @@ export default function JournalForm({
                 Friends
               </Typography>
               <Button onClick={openFriendAddPage} className={classes.addButton}>
-                Add +
+                +
               </Button>
               <div>
                 {/* <List dense> */}
@@ -315,8 +311,6 @@ export default function JournalForm({
             </div>
           </div>
 
-          {/* <div> 오늘 본 고양이는 누구였나요?? </div> */}
-
           {/* 내용 suggestion */}
           <div>
             {contentSuggestion("What did you do at Boramae Park?")}
@@ -330,7 +324,6 @@ export default function JournalForm({
             variant="outlined"
             multiline
             defaultValue={journal.desc}
-            multiline={true}
             rows={5}
           />
 
@@ -341,7 +334,7 @@ export default function JournalForm({
               Pictures
             </Typography>
             <Button onClick={openPictureSelector} className={classes.addButton}>
-              Add +
+              +
             </Button>
 
             <PictureList

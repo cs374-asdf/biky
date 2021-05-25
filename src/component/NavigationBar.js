@@ -34,7 +34,6 @@ const NavBar = () => {
 
     history.listen((location, action) => {
         setValue(location.pathname)
-        console.log(action, location.pathname, location.state)
     });
 
     return (

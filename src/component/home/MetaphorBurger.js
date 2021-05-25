@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
-const burger = '/images/home/metaphor_burger.png'
+const burger = "/images/home/metaphor_burger.png";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -35,6 +35,7 @@ export default function MetaphorBurger(props) {
   const classes = useStyles()
   var amount = props.amount
 
+
   return (
     <div className={classes.background}>
       <img
@@ -42,9 +43,10 @@ export default function MetaphorBurger(props) {
         alt="burger"
         className={classes.img}
       />
-      <Typography className={classes.text} variant="h6">
-        You skipped {amount * 0.1} burgers!
-      </Typography>
+
+      <div className={classes.text}>
+        You skipped {(amount * 0.1).toFixed(2)} burgers!
+      </div>
     </div>
-  )
+  );
 }
