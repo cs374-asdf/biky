@@ -10,6 +10,7 @@ import {
 } from '../component/home'
 import React, { useRef, useState } from 'react'
 
+import { Button } from '@material-ui/core'
 import Avatar from '../component/Avatar'
 import dayjs from 'dayjs'
 import { makeStyles } from '@material-ui/core/styles'
@@ -93,6 +94,7 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     fontSize: '20px',
     margin: '10px',
+    width: 'calc(100% - 20px)',
     // border: "solid 1px black",
   },
   buttonText: {
