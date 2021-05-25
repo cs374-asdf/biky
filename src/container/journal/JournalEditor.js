@@ -9,13 +9,10 @@ import JournalForm from "../../component/journal/JournalForm";
 import { Modal } from "@material-ui/core";
 import PictureSelector from "../../component/journal/PictureSelector";
 import React from "react";
-import dayjs from "dayjs";
 import { mockJournal } from "../../data/journal";
 import { useParams } from "react-router-dom";
 
 function getFriends(ids, allFriends) {
-  console.log(ids);
-  console.log(allFriends);
   return allFriends.filter((friend) => ids.includes(friend.id));
 }
 

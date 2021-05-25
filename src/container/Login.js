@@ -29,13 +29,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     top: 0,
     left: 0,
-
     background: 'linear-gradient(0deg, #FFEDE8, #FFFFF5)',
-    // backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     width: '100%',
     height: '100%',
-    // bottom: 0,
   },
   grid: {
     margin: 'auto',

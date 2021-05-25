@@ -10,9 +10,10 @@ import {
 } from '../component/home'
 import React, { useRef, useState } from 'react'
 
-import { Button } from '@material-ui/core'
 import Avatar from '../component/Avatar'
+import { Button } from '@material-ui/core'
 import dayjs from 'dayjs'
+import {getRandomPhoto} from '../data/photo';
 import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
 
@@ -111,6 +112,20 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+function getRandomTitle()
+{
+  const randomTitles = [
+    "Met a beautiful cat",
+    "No play and all work makes Jack a dull boy",
+    "Come along with me",
+    "Dundun dance",
+    "Here's Jonny",
+    "Open the pot, HAL"
+  ]
+  let selector = randomInt(0, randomTitles.length-1)
+  return randomTitles[selector]
+}
+
 export default function Home({ journalRef }) {
   const classes = useStyles()
   var [isRiding, setIsRiding] = useState(false)
@@ -131,6 +146,9 @@ export default function Home({ journalRef }) {
     let id = journalRef.push().key
 
     const endTime = startTime.add(time, 'minute')
+    const randomPhotos = getRandomPhoto(3)
+    const randomTitle = getRandomTitle()
+
     let newJournal = {
       createdAt: new Date(),
       id,
@@ -142,11 +160,11 @@ export default function Home({ journalRef }) {
       weather: weatherTypes[weather - 1],
       startTime: startTime.toString(),
       endTime: endTime.toString(),
-      title: "Today's Bike Ride",
+      title: randomTitle,
 
       desc: `I rode ${(parseInt(distance * 10) / 10)} km at Boramae Park!`,
-      photos: ["/images/photo1.jpg", "/images/photo2.jpg"],
-      emojis: ["happy", "exited"],
+      photos: randomPhotos,
+      emojis: hashtags,
       metaphors: {
         tree: (parseInt(distance * 10) / 10)*0.05,
         taxi: (parseInt(distance * 10) / 10)*1000,
@@ -154,8 +172,6 @@ export default function Home({ journalRef }) {
 
       },
     }
-
-    console.log(newJournal)
 
     journalRef.child(id).set(newJournal)
     return id

@@ -1,5 +1,9 @@
 import { List, ListItem } from "@material-ui/core";
+import { getIconComponent, hashtagsDB } from "../../util/icon";
+
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import CancelIcon from "@material-ui/icons/Cancel";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FriendItem from "./FriendItem";
 import HashtagSelector from "./HashtagSelector";
@@ -7,14 +11,10 @@ import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import PictureList from "./PictureList";
 import React from "react";
+import StaticMap from "../home/StaticMap";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import StaticMap from "../home/StaticMap";
-import CancelIcon from "@material-ui/icons/Cancel";
-import Box from "@material-ui/core/Box";
-import { getIconComponent, hashtagsDB } from "../../util/icon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -315,8 +315,6 @@ export default function JournalForm({
             </div>
           </div>
 
-          {/* <div> 오늘 본 고양이는 누구였나요?? </div> */}
-
           {/* 내용 suggestion */}
           <div>
             {contentSuggestion("What did you do at Boramae Park?")}
@@ -330,7 +328,6 @@ export default function JournalForm({
             variant="outlined"
             multiline
             defaultValue={journal.desc}
-            multiline={true}
             rows={5}
           />
 
