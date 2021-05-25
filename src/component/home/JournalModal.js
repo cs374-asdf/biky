@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '-5px',
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   half: {
@@ -71,38 +72,35 @@ export default function JournalModal(props) {
         aria-describedby="simple-modal-description"
       >
         <div className={classes.modal}>
-          <div className={classes.actions}>
-            <div
+          <div id="modal-title" className={classes.title}>
+            <Typography
+              style={{
+                display: 'inline-block',
+                justifyContent: 'flex-start',
+                position: 'relative',
+                left: '30px',
+                flex: 1,
+              }}
+              variant="h5"
+            >
+              Today's Ride
+            </Typography>
+
+            <Button
               style={{
                 display: 'flex',
                 justifyContent: 'flex-end',
-                alignItems: 'flex-end',
+                position: 'relative',
+                left: '5px',
               }}
+              size="small"
+              onClick={closeModal}
             >
-              <div id="modal-title" className={classes.title}>
-                <Typography
-                  variant="h5"
-                  style={{
-                    align: 'center',
-                  }}
-                >
-                  Today's Ride
-                </Typography>
-                <Button
-                  style={{
-                    position: 'relative',
-                    left: '20px',
-                  }}
-                  size="small"
-                  onClick={closeModal}
-                >
-                  <img
-                    alt="close button"
-                    src={process.env.PUBLIC_URL + '/images/close.png'}
-                  />
-                </Button>
-              </div>
-            </div>
+              <img
+                alt="close button"
+                src={process.env.PUBLIC_URL + '/images/close.png'}
+              />
+            </Button>
           </div>
 
           <MetaphorContainer amount={amount} />
@@ -118,7 +116,6 @@ export default function JournalModal(props) {
             </div>
             <br />
 
-
             <div>
               <div className={classes.label}>Route</div>
               <StaticMap
@@ -128,7 +125,6 @@ export default function JournalModal(props) {
                 height={'300px'}
               />
             </div>
-
 
             <Button className={classes.button} onClick={props.handleJournal}>
               Journal Ride
