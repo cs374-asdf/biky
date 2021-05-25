@@ -82,14 +82,15 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     display: 'inline-block',
     textAlign: 'center',
-    width: '30%',
+    // width: '30%',
+    width: "90px",
     height: '100%',
     // border: "solid 1px black",
   },
   personalInfo: {
     // position: "absolute",
     display: 'inline-block',
-    width: 'calc(70% - 10px)',
+    width: 'calc(100% - 90px - 10px)',
     // border: "solid 1px black",
     // top: "50%",
     marginLeft: '10px',
@@ -136,21 +137,22 @@ function ShowMetaphors(image, val) {
   const classes = useStyles()
 
   return (
-    <div className={classes.metaphorItem}>
+    <div className={classes.metaphorItem} style={ image === taxi ? { minWidth: "130px" } : {}}>
       <img
         src={process.env.PUBLIC_URL + image}
-        width="70%"
-        style={{ maxWidth: '100px' }}
+        width="60%"
+        style={{ width: '50px' }}
       />
       <div
         style={{
           position: 'absolute',
           display: 'inline-block',
           // border: "solid 1px black",
-          textAlign: 'center',
-          width: '30%',
+          // textAlign: 'center',
+          width: 'calc(40% - 10px)',
           top: '50%',
           transform: 'translateY(-50%)',
+          marginLeft: "10px",
         }}
       >
         {val}
@@ -183,12 +185,12 @@ export default function MyPage({mainBadge}) {
                 <div className={classes.avatar}>
                   <div>
                     <div
-                      style={{ display: 'inline-block', marginBottom: '10px' }}
+                      style={{ display: 'inline-block', marginBottom: '5px' }}
                     >
                       {/* <Avatar/> */}
                       <img
-                        src={process.env.PUBLIC_URL + logo}
-                        width="100%"
+                        src={process.env.PUBLIC_URL + '/images/nayeon.png'}
+                        width="80px"
                         alt=""
                       />
                     </div>
@@ -196,15 +198,17 @@ export default function MyPage({mainBadge}) {
                   Nayeon Min
                 </div>
 
-                <div className={classes.personalInfo}>
-                  Age: 28
-                  <br />
-                  Gender: Female
-                  <br />
-                  Job: Freelancer Designer
-                  <br />
-                  <Typography>Sang-A is hungry..</Typography>
-                  <br />
+                <div className={classes.personalInfo} style={{ whiteSpace: "nowrap" }}>
+                  {/* <Typography> */}
+                    Age: 28
+                    <br />
+                    Gender: Female
+                    <br />
+                    Job: Freelancer Designer
+                    <br />
+                    Favorite: Boramae Park
+                    <br />
+                  {/* </Typography> */}
                 </div>
               </div>
             </Box>
@@ -215,16 +219,15 @@ export default function MyPage({mainBadge}) {
                 <Typography
                   style={{ marginBottom: '10px', lineHeight: '200%' }}
                 >
-                  You rode a bike for
-                  <div style={{ fontWeight: 'bold', fontSize: '18px' }}>
-                    1000km and 1000hrs!
+                  You rode a bike for &nbsp;
+                  <div style={{ fontWeight: 'bold', fontSize: '18px', display: "inline-block" }}>
+                    1029.9km and 47.7hrs!
                   </div>
                 </Typography>
                 <div className={classes.metaphorContainer}>
-                  {ShowMetaphors(taxi, 123)}
-                  {ShowMetaphors(burger, 123)}
-                  {ShowMetaphors(tree, 123)}
-                  {console.log(taxi)}
+                  {ShowMetaphors(taxi, "1,031,870")}
+                  {ShowMetaphors(burger, "103.5")}
+                  {ShowMetaphors(tree, "51.49")}
                 </div>
               </Box>
             </Box>
