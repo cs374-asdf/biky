@@ -99,10 +99,9 @@ const useStyles = makeStyles({
   },
   buttonText: {
     position: 'relative',
-    // border: "solid 1px black",
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: '20px',
+    fontSize: '60px',
   },
   startButton: {},
   stopButton: {},
@@ -255,11 +254,11 @@ export default function Home({ journalRef }) {
         >
           {!isRiding ? (
             <StartButton
-              style={{ button: classes.button, text: classes.verticalAlign }}
+              style={{ button: classes.button, text: classes.buttonText }}
             />
           ) : (
             <StopButton
-              style={{ button: classes.button, text: classes.verticalAlign }}
+              style={{ button: classes.button, text: classes.buttonText }}
             />
           )}
         </div>
