@@ -1,4 +1,4 @@
-import { Button, Modal } from '@material-ui/core'
+import { Button, Modal, Typography } from '@material-ui/core'
 import { MetaphorContainer, StaticMap } from './'
 
 import { Link } from 'react-router-dom'
@@ -67,7 +67,6 @@ export default function JournalModal(props) {
     <div>
       <Modal
         open={open}
-        onClose={closeModal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -81,13 +80,21 @@ export default function JournalModal(props) {
               }}
             >
               <div id="modal-title" className={classes.title}>
-                Today's Ride
+                <Typography
+                  variant="h5"
+                  style={{
+                    align: 'center',
+                  }}
+                >
+                  Today's Ride
+                </Typography>
                 <Button
                   style={{
                     position: 'relative',
                     left: '20px',
                   }}
                   size="small"
+                  onClick={closeModal}
                 >
                   <img
                     alt="close button"
