@@ -1,4 +1,4 @@
-import { List, ListItem } from "@material-ui/core";
+import { formatDistance, formatTime } from "../../util/format";
 import { getIconComponent, hashtagsDB } from "../../util/icon";
 
 import Box from "@material-ui/core/Box";
@@ -15,12 +15,6 @@ import StaticMap from "../home/StaticMap";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import StaticMap from "../home/StaticMap";
-import CancelIcon from "@material-ui/icons/Cancel";
-import Box from "@material-ui/core/Box";
-import { getIconComponent, hashtagsDB } from "../../util/icon";
-import { formatTime, formatDistance } from "../../util/format";
 
 const useStyles = makeStyles((theme) => ({
   root: {

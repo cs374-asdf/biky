@@ -9,20 +9,16 @@ import {
   Weather,
 } from '../component/home'
 import React, { useRef, useState } from 'react'
+import { formatDistance, formatTime } from "../util/format";
 
-import { Button } from '@material-ui/core'
-import Profile from './Profile'
-import dayjs from 'dayjs'
-import {getRandomPhoto} from '../data/photo';
-import { makeStyles } from '@material-ui/core/styles'
-import { useHistory } from 'react-router-dom'
-
-import { Button } from "@material-ui/core";
 import Avatar from "../component/Avatar";
+import { Button } from "@material-ui/core";
+import Profile from './Profile'
 import dayjs from "dayjs";
+import {getRandomPhoto} from '../data/photo';
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import { formatTime, formatDistance } from "../util/format";
+
 const useStyles = makeStyles({
   page: {
     position: "relative",

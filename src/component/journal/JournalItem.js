@@ -83,7 +83,7 @@ export function GetMetaphors(metaphor) {
   switch (randomIndex) {
     case 0: {
       console.log("tree");
-      sent = metaphor.tree + " trees";
+      sent = metaphor.tree.toFixed(2) + " trees";
       path = "/images/tree.png";
       cn = classes.tree;
       break;
@@ -91,7 +91,7 @@ export function GetMetaphors(metaphor) {
 
     case 1: {
       console.log("taxi");
-      sent = metaphor.taxi + " won";
+      sent = metaphor.taxi.toFixed(2) + " won";
       path = "/images/taxi.png";
       cn = classes.taxi;
       break;
@@ -99,14 +99,14 @@ export function GetMetaphors(metaphor) {
 
     case 2: {
       console.log("burger");
-      sent = metaphor.hamburger + " burgers";
+      sent = metaphor.burger.toFixed(2) + " burgers";
       path = "/images/hamburger.png";
       cn = classes.burger;
       break;
     }
   }
   return (
-    <Card className={cn} style={{ width: "140px", height: "40px" }}>
+    <Card className={cn} style={{ width: "160px", height: "40px" }}>
       <div
         style={{
           display: "flex",

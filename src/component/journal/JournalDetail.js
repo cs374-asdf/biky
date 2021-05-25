@@ -1,4 +1,5 @@
-import { emojiItem, getFriends, getHashtags } from "./JournalItem";
+import { GetMetaphors, emojiItem, getFriends, getHashtags } from "./JournalItem";
+import { formatDistance, formatTime, nullToList } from "../../util/format";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -9,7 +10,6 @@ import StaticMap from "../home/StaticMap";
 import dayjs from "dayjs";
 import { getIconComponent } from "../../util/icon";
 import { makeStyles } from "@material-ui/core/styles";
-import { nullToList, formatTime, formatDistance } from "../../util/format";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -158,7 +158,9 @@ export default function JournalDetail({ journal, friends, handleClose }) {
       <div className={classes.row}>{journal.desc}</div>
 
       <div className={classes.centeredRow}>
-        <div style={{ display: "inline-block", maxWidth: "50%" }}>메타포</div>
+        <div style={{ display: "inline-block", maxWidth: "50%" }}>
+          {GetMetaphors(journal.metaphors)}
+        </div>
         <div style={{ display: "inline-block" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 24 }}>
