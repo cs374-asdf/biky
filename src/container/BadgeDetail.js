@@ -100,12 +100,9 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
 
   return (
     <Box p={3}>
-      <ButtonBase>
+    <ButtonBase onClick={backward}>
         <ArrowBackIosOutlinedIcon
           className={classes.arrow}
-          onClick={() => {
-            backward();
-          }}
         ></ArrowBackIosOutlinedIcon>
       </ButtonBase>
 
