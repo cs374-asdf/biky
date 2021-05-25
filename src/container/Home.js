@@ -10,8 +10,8 @@ import {
 } from '../component/home'
 import React, { useRef, useState } from 'react'
 
-import Avatar from '../component/Avatar'
 import { Button } from '@material-ui/core'
+import Profile from './Profile'
 import dayjs from 'dayjs'
 import {getRandomPhoto} from '../data/photo';
 import { makeStyles } from '@material-ui/core/styles'
@@ -235,7 +235,7 @@ export default function Home({ journalRef }) {
         <div className={classes.verticalAlign}>Home</div>
       </div>
 
-      <div className={classes.avatar}>
+      {/* <div className={classes.avatar}>
         <div
           className={classes.verticalAlign}
           style={{ right: '10px', transform: 'translateY(-50%)' }}
@@ -245,7 +245,8 @@ export default function Home({ journalRef }) {
             <Avatar />
           </div>
         </div>
-      </div>
+      </div> */}
+      <Profile/>
 
       <div className={classes.content}>
         <div className={classes.weatherContainer}>

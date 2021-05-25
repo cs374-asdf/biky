@@ -2,6 +2,7 @@ import Avatar from '../component/Avatar'
 import FrequestComponent from '../component/friend/Frequest'
 import FriendList from '../component/friend/Friends'
 import Loading from '../component/Loading'
+import Profile from './Profile'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -111,20 +112,7 @@ export default function Friends({ friendRef, frequestRef, journalRef }) {
         <div className={classes.verticalAlign}>Friends</div>
       </div>
 
-      <div className={classes.avatar}>
-        <div
-          className={classes.verticalAlign}
-          style={{
-            right: '10px',
-            transform: 'translateY(-50%)',
-          }}
-        >
-          Nayeon Min
-          <div style={{ display: 'inline-block' }}>
-            <Avatar />
-          </div>
-        </div>
-      </div>
+      <Profile/>
 
       <div className={classes.content}>
         <FrequestComponent

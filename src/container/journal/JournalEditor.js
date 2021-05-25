@@ -6,6 +6,7 @@ import { nullToList, toList } from "../../util/format";
 
 import FriendAddPage from "../../component/journal/FriendAddPage";
 import JournalForm from "../../component/journal/JournalForm";
+import Loading from "../../component/Loading";
 import { Modal } from "@material-ui/core";
 import PictureSelector from "../../component/journal/PictureSelector";
 import React from "react";
@@ -93,8 +94,8 @@ export default function JournalEditor({ journalRef, friendRef }) {
     setPictures(pictures.filter((item) => item !== pic));
   };
 
-  if (loading) return <div> loading... </div>;
-
+  if (loading) return <Loading/>;
+  
   const MyPictureSelector = React.forwardRef((props, ref) => (
     <PictureSelector
       pictures={pictures}
