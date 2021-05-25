@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
 
 const tree = '/images/home/metaphor_tree.png'
 
@@ -21,12 +22,13 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateY(-50%)',
     display: 'inline-block',
     color: 'white',
-    fontSize: '15px',
-    fontWeight: 'bold',
-    margin: '0 auto',
+    // fontSize: '15px',
+    // fontWeight: 'bold',
+    // margin: '0 auto',
     // border: "solid 1px black",
     width: 'calc(85% - 20px)',
-    paddingLeft: '10px',
+    // paddingLeft: '10px',
+    textAlign: 'center',
   },
 }))
 
@@ -37,9 +39,9 @@ export default function MetaphorTree(props) {
   return (
     <div className={classes.background}>
       <img src={process.env.PUBLIC_URL + tree} alt="" className={classes.img} />
-      <div className={classes.text}>
+      <Typography className={classes.text} variant="h6">
         You planted {(amount * 0.05).toFixed(3).replace(/(0+$)/, '')} trees!
-      </div>
+      </Typography>
     </div>
   )
 }
