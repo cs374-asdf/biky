@@ -13,7 +13,7 @@
     "dayjs": "^1.10.4",
     "firebase": "^8.6.1",
     "lodash": "^4.17.21",
-    "mapbox-gl": "2.2.0",
+    "mapbox-gl": "^1.13.0",
     "react": "^17.0.2",
     "react-autosuggest": "^10.1.0",
     "react-dom": "^17.0.2",
@@ -38,9 +38,8 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "defaults",
+      "not ie 11"
     ],
     "development": [
       "last 1 chrome version",
