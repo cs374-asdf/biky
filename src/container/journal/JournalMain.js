@@ -56,6 +56,8 @@ function getFriendsByJournal(journals, flist) {
 }
 
 export default function JournalMain({ journalRef, friendRef }) {
+  // var journalRef = db.ref("/" + user + "/journals");
+  // var friendRef = db.ref("/" + user + "/friends");
   const classes = useStyles();
   // firebase subscribe를 해서 journal document가 바뀌면 다시 다운받도록 함
   const [journals, setJournals] = React.useState([]);

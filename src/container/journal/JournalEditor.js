@@ -34,6 +34,8 @@ export default function JournalEditor({ journalRef, friendRef }) {
   // 라우트 params 불러오기
   // create인 경우 vs. edit인 경우
   // const id = 1;
+  // var journalRef = db.ref("/" + user + "/journals");
+  // var friendRef = db.ref("/" + user + "/friends");
   let { id } = useParams();
   const [journal, setJournal] = React.useState(mockJournal);
   const [loading, setLoading] = React.useState(true);
