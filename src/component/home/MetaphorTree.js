@@ -1,8 +1,7 @@
-
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
-
+import { Icon } from "@iconify/react";
+import React from "react";
+import deciduousTree from "@iconify-icons/twemoji/deciduous-tree"; // 나무
+import { makeStyles } from "@material-ui/core/styles";
 
 const tree = "/images/home/metaphor_tree.png";
 
@@ -10,21 +9,21 @@ const useStyles = makeStyles((theme) => ({
   background: {
 
     position: 'relative',
-    background: 'linear-gradient(45deg, #73A15D, #94C25A)',
+    // background: 'linear-gradient(45deg, #73A15D, #94C25A)',
     borderRadius: '10px',
     padding: '10px',
   },
   img: {
     display: 'inline-block',
     // border: "solid 1px black",
-    width: '15%',
+    fontSize: 60,
   },
   text: {
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
     display: 'inline-block',
-    color: 'white',
+    // color: 'white',
     // fontSize: '15px',
     // fontWeight: 'bold',
     // margin: '0 auto',
@@ -42,8 +41,7 @@ export default function MetaphorTree(props) {
 
   return (
     <div className={classes.background}>
-      <img src={process.env.PUBLIC_URL + tree} alt="" className={classes.img} />
-
+      <Icon icon={deciduousTree} className={classes.img} />
       <div className={classes.text}>
         You planted {(amount * 0.05).toFixed(2)} trees!
       </div>

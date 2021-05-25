@@ -106,8 +106,7 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
         ></ArrowBackIosOutlinedIcon>
       </ButtonBase>
 
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.root}>
           <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
           Representative Badge
         </Typography>
@@ -139,11 +138,8 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
             </Grid>
           </Grid>
         </Paper>
-      </div>
 
-      <div className={classes.root}>
-        <Paper className={classes.paper} style={{border: "solid 1px lightgray",
-}}>
+        <Paper className={classes.root} style={{border: "solid 1px lightgray", marginTop: 10}}>
         <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
         Other Badges
         </Typography>
@@ -157,7 +153,6 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
 
         </div>
         </Paper>
-      </div>
     </Box>
   );
 }

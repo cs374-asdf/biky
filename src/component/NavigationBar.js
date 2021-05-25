@@ -45,21 +45,21 @@ const NavBar = () => {
       className={classes.root}
     >
       <BottomNavigationAction
-        label="친구"
+        label="FRIEND"
         value="/biky/friend"
         icon={<PeopleIcon />}
         component={Link}
         to="/biky/friend"
       ></BottomNavigationAction>
       <BottomNavigationAction
-        label="홈"
+        label="HOME"
         value="/biky/home"
         icon={<HomeIcon />}
         component={Link}
         to="/biky/home"
       />
       <BottomNavigationAction
-        label="기록"
+        label="JOURNAL"
         value="/biky/journal"
         icon={<DirectionsBikeIcon />}
         component={Link}

@@ -17,6 +17,10 @@ import React from "react";
 import db from "./firebaseInit";
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Noto Sans',
+    
+  },
   palette: {
     primary: {
       main: '#ff85ac',

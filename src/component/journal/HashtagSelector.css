@@ -1,5 +1,4 @@
 body {
-  font-family: Helvetica, sans-serif;
 }
 
 .react-autosuggest__container {
@@ -10,7 +9,6 @@ body {
   width: "20%";
   height: 30px;
   padding: 10px 20px;
-  font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
   border: 1px solid #aaa;
@@ -38,7 +36,6 @@ body {
   width: calc(100% - 2px);
   border: 1px solid #aaa;
   background-color: #fff;
-  font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
   border-bottom-left-radius: 4px;

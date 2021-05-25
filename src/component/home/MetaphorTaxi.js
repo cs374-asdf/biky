@@ -1,28 +1,28 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
-
+import { Icon } from "@iconify/react";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import oncomingTaxi from "@iconify-icons/twemoji/oncoming-taxi";
 
 const taxi = "/images/home/metaphor_taxi.png";
 
 const useStyles = makeStyles((theme) => ({
   background: {
     position: 'relative',
-    background: 'linear-gradient(45deg, #A0BFE3, #F0A2B0)',
+    // background: 'linear-gradient(45deg, #A0BFE3, #F0A2B0)',
     borderRadius: '10px',
     padding: '10px',
   },
   img: {
     display: 'inline-block',
     // border: "solid 1px black",
-    width: '15%',
+    fontSize: 60,
   },
   text: {
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
     display: 'inline-block',
-    color: 'white',
+    // color: 'white',
     // fontSize: "15px",
     // fontWeight: "bold",
     // margin: "0 auto",
@@ -40,12 +40,7 @@ export default function MetaphorTaxi(props) {
 
   return (
     <div className={classes.background}>
-      <img
-        src={process.env.PUBLIC_URL + taxi}
-        alt="taxi"
-        className={classes.img}
-      />
-
+      <Icon icon={oncomingTaxi} className={classes.img} />
       <div className={classes.text}>
         You saved {(amount * 1000).toFixed(2)} won!
       </div>

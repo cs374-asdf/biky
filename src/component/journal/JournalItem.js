@@ -6,11 +6,15 @@ import Card from "@material-ui/core/Card";
 import DateComponent from "./DateComponent";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import { Icon } from "@iconify/react";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import deciduousTree from "@iconify-icons/twemoji/deciduous-tree"; // 나무
 import { getIconComponent } from "../../util/icon";
+import hamburgerIcon from "@iconify-icons/twemoji/hamburger"; // 햄버거
 import { makeStyles } from "@material-ui/core/styles";
 import { nullToList } from "../../util/format";
+import oncomingTaxi from "@iconify-icons/twemoji/oncoming-taxi";
 import polyline from "@mapbox/polyline";
 
 export function getDivs(items) {
@@ -54,22 +58,22 @@ export function getFriends(friends) {
 }
 const useStyles = makeStyles((theme) => ({
   tree: {
-    background: "linear-gradient(45deg, #73A15D, #94C25A)",
+    // background: "linear-gradient(45deg, #73A15D, #94C25A)",
     height: "40px",
     width: "100%",
-    borderRadius: "15px",
+    borderRadius: "5px",
   },
   taxi: {
-    background: "linear-gradient(45deg, #A0BFE3, #F0A2B0)",
+    // background: "linear-gradient(45deg, #A0BFE3, #F0A2B0)",
     height: "40px",
     width: "100%",
-    borderRadius: "15px",
+    borderRadius: "5px",
   },
   burger: {
-    background: "linear-gradient(45deg, #EED28B, #DB7E61)",
+    // background: "linear-gradient(45deg, #EED28B, #DB7E61)",
     height: "40px",
     width: "100%",
-    borderRadius: "15px",
+    borderRadius: "5px",
   },
 }));
 
@@ -78,21 +82,21 @@ export function GetMetaphors(metaphor) {
   if (!metaphor) return <div> empty metaphor </div>;
   var randomIndex = Math.floor(Math.random() * 3);
   var sent = "";
-  var path = "";
+  var icon_name;
   var cn = "";
   switch (randomIndex) {
     case 0: {
       console.log("tree");
       sent = metaphor.tree.toFixed(2) + " trees";
-      path = "/images/tree.png";
+      icon_name = deciduousTree;
       cn = classes.tree;
       break;
     }
 
     case 1: {
       console.log("taxi");
-      sent = metaphor.taxi.toFixed(2) + " won";
-      path = "/images/taxi.png";
+      sent = metaphor.taxi.toFixed(0) + " won";
+      icon_name = oncomingTaxi;
       cn = classes.taxi;
       break;
     }
@@ -100,34 +104,34 @@ export function GetMetaphors(metaphor) {
     case 2: {
       console.log("burger");
       sent = metaphor.burger.toFixed(2) + " burgers";
-      path = "/images/hamburger.png";
+      icon_name = hamburgerIcon;
       cn = classes.burger;
       break;
     }
   }
   return (
-    <Card className={cn} style={{ width: "160px", height: "40px" }}>
+    <Card className={cn} style={{ width: "170px", height: "40px" }}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
         }}
       >
-        <img
-          src={process.env.PUBLIC_URL + path}
+        <Icon
           style={{
             position: "relative",
             top: "2px",
             left: "15px",
             height: "35px",
+            fontSize: 40,
           }}
-          alt="metaphor"
+          icon={icon_name}
         />
         <Typography
           variant="body1"
           style={{
             fontSize: "1em",
-            color: "white",
+            // color: "white",
             position: "relative",
             top: "2px",
             left: "25px",

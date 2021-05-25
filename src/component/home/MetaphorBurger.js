@@ -1,27 +1,28 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Icon } from "@iconify/react";
+import React from "react";
+import hamburgerIcon from "@iconify-icons/twemoji/hamburger"; // 햄버거
+import { makeStyles } from "@material-ui/core/styles";
 
 const burger = "/images/home/metaphor_burger.png";
 
 const useStyles = makeStyles((theme) => ({
   background: {
     position: 'relative',
-    background: 'linear-gradient(45deg, #EED28B, #DB7E61)',
+    // background: 'linear-gradient(45deg, #EED28B, #DB7E61)',
     borderRadius: '10px',
     padding: '10px',
   },
   img: {
     display: 'inline-block',
     // border: "solid 1px black",
-    width: '15%',
+    fontSize: 60,
   },
   text: {
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
     display: 'inline-block',
-    color: 'white',
+    // color: 'white',
     // fontSize: '15px',
     // fontWeight: 'bold',
     // border: "solid 1px black",
@@ -38,12 +39,7 @@ export default function MetaphorBurger(props) {
 
   return (
     <div className={classes.background}>
-      <img
-        src={process.env.PUBLIC_URL + burger}
-        alt="burger"
-        className={classes.img}
-      />
-
+      <Icon icon={hamburgerIcon} className={classes.img} />
       <div className={classes.text}>
         You skipped {(amount * 0.1).toFixed(2)} burgers!
       </div>

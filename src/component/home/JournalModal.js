@@ -105,7 +105,7 @@ export default function JournalModal(props) {
 
           <MetaphorContainer amount={amount} />
 
-          <hr />
+          {/* <hr /> */}
 
           <div id="modal-description">
             <div className={classes.half}>
