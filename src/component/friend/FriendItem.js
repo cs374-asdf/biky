@@ -53,7 +53,7 @@ export default function FriendItem({ friend, journals }) {
       distance += journal.distance;
       time += dayjs(journal.endTime).diff(journal.startTime, "minute", true);
     });
-  friend.total_intimacy = (time / 60 + distance) / 2;
+  friend.total_intimacy = (time + distance * 10) / 2;
   if (friend.total_intimacy >= 100.0) {
     friend.total_intimacy = 100.0;
   }
