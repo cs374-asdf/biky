@@ -1,15 +1,15 @@
+import "@fontsource/roboto";
+
+import Avatar from "../component/Avatar";
 import Box from "@material-ui/core/Box";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
-import Avatar from "../component/Avatar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import "@fontsource/roboto";
 import { badges } from '../data/badge'
+import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-
 
 const logo = '/images/logo.png'
 
@@ -82,14 +82,15 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     display: 'inline-block',
     textAlign: 'center',
-    width: '30%',
+    // width: '30%',
+    width: "90px",
     height: '100%',
     // border: "solid 1px black",
   },
   personalInfo: {
     // position: "absolute",
     display: 'inline-block',
-    width: 'calc(70% - 10px)',
+    width: 'calc(100% - 90px - 10px)',
     // border: "solid 1px black",
     // top: "50%",
     marginLeft: '10px',
@@ -136,21 +137,22 @@ function ShowMetaphors(image, val) {
   const classes = useStyles()
 
   return (
-    <div className={classes.metaphorItem}>
+    <div className={classes.metaphorItem} style={ image === taxi ? { minWidth: "130px" } : {}}>
       <img
         src={process.env.PUBLIC_URL + image}
-        width="70%"
-        style={{ maxWidth: '100px' }}
+        width="60%"
+        style={{ width: '50px' }}
       />
       <div
         style={{
           position: 'absolute',
           display: 'inline-block',
           // border: "solid 1px black",
-          textAlign: 'center',
-          width: '30%',
+          // textAlign: 'center',
+          width: 'calc(40% - 10px)',
           top: '50%',
           transform: 'translateY(-50%)',
+          marginLeft: "10px",
         }}
       >
         {val}
@@ -183,57 +185,60 @@ export default function MyPage({mainBadge}) {
                 <div className={classes.avatar}>
                   <div>
                     <div
-                      style={{ display: 'inline-block', marginBottom: '10px' }}
+                      style={{ display: 'inline-block', marginBottom: '5px' }}
                     >
                       {/* <Avatar/> */}
                       <img
-                        src={process.env.PUBLIC_URL + logo}
+                        src={process.env.PUBLIC_URL + '/images/nayeon.png'}
                         width="100%"
-                        alt=""
+                        alt="profile"
                       />
                     </div>
                   </div>
                   Nayeon Min
                 </div>
 
-                <div className={classes.personalInfo}>
-                  Age: 28
-                  <br />
-                  Gender: Female
-                  <br />
-                  Job: Freelancer Designer
-                  <br />
-                  <Typography>Sang-A is hungry..</Typography>
-                  <br />
+                <div className={classes.personalInfo} style={{ whiteSpace: "nowrap" }}>
+                  {/* <Typography> */}
+                    Age: 28
+                    <br />
+                    Gender: Female
+                    <br />
+                    Job: Freelancer Designer
+                    <br />
+                    Favorite: Boramae Park
+                    <br />
+                  {/* </Typography> */}
                 </div>
               </div>
             </Box>
 
             <Box className={classes.recordsContainer}>
-              <Typography className={classes.bold}>Records</Typography>
               <Box className={classes.roundBox}>
+                              <Typography className={classes.bold}>Records</Typography>
+
                 <Typography
                   style={{ marginBottom: '10px', lineHeight: '200%' }}
                 >
-                  You rode a bike for
-                  <div style={{ fontWeight: 'bold', fontSize: '18px' }}>
-                    1000km and 1000hrs!
+                  You rode a bike for &nbsp;
+                  <div style={{ fontWeight: 'bold', fontSize: '18px', display: "inline-block" }}>
+                    1029.9km and 47.7hrs!
                   </div>
                 </Typography>
                 <div className={classes.metaphorContainer}>
-                  {ShowMetaphors(taxi, 123)}
-                  {ShowMetaphors(burger, 123)}
-                  {ShowMetaphors(tree, 123)}
-                  {console.log(taxi)}
+                  {ShowMetaphors(taxi, "1,031,870")}
+                  {ShowMetaphors(burger, "103.5")}
+                  {ShowMetaphors(tree, "51.49")}
                 </div>
               </Box>
             </Box>
 
       <div>
-        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+        <Paper className={classes.paper} onClick={handleClick}>
+          <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
           Representative Badge
         </Typography>
-        <Paper className={classes.paper} onClick={handleClick}>
+
           <Grid container spacing={2}>
             <Grid item>
               <Box className={classes.badgeBox}>
@@ -262,62 +267,6 @@ export default function MyPage({mainBadge}) {
           </Grid>
         </Paper>
       </div>
-
-
-            {/* <Box className={classes.badgeContainer}>
-              <Typography className={classes.bold}>Badge</Typography>
-
-              <ButtonBase style={{ width: '100%' }}>
-                <Paper
-                  className={classes.roundBox}
-                  style={{ width: '100%' }}
-                  onClick={() => {
-                    handleClick()
-                  }}
-                >
-                  <Grid container>
-                    <Grid item style={{ width: '100px' }}>
-                      <Box style={{ position: 'relative' }}>
-                        <img
-                          className={classes.badge}
-                          src={process.env.PUBLIC_URL + logo}
-                        />
-                      </Box>
-                    </Grid>
-                    <Grid
-                      item
-                      xs
-                      container
-                      direction="column"
-                      style={{
-                        width: 'calc(100% - 100px)',
-                        marginLeft: '10px',
-                      }}
-                    >
-                      <Grid item xs>
-                        <Typography variant="h6" align="left">
-                          배지 이름
-                        </Typography>
-                      </Grid>
-                      <Grid item xs>
-                        <Typography variant="body2" align="left">
-                          배지 설명이에요
-                          <br />
-                          정말 귀엽죠?
-                          <br />
-                          asdcxbj
-                          <br />
-                          aszcxs
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </ButtonBase>
-            </Box> */}
-
-
-
 
           </div>
         </Box>

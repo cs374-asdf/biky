@@ -1,3 +1,5 @@
+import { formatDistance, formatTime } from "../../util/format";
+
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
@@ -10,7 +12,6 @@ import { getIconComponent } from "../../util/icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { nullToList } from "../../util/format";
 import polyline from "@mapbox/polyline";
-import { formatTime, formatDistance } from "../../util/format";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -30,7 +31,7 @@ export function getHashtags(hashtags) {
 }
 
 export function getFriends(friends) {
-  console.log(friends);
+  // console.log(friends);
   if (!friends) return <div> no friends... </div>;
   var temp = friends.map((friend) => (
     <Box mr={1}>
@@ -82,7 +83,7 @@ export function GetMetaphors(metaphor) {
   switch (randomIndex) {
     case 0: {
       console.log("tree");
-      sent = metaphor.tree + " trees";
+      sent = metaphor.tree.toFixed(2) + " trees";
       path = "/images/tree.png";
       cn = classes.tree;
       break;
@@ -90,7 +91,7 @@ export function GetMetaphors(metaphor) {
 
     case 1: {
       console.log("taxi");
-      sent = metaphor.taxi + " won";
+      sent = metaphor.taxi.toFixed(2) + " won";
       path = "/images/taxi.png";
       cn = classes.taxi;
       break;
@@ -98,14 +99,14 @@ export function GetMetaphors(metaphor) {
 
     case 2: {
       console.log("burger");
-      sent = metaphor.hamburger + " burgers";
+      sent = metaphor.burger.toFixed(2) + " burgers";
       path = "/images/hamburger.png";
       cn = classes.burger;
       break;
     }
   }
   return (
-    <Card className={cn} style={{ width: "140px", height: "40px" }}>
+    <Card className={cn} style={{ width: "160px", height: "40px" }}>
       <div
         style={{
           display: "flex",

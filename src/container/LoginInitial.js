@@ -26,12 +26,13 @@ const MyButton = styled(Button)({
 
 const useStyles = makeStyles((theme) => ({
   background: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
     background: 'linear-gradient(0deg, #FFEDE8, #FFFFF5)',
-    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    width: '100vw',
-    height: '100vh',
-    bottom: 0,
+    width: '100%',
+    height: '100%',
   },
   logo: {
     paddingTop: theme.spacing(12),
@@ -52,7 +53,7 @@ export default function LoginInitial() {
   }
 
   return (
-    <Container className={classes.background}>
+    <div className={classes.background}>
       <CssBaseline />
       <Grid container className={classes.logo} justify="center">
         <img src={process.env.PUBLIC_URL + logo} alt="logo" />
@@ -70,6 +71,6 @@ export default function LoginInitial() {
           Don't have an account? <div onClick={() => alert("Please look for next update for sign up!")}> <b>SIGN UP</b> </div>
         </Typography>
       </Grid>
-    </Container>
+    </div>
   )
 }

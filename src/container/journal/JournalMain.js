@@ -4,6 +4,7 @@ import FilterIcon from "@material-ui/icons/FilterList";
 import JournalDetail from "../../component/journal/JournalDetail";
 import JournalList from "../../component/journal/JournalList";
 import Modal from "@material-ui/core/Modal";
+import Profile from '../Profile'
 import React from "react";
 import SearchBar from "../../component/common/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -56,6 +57,8 @@ function getFriendsByJournal(journals, flist) {
 }
 
 export default function JournalMain({ journalRef, friendRef }) {
+  // var journalRef = db.ref("/" + user + "/journals");
+  // var friendRef = db.ref("/" + user + "/friends");
   const classes = useStyles();
   // firebase subscribe를 해서 journal document가 바뀌면 다시 다운받도록 함
   const [journals, setJournals] = React.useState([]);
@@ -93,18 +96,9 @@ export default function JournalMain({ journalRef, friendRef }) {
       <div className={classes.header}>
         <div className={classes.verticalAlign}>Journal</div>
       </div>
+      
+      <Profile/>
 
-      <div className={classes.avatar}>
-        <div
-          className={classes.verticalAlign}
-          style={{ right: "10px", transform: "translateY(-50%)" }}
-        >
-          Nayeon Min{" "}
-          <div style={{ display: "inline-block" }}>
-            <Avatar />
-          </div>
-        </div>
-      </div>
 
       <div className={classes.content}>
         <div

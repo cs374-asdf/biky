@@ -1,11 +1,14 @@
+
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
-const tree = '/images/home/metaphor_tree.png'
+
+const tree = "/images/home/metaphor_tree.png";
 
 const useStyles = makeStyles((theme) => ({
   background: {
+
     position: 'relative',
     background: 'linear-gradient(45deg, #73A15D, #94C25A)',
     borderRadius: '10px',
@@ -36,12 +39,14 @@ export default function MetaphorTree(props) {
   const classes = useStyles()
   var amount = props.amount
 
+
   return (
     <div className={classes.background}>
       <img src={process.env.PUBLIC_URL + tree} alt="" className={classes.img} />
-      <Typography className={classes.text} variant="h6">
-        You planted {(amount * 0.05).toFixed(3).replace(/(0+$)/, '')} trees!
-      </Typography>
+
+      <div className={classes.text}>
+        You planted {(amount * 0.05).toFixed(2)} trees!
+      </div>
     </div>
-  )
+  );
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
-const taxi = '/images/home/metaphor_taxi.png'
+
+const taxi = "/images/home/metaphor_taxi.png";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -36,6 +37,7 @@ export default function MetaphorTaxi(props) {
   const classes = useStyles()
   var amount = props.amount
 
+
   return (
     <div className={classes.background}>
       <img
@@ -43,9 +45,10 @@ export default function MetaphorTaxi(props) {
         alt="taxi"
         className={classes.img}
       />
-      <Typography className={classes.text} variant="h6">
-        You saved {amount * 1000} won!
-      </Typography>
+
+      <div className={classes.text}>
+        You saved {(amount * 1000).toFixed(2)} won!
+      </div>
     </div>
-  )
+  );
 }
