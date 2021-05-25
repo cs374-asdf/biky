@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/biky/static/css/main.394994e1.chunk.css",
-    "main.js": "/biky/static/js/main.d4213427.chunk.js",
-    "main.js.map": "/biky/static/js/main.d4213427.chunk.js.map",
+    "main.js": "/biky/static/js/main.a40e47f3.chunk.js",
+    "main.js.map": "/biky/static/js/main.a40e47f3.chunk.js.map",
     "runtime-main.js": "/biky/static/js/runtime-main.8d669084.js",
     "runtime-main.js.map": "/biky/static/js/runtime-main.8d669084.js.map",
     "static/css/2.19072978.chunk.css": "/biky/static/css/2.19072978.chunk.css",
-    "static/js/2.3a414f51.chunk.js": "/biky/static/js/2.3a414f51.chunk.js",
-    "static/js/2.3a414f51.chunk.js.map": "/biky/static/js/2.3a414f51.chunk.js.map",
+    "static/js/2.09aa071e.chunk.js": "/biky/static/js/2.09aa071e.chunk.js",
+    "static/js/2.09aa071e.chunk.js.map": "/biky/static/js/2.09aa071e.chunk.js.map",
     "static/js/3.4875cd43.chunk.js": "/biky/static/js/3.4875cd43.chunk.js",
     "static/js/3.4875cd43.chunk.js.map": "/biky/static/js/3.4875cd43.chunk.js.map",
     "index.html": "/biky/index.html",
     "static/css/2.19072978.chunk.css.map": "/biky/static/css/2.19072978.chunk.css.map",
     "static/css/main.394994e1.chunk.css.map": "/biky/static/css/main.394994e1.chunk.css.map",
-    "static/js/2.3a414f51.chunk.js.LICENSE.txt": "/biky/static/js/2.3a414f51.chunk.js.LICENSE.txt"
+    "static/js/2.09aa071e.chunk.js.LICENSE.txt": "/biky/static/js/2.09aa071e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.8d669084.js",
     "static/css/2.19072978.chunk.css",
-    "static/js/2.3a414f51.chunk.js",
+    "static/js/2.09aa071e.chunk.js",
     "static/css/main.394994e1.chunk.css",
-    "static/js/main.d4213427.chunk.js"
+    "static/js/main.a40e47f3.chunk.js"
   ]
 }
