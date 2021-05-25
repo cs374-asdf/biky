@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import deciduousTree from "@iconify-icons/twemoji/deciduous-tree"; // 나무
+import { Icon } from "@iconify/react";
 
 const tree = "/images/home/metaphor_tree.png";
 
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     display: "inline-block",
     // border: "solid 1px black",
-    width: "15%",
+    fontSize: 60,
   },
   text: {
     position: "absolute",
@@ -36,7 +38,7 @@ export default function MetaphorTree(props) {
 
   return (
     <div className={classes.background}>
-      <img src={process.env.PUBLIC_URL + tree} alt="" className={classes.img} />
+      <Icon icon={deciduousTree} className={classes.img} />
       <div className={classes.text}>
         You planted {(amount * 0.05).toFixed(2)} trees!
       </div>

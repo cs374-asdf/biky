@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Icon } from "@iconify/react";
+import hamburgerIcon from "@iconify-icons/twemoji/hamburger"; // 햄버거
 
 const burger = "/images/home/metaphor_burger.png";
 
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     display: "inline-block",
     // border: "solid 1px black",
-    width: "15%",
+    fontSize: 60,
   },
   text: {
     position: "absolute",
@@ -35,11 +37,7 @@ export default function MetaphorBurger(props) {
 
   return (
     <div className={classes.background}>
-      <img
-        src={process.env.PUBLIC_URL + burger}
-        alt="burger"
-        className={classes.img}
-      />
+      <Icon icon={hamburgerIcon} className={classes.img} />
       <div className={classes.text}>
         You skipped {(amount * 0.1).toFixed(2)} burgers!
       </div>

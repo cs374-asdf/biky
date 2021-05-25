@@ -12,6 +12,10 @@ import { getIconComponent } from "../../util/icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { nullToList } from "../../util/format";
 import polyline from "@mapbox/polyline";
+import oncomingTaxi from "@iconify-icons/twemoji/oncoming-taxi";
+import hamburgerIcon from "@iconify-icons/twemoji/hamburger"; // 햄버거
+import deciduousTree from "@iconify-icons/twemoji/deciduous-tree"; // 나무
+import { Icon } from "@iconify/react";
 
 export function getDivs(items) {
   if (!items) return <div> empty </div>;
@@ -78,13 +82,13 @@ export function GetMetaphors(metaphor) {
   if (!metaphor) return <div> empty metaphor </div>;
   var randomIndex = Math.floor(Math.random() * 3);
   var sent = "";
-  var path = "";
+  var icon_name;
   var cn = "";
   switch (randomIndex) {
     case 0: {
       console.log("tree");
       sent = metaphor.tree.toFixed(2) + " trees";
-      path = "/images/tree.png";
+      icon_name = deciduousTree;
       cn = classes.tree;
       break;
     }
@@ -92,7 +96,7 @@ export function GetMetaphors(metaphor) {
     case 1: {
       console.log("taxi");
       sent = metaphor.taxi.toFixed(2) + " won";
-      path = "/images/taxi.png";
+      icon_name = oncomingTaxi;
       cn = classes.taxi;
       break;
     }
@@ -100,28 +104,28 @@ export function GetMetaphors(metaphor) {
     case 2: {
       console.log("burger");
       sent = metaphor.burger.toFixed(2) + " burgers";
-      path = "/images/hamburger.png";
+      icon_name = hamburgerIcon;
       cn = classes.burger;
       break;
     }
   }
   return (
-    <Card className={cn} style={{ width: "160px", height: "40px" }}>
+    <Card className={cn} style={{ width: "170px", height: "40px" }}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
         }}
       >
-        <img
-          src={process.env.PUBLIC_URL + path}
+        <Icon
           style={{
             position: "relative",
             top: "2px",
             left: "15px",
             height: "35px",
+            fontSize: 40,
           }}
-          alt="metaphor"
+          icon={icon_name}
         />
         <Typography
           variant="body1"

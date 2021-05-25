@@ -1,5 +1,7 @@
 import React from "react";
+import { Icon } from "@iconify/react";
 import { makeStyles } from "@material-ui/core/styles";
+import oncomingTaxi from "@iconify-icons/twemoji/oncoming-taxi";
 
 const taxi = "/images/home/metaphor_taxi.png";
 
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     display: "inline-block",
     // border: "solid 1px black",
-    width: "15%",
+    fontSize: 60,
   },
   text: {
     position: "absolute",
@@ -36,11 +38,7 @@ export default function MetaphorTaxi(props) {
 
   return (
     <div className={classes.background}>
-      <img
-        src={process.env.PUBLIC_URL + taxi}
-        alt="taxi"
-        className={classes.img}
-      />
+      <Icon icon={oncomingTaxi} className={classes.img} />
       <div className={classes.text}>
         You saved {(amount * 1000).toFixed(2)} won!
       </div>
