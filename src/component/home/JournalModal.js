@@ -118,6 +118,7 @@ export default function JournalModal(props) {
             </div>
             <br />
 
+
             <div>
               <div className={classes.label}>Route</div>
               <StaticMap
@@ -127,6 +128,7 @@ export default function JournalModal(props) {
                 height={'300px'}
               />
             </div>
+
 
             <Button className={classes.button} onClick={props.handleJournal}>
               Journal Ride

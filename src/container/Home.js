@@ -137,20 +137,22 @@ export default function Home({ journalRef }) {
       id,
       route,
       hashtags,
-      distance,
+      distance: (parseInt(distance * 10) / 10),
       time,
       date: endTime.format('YYYY. MM. DD'),
       weather: weatherTypes[weather - 1],
       startTime: startTime.toString(),
       endTime: endTime.toString(),
       title: "Today's Bike Ride",
-      desc: `I rode ${distance} km at Boramae Park!`,
-      photos: ['/images/photo1.jpg', '/images/photo2.jpg'],
-      emojis: ['happy', 'exited'],
+
+      desc: `I rode ${(parseInt(distance * 10) / 10)} km at Boramae Park!`,
+      photos: ["/images/photo1.jpg", "/images/photo2.jpg"],
+      emojis: ["happy", "exited"],
       metaphors: {
-        tree: distance * 1.5,
-        taxi: distance * 3000,
-        burger: distance * 2,
+        tree: (parseInt(distance * 10) / 10)*0.05,
+        taxi: (parseInt(distance * 10) / 10)*1000,
+        burger: (parseInt(distance * 10) / 10)*0.1,
+
       },
     }
 
@@ -164,10 +166,12 @@ export default function Home({ journalRef }) {
     setStartTime(dayjs())
     setIsRiding(true)
     increment.current = setInterval(() => {
-      setDistance((distance) => distance + 1)
-      setTime((time) => time + 1 / 6)
-    }, 1000 / 6)
-  }
+
+      setDistance((distance) => distance + 0.1);
+      setTime((time) => time + (1000 / 60));
+      console.log(distance, time)
+    }, 1000 / 6); // 100m/s
+  };
 
   const stopRide = () => {
     setIsRiding(false)
@@ -200,10 +204,13 @@ export default function Home({ journalRef }) {
   }
 
   const formatDistance = () => {
-    if (distance < 1000) {
-      return `${distance}m`
+
+    distance = (parseInt(distance * 10) / 10);
+    if (distance < 1) {
+      return `${distance * 1000}m`;
     } else {
-      return `${distance / 1000}km`
+      return `${distance}km`;
+
     }
   }
 

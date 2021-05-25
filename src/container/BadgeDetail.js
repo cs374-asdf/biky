@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined'
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
-import ButtonBase from '@material-ui/core/ButtonBase'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { badges } from '../data/badge'
+import { useHistory } from "react-router-dom";
 
 const badge0 = '/images/sick.jpg'
 const badge1 = '/images/cat.png'
@@ -40,8 +42,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0),
   },
   buttonBase: {
-    width: '100%',
-    borderBottom: 'dotted 1px lightgray',
+
+    width: "98%",
+    borderBottom: "dotted 1px lightgray",
+
   },
   arrow: {
     margin: theme.spacing(1, 1),
@@ -79,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     // border: 'solid 1px black',
   },
 }))
+
 
 const badges = [
   {
@@ -125,7 +130,7 @@ export default function BadgeDetail() {
 
   function backward() {
     window.location.href = '/biky/myPage'
-  }
+
 
   const eachBadge = badges.map((badge, idx) => (
     <ButtonBase
@@ -136,6 +141,7 @@ export default function BadgeDetail() {
       onClick={() => {
         handleClick(badge.oid)
         console.log(val)
+
       }}
       key={idx}
     >
@@ -187,6 +193,7 @@ export default function BadgeDetail() {
         <div className={classes.verticalAlign}>My Page</div>
       </div>
 
+
       <div className={classes.content}>
         <Box p={3}>
           <div className={classes.root}>
@@ -222,6 +229,7 @@ export default function BadgeDetail() {
                     </Typography>
                   </Grid>
                 </Grid>
+
               </Grid>
             </Paper>
           </div>

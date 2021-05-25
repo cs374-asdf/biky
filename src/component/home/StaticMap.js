@@ -20,7 +20,7 @@ mapboxgl.accessToken =
 export default function StaticMap(props) {
   const classes = useStyles();
   var route = props.route ? props.route : [];
-  var zoom = props.zoom ? props.zoom : 15;
+  var zoom = props.zoom ? props.zoom : 14;
   var width = props.width ? props.width : "100%";
   var height = props.height ? props.height : "300px";
   var length = route.length;

@@ -2,6 +2,8 @@
 import "./HashtagSelector.css"
 
 import Autosuggest from 'react-autosuggest';
+import { defaultTheme } from 'react-autosuggest/dist/theme';
+
 import React from 'react';
 
 function escapeRegexCharacters(str) {
@@ -79,6 +81,18 @@ export default function HashtagSelector({handleSubmit, hashtags}) {
         renderInputComponent={renderInputComponent}
         highlightFirstSuggestion={true}
         alwaysRenderSuggestions={true}
+        // theme={{
+        //   ...defaultTheme,
+        //   ...
+        //   {
+        //     container: {
+        //     //   ...defaultTheme.container,
+        //       display: 'visible',
+        //       width: '340px',
+        //     },
+        //     //more overrides
+        //   }
+        // }}
       />
     );
 }

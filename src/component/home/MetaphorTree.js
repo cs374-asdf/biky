@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         transform: "translateY(-50%)",
         display: "inline-block",
         color: "white",
-        fontSize: "18px",
+        fontSize: "15px",
         fontWeight: "bold",
         margin: "0 auto",
         // border: "solid 1px black",
@@ -37,7 +37,7 @@ export default function MetaphorTree(props) {
     return (
         <div className={classes.background}>
             <img src={process.env.PUBLIC_URL + tree} alt="" className={classes.img} />
-            <div className={classes.text}>You planted {amount*1.5} trees!</div>
+            <div className={classes.text}>You planted {amount*0.05} trees!</div>
         </div>
     )
 }
