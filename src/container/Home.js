@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     width: "100%",
     // height: "25%",
-    height: "135px",
+    height: "145px",
     // border: "solid 1px black",
   },
   measuresContainer: {
@@ -84,8 +84,8 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonContainer: {
     position: "relative",
-    width: "100%",
-    height: "calc(40% - 135px)",
+    width: "100%", 
+    height: "calc(40% - 145px)",
     minHeight: "50px",
     // border: "solid 1px black",
   },
