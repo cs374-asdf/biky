@@ -13,16 +13,18 @@ import Login from "./container/Login";
 import LoginInitial from "./container/LoginInitial";
 import MyPage from "./container/MyPage";
 import NavigationBar from "./component/NavigationBar";
-import db from "./firebaseInit";
 import React from "react";
+import db from "./firebaseInit";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: green[500], // primary color
+      main: '#ff85ac',
+      light: '#FFEDE8', // primary color
     },
     secondary: {
-      main: orange[500], // secondary color
+      main: '#FF8E53',
+      light: '#FFF9E8', // secondary color
     },
   },
 });

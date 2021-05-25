@@ -1,6 +1,8 @@
 import Avatar from "../../component/Avatar";
 import Button from "@material-ui/core/Button";
 import FilterIcon from "@material-ui/icons/FilterList";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import { IconButton } from "@material-ui/core";
 import JournalDetail from "../../component/journal/JournalDetail";
 import JournalList from "../../component/journal/JournalList";
 import Modal from "@material-ui/core/Modal";
@@ -110,14 +112,9 @@ export default function JournalMain({ journalRef, friendRef }) {
           }}
         >
           <SearchBar />
-          <Button
-            variant="contained"
-            color="secondary"
-            size="medium"
-            startIcon={<FilterIcon />}
-          >
-            Filter
-          </Button>
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
         </div>
 
         <div>

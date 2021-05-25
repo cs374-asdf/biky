@@ -7,8 +7,8 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { badges } from '../data/badge'
+import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -107,10 +107,11 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
       </ButtonBase>
 
       <div className={classes.root}>
-        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+        <Paper className={classes.paper}>
+          <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
           Representative Badge
         </Typography>
-        <Paper className={classes.paper}>
+
           <Grid container spacing={2}>
             <Grid item>
               <Box className={classes.badgeBox}>
@@ -120,7 +121,7 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
                     process.env.PUBLIC_URL +
                     badges[mainBadge].thumbnail
                   }
-                  alt="대표 뱃지"
+                  alt="Representative Badge"
                 />
               </Box>
             </Grid>
@@ -141,18 +142,21 @@ export default function BadgeDetail({mainBadge, changeMainBadge}) {
       </div>
 
       <div className={classes.root}>
+        <Paper className={classes.paper} style={{border: "solid 1px lightgray",
+}}>
         <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
-          Other Badges
+        Other Badges
         </Typography>
-        <Box
+
+        <div
           style={{
-            border: "solid 1px lightgray",
             overflow: "scroll",
             maxHeight: "calc(100vh - 390px)",
-          }}
-        >
-          {eachBadge}
-        </Box>
+          }}>
+                    {eachBadge}
+
+        </div>
+        </Paper>
       </div>
     </Box>
   );

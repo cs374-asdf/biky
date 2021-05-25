@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
   selected: {
     border: "2px solid",
-    borderColor: theme.palette.secondary,
+    borderColor: theme.palette.primary.main,
   },
 
   unselected: { 

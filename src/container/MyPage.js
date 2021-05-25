@@ -215,7 +215,7 @@ export default function MyPage({mainBadge}) {
 
             <Box className={classes.recordsContainer}>
               <Box className={classes.roundBox}>
-                              <Typography className={classes.bold}>Records</Typography>
+                <Typography className={classes.bold}>Records</Typography>
 
                 <Typography
                   style={{ marginBottom: '10px', lineHeight: '200%' }}
@@ -233,9 +233,8 @@ export default function MyPage({mainBadge}) {
               </Box>
             </Box>
 
-      <div>
-        <Paper className={classes.paper} onClick={handleClick}>
-          <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
+    <Box className={classes.roundBox} onClick={handleClick}>
+        <Typography className={classes.bold} style={{ marginBottom: "10px" }}>
           Representative Badge
         </Typography>
 
@@ -265,8 +264,7 @@ export default function MyPage({mainBadge}) {
               </Grid>
             </Grid>
           </Grid>
-        </Paper>
-      </div>
+        </Box>
 
           </div>
         </Box>

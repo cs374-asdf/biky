@@ -19,7 +19,7 @@ import {getRandomPhoto} from '../data/photo';
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   page: {
     position: "relative",
     // maxWidth: "550px",
@@ -106,9 +106,20 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     fontSize: '50px',
   },
-  startButton: {},
+  startButton: {
+    position: "relative",
+    height: "calc(100% - 20px)",
+    textAlign: "center",
+    borderRadius: "10px",
+    fontWeight: "bold",
+    fontSize: "20px",
+    margin: "10px",
+    width: "calc(100% - 20px)",
+    color: theme.palette.primary.main
+
+  },
   stopButton: {},
-});
+}));
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -210,23 +221,6 @@ export default function Home({ journalRef }) {
     history.push(`/biky/edit/${id}`);
   };
 
-  // const formatTime = () => {
-  //   const intTime = parseInt(time);
-  //   const getSeconds = `0${intTime % 60}`.slice(-2);
-  //   const minutes = `${Math.floor(intTime / 60)}`;
-  //   const getMinutes = `0${minutes % 60}`.slice(-2);
-  //   const getHours = `0${Math.floor(intTime / 3600)}`.slice(-2);
-  //   return `${getHours} : ${getMinutes} : ${getSeconds}`;
-  // };
-
-  // const formatDistance = () => {
-  //   distance = parseInt(distance * 10) / 10;
-  //   if (distance < 1) {
-  //     return `${distance * 1000}m`;
-  //   } else {
-  //     return `${distance}km`;
-  //   }
-  // };
 
   return (
     <div className={classes.page}>
@@ -234,17 +228,6 @@ export default function Home({ journalRef }) {
         <div className={classes.verticalAlign}>Home</div>
       </div>
 
-      {/* <div className={classes.avatar}>
-        <div
-          className={classes.verticalAlign}
-          style={{ right: "10px", transform: "translateY(-50%)" }}
-        >
-          Nayeon Min
-          <div style={{ display: "inline-block" }}>
-            <Avatar />
-          </div>
-        </div>
-      </div> */}
       <Profile/>
 
       <div className={classes.content}>
@@ -273,7 +256,7 @@ export default function Home({ journalRef }) {
         >
           {!isRiding ? (
             <StartButton
-              style={{ button: classes.button, text: classes.buttonText }}
+              style={{ button: classes.startButton, text: classes.buttonText }}
             />
           ) : (
             <StopButton
