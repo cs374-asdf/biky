@@ -101,21 +101,26 @@ export default function JournalMain({ journalRef, friendRef }) {
       
       <Profile/>
 
+      <div>
 
-      <div className={classes.content}>
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
-            padding: "20px",
-            borderBottom: "solid 1px black",
+            justifyContent: "flex-start",
+            alignItems: 'center',
+            // paddingHorizontal: "15px",
           }}
         >
-          <SearchBar />
-          <IconButton>
+          <div style={{flexGrow: 1, marginLeft: '20px'}}>
+            <SearchBar />
+          </div>
+          <div style={{marginRight: '10px'}}>
+            <IconButton>
             <FilterListIcon />
           </IconButton>
+          </div>
         </div>
+        
 
         <div>
           <JournalList
