@@ -7,15 +7,15 @@ import {
   StopButton,
   Time,
   Weather,
-} from '../component/home'
-import React, { useRef, useState } from 'react'
+} from "../component/home";
+import React, { useRef, useState } from "react";
 import { formatDistance, formatTime } from "../util/format";
 
 import Avatar from "../component/Avatar";
 import { Button } from "@material-ui/core";
-import Profile from './Profile'
+import Profile from "./Profile";
 import dayjs from "dayjs";
-import {getRandomPhoto} from '../data/photo';
+import { getRandomPhoto } from "../data/photo";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonContainer: {
     position: "relative",
-    width: "100%", 
+    width: "100%",
     height: "calc(40% - 145px)",
     minHeight: "50px",
     // border: "solid 1px black",
@@ -101,11 +101,11 @@ const useStyles = makeStyles((theme) => ({
     // border: "solid 1px black",
   },
   buttonText: {
-    position: 'relative',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: '25px',
-    color: 'white'
+    position: "relative",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: "25px",
+    color: "white",
   },
   startButton: {
     position: "relative",
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "25px",
     margin: "10px",
     width: "calc(100% - 20px)",
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
   },
   stopButton: {},
 }));
@@ -125,18 +125,17 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function getRandomTitle()
-{
+function getRandomTitle() {
   const randomTitles = [
     "Met a beautiful cat",
     "No play and all work makes Jack a dull boy",
     "Come along with me",
     "Dundun dance",
     "Here's Jonny",
-    "Open the pot, HAL"
-  ]
-  let selector = randomInt(0, randomTitles.length-1)
-  return randomTitles[selector]
+    "Open the pot, HAL",
+  ];
+  let selector = randomInt(0, randomTitles.length - 1);
+  return randomTitles[selector];
 }
 
 export default function Home({ journalRef }) {
@@ -159,16 +158,16 @@ export default function Home({ journalRef }) {
   const createJournal = () => {
     let id = journalRef.push().key;
 
-    const endTime = startTime.add(time, 'minute')
-    const randomPhotos = getRandomPhoto(3)
-    const randomTitle = getRandomTitle()
+    const endTime = startTime.add(time, "minute");
+    const randomPhotos = getRandomPhoto(3);
+    const randomTitle = getRandomTitle();
 
     let newJournal = {
       createdAt: new Date().toString(),
       id,
       route,
       hashtags,
-      distance: parseInt(distance * 10) / 10,
+      distance: distance,
       time,
       date: endTime.format("YYYY. MM. DD"),
       weather: weatherTypes[weather - 1],
@@ -176,7 +175,7 @@ export default function Home({ journalRef }) {
       endTime: endTime.toString(),
       title: randomTitle,
 
-      desc: `I rode ${(parseInt(distance * 10) / 10)} km at Boramae Park!`,
+      desc: `I rode ${parseInt(distance * 10) / 10} km at Boramae Park!`,
       photos: randomPhotos,
       emojis: hashtags,
       metaphors: {
@@ -186,9 +185,9 @@ export default function Home({ journalRef }) {
       },
     };
 
-    journalRef.child(id).set(newJournal)
-    return id
-  }
+    journalRef.child(id).set(newJournal);
+    return id;
+  };
 
   const startRide = () => {
     setStartTime(dayjs());
@@ -221,14 +220,13 @@ export default function Home({ journalRef }) {
     history.push(`/biky/edit/${id}`);
   };
 
-
   return (
     <div className={classes.page}>
       <div className={classes.header}>
         <div className={classes.verticalAlign}>Home</div>
       </div>
 
-      <Profile/>
+      <Profile />
 
       <div className={classes.content}>
         <div className={classes.weatherContainer}>

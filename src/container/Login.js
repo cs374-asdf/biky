@@ -20,7 +20,7 @@ const frequest = [
   },
   {
     id: "r1",
-    picture: "/images/cat0.jpg",
+    picture: "/images/summer.png",
     name: "junho",
   },
 ];
@@ -29,7 +29,7 @@ const friends = [
   {
     id: "f0",
     picture: "/images/cat1.jpg",
-    name: "yuri",
+    name: "nicole",
     total_intimacy: 0,
   },
   {
@@ -48,7 +48,7 @@ const friends = [
 
 const journal = {
   date: "2021. 05. 25",
-  desc: "I rode 0.7 km at Boramae Park!",
+  desc: "I rode 700 m at Boramae Park!",
   distance: 0.7,
   emojis: ["happy", "exited"],
   endTime: "Tue, 25 May 2021 12:17:15 GMT",
@@ -72,7 +72,7 @@ const journal = {
     [126.91845242684539, 37.49436499975911],
   ],
   startTime: "Tue, 25 May 2021 10:03:55 GMT",
-  time: 133.33333333333334,
+  time: 2,
   title: "To the moon 🚀",
   weather: "rainy",
 };

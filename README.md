@@ -46,25 +46,27 @@ Junho Cho ([idlife](https://github.com/idlife), [Chovy](https://github.com/kaist
 - The total time and distance for bike riding is shown, also by metaphors for record statistics.
 - Pressing the representative badge moves you to a page that shows a detailed list of badges.
 
-# Additional Information Related to Implementation
+<br/>
+
+## Additional Information Related to Implementation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Commit Message
+### Commit Message
 
 - feat: specific feature
 - doc: document modification such as README
 - baseline: task not related to certain features (ex. PWA, route)
 - style: style modification related to color, layout, etc.
 
-## Local Test
+### Local Test
 
 npm start
 
 - URL: localhost:3000
 - Recommend to use Naver Whale Mobile Window
 
-## Deploy
+### Deploy
 
 At 'dev' branch type next commands
 
