@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/biky/static/css/main.298ac64e.chunk.css",
-    "main.js": "/biky/static/js/main.43c663f0.chunk.js",
-    "main.js.map": "/biky/static/js/main.43c663f0.chunk.js.map",
+    "main.js": "/biky/static/js/main.62d3c5c6.chunk.js",
+    "main.js.map": "/biky/static/js/main.62d3c5c6.chunk.js.map",
     "runtime-main.js": "/biky/static/js/runtime-main.3df4c1ac.js",
     "runtime-main.js.map": "/biky/static/js/runtime-main.3df4c1ac.js.map",
     "static/css/2.908df49f.chunk.css": "/biky/static/css/2.908df49f.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.908df49f.chunk.css",
     "static/js/2.b2e7148a.chunk.js",
     "static/css/main.298ac64e.chunk.css",
-    "static/js/main.43c663f0.chunk.js"
+    "static/js/main.62d3c5c6.chunk.js"
   ]
 }
