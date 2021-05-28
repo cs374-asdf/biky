@@ -19,6 +19,8 @@ import { getRandomPhoto } from "../data/photo";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
+import wizardData from "../data/wizardData.json" 
+
 const useStyles = makeStyles((theme) => ({
   page: {
     position: "relative",
@@ -140,15 +142,20 @@ function getRandomTitle() {
 
 export default function Home({ journalRef }) {
   // var journalRef = db.ref("/" + user + "/journals");
+
+  console.log(wizardData);
+
   const classes = useStyles();
   var [isRiding, setIsRiding] = useState(false);
   var [open, setOpen] = useState(false);
+  var [index, setIndex] = useState(0);
   var [distance, setDistance] = useState(0);
   var [time, setTime] = useState(0);
   var [route, setRoute] = useState([]);
 
+
   const weatherTypes = ["sunny", "cloudy", "rainy"];
-  var [weather, setWeather] = useState(randomInt(1, weatherTypes.length));
+  var [weather, setWeather] = useState(wizardData.test.weather.type === undefined ? weatherTypes[randomInt(1, weatherTypes.length)-1] : wizardData.test.weather.type);
 
   const increment = useRef(null);
 
@@ -170,7 +177,7 @@ export default function Home({ journalRef }) {
       distance: distance,
       time,
       date: endTime.format("YYYY. MM. DD"),
-      weather: weatherTypes[weather - 1],
+      weather,
       startTime: startTime.toString(),
       endTime: endTime.toString(),
       title: randomTitle,
@@ -193,8 +200,11 @@ export default function Home({ journalRef }) {
     setStartTime(dayjs());
     setIsRiding(true);
     increment.current = setInterval(() => {
-      setDistance((distance) => distance + 0.1);
-      setTime((time) => time + 1000 / 3600);
+      setIndex((index) => index + 1);
+      setDistance((distance) => distance + 0.006);
+      setTime((time) => time + 1 / 60);
+    //   setDistance((distance) => distance + 0.1);
+    //   setTime((time) => time + 1000 / 3600);
       console.log(distance, time);
     }, 1000 / 6); // 100m/s
   };
@@ -209,6 +219,7 @@ export default function Home({ journalRef }) {
     console.log("closing modal");
     createJournal();
     setOpen(false);
+    setIndex(0);
     setDistance(0);
     setTime(0);
   };
@@ -230,8 +241,9 @@ export default function Home({ journalRef }) {
 
       <div className={classes.content}>
         <div className={classes.weatherContainer}>
-          <Weather weather={weather} />
-          <Dust />
+          {/* <Weather weather={weather}/> */}
+          <Weather weather={weather} temperature={wizardData.test.weather.temperature}/>
+          <Dust fineDust={wizardData.test.dust.fineDust} ultraFineDust={wizardData.test.dust.ultraFineDust} />
         </div>
 
         {isRiding ? (
@@ -245,7 +257,7 @@ export default function Home({ journalRef }) {
         ) : null}
 
         <div className={classes.mapContainer}>
-          <Map index={distance} isRiding={isRiding} saveRoute={setRoute} />
+          <Map index={index} mode={wizardData.test.routeMode} isRiding={isRiding} saveRoute={setRoute} />
         </div>
 
         <div

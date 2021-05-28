@@ -53,9 +53,13 @@ export default function Weather(props) {
 
   const currentWeather = props.weather;
 
-  var style = (currentWeather === 1 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + sunny})` } : currentWeather === 2 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + cloudy})` } : { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + rainy})` });
-  var weather = (currentWeather === 1 ? "sunny" : currentWeather === 2 ? "cloudy" : "rainy");
-  var [temperature, setTemperature] = useState(currentWeather === 1 ? randomInt(20, 30) : currentWeather === 2 ? randomInt(15, 25) : randomInt(10, 20));
+  var style = (currentWeather === "sunny" ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + sunny})` } : currentWeather === "cloudy" ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + cloudy})` } : { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + rainy})` });
+  var weather = currentWeather;
+  var [temperature, setTemperature] = useState(
+    props.temperature === undefined || props.temperature === 0 ?
+      currentWeather === "sunny" ? randomInt(20, 30) : currentWeather === "cloudy" ? randomInt(15, 25) : randomInt(10, 20)
+    : props.temperature
+  );
 
   return (
     <div className={classes.container}>
