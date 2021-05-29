@@ -8,7 +8,7 @@ import {
   Time,
   Weather,
 } from "../component/home";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { formatDistance, formatTime } from "../util/format";
 
 import Avatar from "../component/Avatar";
@@ -18,6 +18,8 @@ import dayjs from "dayjs";
 import { getRandomPhoto } from "../data/photo";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+
+import { routeStart, routeOri, routeEnd } from "../data/route"
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -149,7 +151,7 @@ function getRidingTime(time, wizard) {
   const [epHour, epMin] = endPauseTime.split(':')
 
   const pauseTime = (epHour - spHour) * 60 + (epMin - spMin)
-  console.log('pauseTime: ', pauseTime)
+//   console.log('pauseTime: ', pauseTime)
   return time - pauseTime
 }
 
@@ -176,15 +178,18 @@ export default function Home({ journalRef, wizardRef }) {
 
   const [hashtags, setHashtags] = useState(["happy"]);
   const [startTime, setStartTime] = useState(dayjs());
-  const [wizard, setWizard] = useState(null)
+  const [wizard, setWizard] = useState(null);
+  const [mode, setMode] = useState("none");
 
   React.useEffect(
     () => {
+        console.log("wizard changed")
       if (wizardRef) {
         wizardRef.on('value', snapshot => {
             const wiz = snapshot.val()
             setWizard(wiz)
             setWeather(wiz.weather)
+            setMode(wiz.mode)
             console.log(wiz)
           })
         console.log("wizard mode")
@@ -196,6 +201,32 @@ export default function Home({ journalRef, wizardRef }) {
     }, 
     [wizardRef]
   )
+
+  useEffect(() => {
+    if(mode === "none") {
+
+    } else {
+        clearInterval(increment.current);
+        
+        if(mode === "e11s") {
+            setTime(0);
+            setDistance(0);
+            setRoute(routeStart);
+        } else if(mode === "ori") {
+            setTime(63/60);
+            setDistance(0.378);
+            setRoute(routeOri);
+        } else if(mode === "e11e") {
+            setTime(143/60);
+            setDistance(0.858);
+            setRoute(routeEnd);
+        }
+
+        increment.current = setInterval(() => {
+            setTime((time) => time + 1/60);
+        }, 1000);
+    }
+  }, [mode])
 
 
   const createJournal = () => {
@@ -239,26 +270,21 @@ export default function Home({ journalRef, wizardRef }) {
     setIsRiding(true);
     if (wizard && wizard.mode !== 'none') {
       increment.current = setInterval(() => {
-
-      //  setIndex((index) => index + 1);
-       setDistance((distance) => distance + 0.1);
-      setTime((time) => time + 0.5);
-      console.log(distance, time);
-    }, 30000); // 30초에 한 번 업데이트
-
-    }
-    else {
-          increment.current = setInterval(() => {
-      setIndex((index) => index + 1);
-      setDistance((distance) => distance + 0.1);
-      setTime((time) => time + 1000 / 3600);
-      console.log(distance, time);
-    }, 1000 / 6); // 1초에 6번 업데이트
-
+        // setIndex((index) => index + 1);
+        // setDistance((distance) => distance + 0.006);
+        setTime((time) => time + 1/60);
+        // console.log(distance, time);
+        // console.log(wizard.mode);
+      }, 1000); // 1초에 한 번 업데이트
+    } else {
+        increment.current = setInterval(() => {
+            setIndex((index) => index + 1/6);
+            setDistance((distance) => distance + 0.001);
+            setTime((time) => time + 1/360);
+            // console.log(wizard.mode);
+        }, 1000 / 6); // 1초에 6번 업데이트
     }
   };
-
-  
 
   const stopRide = () => {
     setIsRiding(false);
@@ -282,6 +308,8 @@ export default function Home({ journalRef, wizardRef }) {
     history.push(`/biky/edit/${id}`);
   };
 
+//   console.log(route)
+
   return (
     <div className={classes.page}>
       <div className={classes.header}>
@@ -293,7 +321,7 @@ export default function Home({ journalRef, wizardRef }) {
       <div className={classes.content}>
         <div className={classes.weatherContainer}>
           <Weather weather={weather} temperature={wizard ? wizard.temperature : 15}/>
-          <Dust fineDust={(wizard && wizard.findDust) ? wizard.fineDust : randomInt(10, 70)} ultraFineDust={(wizard && wizard.ultraFineDust) ? wizard.ultraFineDust : randomInt(10, 200)} />
+          <Dust fineDust={(wizard && wizard.fineDust) ? wizard.fineDust : randomInt(10, 70)} ultraFineDust={(wizard && wizard.ultraFineDust) ? wizard.ultraFineDust : randomInt(10, 200)} />
         </div>
 
         {isRiding ? (
@@ -307,7 +335,7 @@ export default function Home({ journalRef, wizardRef }) {
         ) : null}
 
         <div className={classes.mapContainer}>
-          <Map index={index} mode={wizard ? wizard.mode : 'none'} isRiding={isRiding} saveRoute={setRoute} />
+          <Map index={index} mode={wizard ? wizard.mode : 'none'} isRiding={isRiding} route={route} saveRoute={setRoute} />
         </div>
 
         <div

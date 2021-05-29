@@ -37,12 +37,16 @@ export default function Map(props) {
 
   var mode = props.mode;
 
+  console.log(props.mode, props.route)
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(fullRoute[0][1]);
   const [lat, setLat] = useState(fullRoute[0][0]);
   const [zoom, setZoom] = useState(15);
-  const [route, setRoute] = useState(fullRoute.slice(0, 1));
+  const [route, setRoute] = useState(props.mode === "none" ? fullRoute.slice(0, 1) : props.route);
+
+  console.log(route)
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -107,18 +111,25 @@ export default function Map(props) {
 
   useEffect(() => {
     if(mode === "e11s") {
+      console.log("1. start")
       setLng(routeStart[routeStart.length - 1][1]);
       setLat(routeStart[routeStart.length - 1][0]);
       setRoute(routeStart);
+      // setRoute(props.route);
     } else if(mode === "ori") {
+      console.log("2. ori")
       setLng(routeOri[routeOri.length - 1][1]);
       setLat(routeOri[routeOri.length - 1][0]);
       setRoute(routeOri);
+      // setRoute(props.route);
     } else if(mode === "e11e") {
+      console.log("3. end")
       setLng(routeEnd[routeEnd.length - 1][1]);
       setLat(routeEnd[routeEnd.length - 1][0]);
       setRoute(routeEnd);
-    } else {
+      // setRoute(props.route);
+    } else if(mode === "none") {
+      console.log("0. none")
       if(index >= fullRoute.length) {
         // index = (index - 8) % 18 + 8;
         index = fullRoute.length - 1;
@@ -128,6 +139,9 @@ export default function Map(props) {
       setLat(fullRoute[index][0]);
       setRoute(route => [...route, fullRoute[index]]);
     }
+
+    console.log("mapmode "+mode)
+    console.log("maproute "+route)
 
     map.current.setCenter([lng, lat]);
 
