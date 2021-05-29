@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function setDB(db, user) {
-  const ref = db.ref("/" + user);
+  const ref = db.ref("user/" + user);
   ref.once("value").then(function (snapshot) {
     var existed = snapshot.hasChild("journals");
     if (!existed) {

@@ -1,15 +1,11 @@
 {
-	"test": {
-		"startPauseTime": 0,
-		"endPauseTime": 0,
-		"weather": {
-            "type": "sunny",
-            "temperature": 20
-        },
-        "dust": {
-            "fineDust": 15,
-            "ultraFineDust": 36
-        },
-		"routeMode": "ori"
+	"wizard": {
+		"startPauseTime": "14:30",
+		"endPauseTime": "14:45",
+		"weather": "sunny",
+        "temperature": 20,
+        "fineDust": 15,
+        "ultraFineDust": 36,
+		"mode": "ori"
 	}
 }
