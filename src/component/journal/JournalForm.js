@@ -194,6 +194,10 @@ export default function JournalForm({
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
+  const [suggestions, setSuggestions] = React.useState([
+    "What did you do at Boramae Park?",
+    "You rode a bike with Maengoo!",
+  ]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -298,11 +302,26 @@ export default function JournalForm({
             </div>
           </div>
 
-          {/* 내용 suggestion */}
           <div>
-            {contentSuggestion("What did you do at Boramae Park?")}
-            {contentSuggestion("You rode a bike with Maengoo!")}
+            <Typography
+              style={{ marginBottom: "10px", display: "inline-block" }}
+            >
+              Pictures
+            </Typography>
+            <PhotoUploader
+              onSubmit={onSubmitPictures}
+              addHashtag={addHashtag}
+            />
+
+            <PictureList
+              pictures={pictures}
+              removePicture={removePicture}
+              isEditing
+            />
           </div>
+
+          {/* 내용 suggestion */}
+          <div>{suggestions.map((sug) => contentSuggestion(sug))}</div>
 
           <TextField
             onChange={handleDescChange}
@@ -313,21 +332,6 @@ export default function JournalForm({
             defaultValue={journal.desc}
             rows={5}
           />
-
-          <div>
-            <Typography
-              style={{ marginBottom: "10px", display: "inline-block" }}
-            >
-              Pictures
-            </Typography>
-            <PhotoUploader onSubmit={onSubmitPictures} />
-
-            <PictureList
-              pictures={pictures}
-              removePicture={removePicture}
-              isEditing
-            />
-          </div>
 
           <div className={classes.hashtagGroup}>
             {hashtags.map((hashtag) => (

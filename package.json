@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fontsource/roboto": "^4.3.0",
+    "@tensorflow-models/coco-ssd": "^2.2.1",
+    "@tensorflow/tfjs-backend-cpu": "^2.8.6",
+    "@tensorflow/tfjs-backend-webgl": "^2.8.6",
+    "@tensorflow/tfjs-converter": "^2.8.6",
+    "@tensorflow/tfjs-core": "^2.8.6",
     "@mapbox/polyline": "^1.1.1",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
