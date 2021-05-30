@@ -152,7 +152,8 @@ function getRidingTime(time, wizard) {
 
   const pauseTime = (epHour - spHour) * 60 + (epMin - spMin)
 //   console.log('pauseTime: ', pauseTime)
-  return time - pauseTime
+  const resultTime = time - pauseTime
+  return resultTime >= 0 ? resultTime : 0
 }
 
 function getRidingPlace(wizard) {
@@ -183,7 +184,7 @@ export default function Home({ journalRef, wizardRef }) {
 
   React.useEffect(
     () => {
-        console.log("wizard changed")
+      console.log("wizard changed")
       if (wizardRef) {
         wizardRef.on('value', snapshot => {
             const wiz = snapshot.val()
@@ -207,24 +208,20 @@ export default function Home({ journalRef, wizardRef }) {
 
     } else {
         clearInterval(increment.current);
-        
         if(mode === "e11s") {
             setTime(0);
             setDistance(0);
-            setRoute(routeStart);
         } else if(mode === "ori") {
-            setTime(63/60);
-            setDistance(0.378);
-            setRoute(routeOri);
+            setTime(63*3/60);
+            setDistance(0.378*2);
         } else if(mode === "e11e") {
-            setTime(143/60);
-            setDistance(0.858);
-            setRoute(routeEnd);
+            setTime(143*5.5/60);
+            setDistance(0.858*3);
         }
 
-        increment.current = setInterval(() => {
-            setTime((time) => time + 1/60);
-        }, 1000);
+        // increment.current = setInterval(() => {
+        //     setTime((time) => time + 1/60);
+        // }, 1000);
     }
   }, [mode])
 
@@ -272,7 +269,7 @@ export default function Home({ journalRef, wizardRef }) {
       increment.current = setInterval(() => {
         // setIndex((index) => index + 1);
         // setDistance((distance) => distance + 0.006);
-        setTime((time) => time + 1/60);
+        // setTime((time) => time + 1/60);
         // console.log(distance, time);
         // console.log(wizard.mode);
       }, 1000); // 1초에 한 번 업데이트
@@ -335,7 +332,7 @@ export default function Home({ journalRef, wizardRef }) {
         ) : null}
 
         <div className={classes.mapContainer}>
-          <Map index={index} mode={wizard ? wizard.mode : 'none'} isRiding={isRiding} route={route} saveRoute={setRoute} />
+          <Map index={index} mode={wizard ? wizard.mode : 'none'} isRiding={isRiding} saveRoute={setRoute} />
         </div>
 
         <div

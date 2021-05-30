@@ -30,7 +30,7 @@ export default function StaticMap(props) {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-  console.log(mapContainer.current);
+  // console.log(mapContainer.current);
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({

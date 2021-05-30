@@ -29,24 +29,13 @@ function swapColumns(array) {
   return newArray;
 }
 
-export default function Map(props) {
+function InnerMap({ route, lng, lat }) {
   const classes = useStyles();
-  var index = parseInt(props.index);
-  // console.log(`index ${index}`)
-  var isRiding = props.isRiding;
-
-  var mode = props.mode;
-
-  console.log(props.mode, props.route)
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(fullRoute[0][1]);
-  const [lat, setLat] = useState(fullRoute[0][0]);
-  const [zoom, setZoom] = useState(15);
-  const [route, setRoute] = useState(props.mode === "none" ? fullRoute.slice(0, 1) : props.route);
 
-  console.log(route)
+  const [zoom, setZoom] = useState(15);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -110,38 +99,36 @@ export default function Map(props) {
   });
 
   useEffect(() => {
-    if(mode === "e11s") {
-      console.log("1. start")
-      setLng(routeStart[routeStart.length - 1][1]);
-      setLat(routeStart[routeStart.length - 1][0]);
-      setRoute(routeStart);
-      // setRoute(props.route);
-    } else if(mode === "ori") {
-      console.log("2. ori")
-      setLng(routeOri[routeOri.length - 1][1]);
-      setLat(routeOri[routeOri.length - 1][0]);
-      setRoute(routeOri);
-      // setRoute(props.route);
-    } else if(mode === "e11e") {
-      console.log("3. end")
-      setLng(routeEnd[routeEnd.length - 1][1]);
-      setLat(routeEnd[routeEnd.length - 1][0]);
-      setRoute(routeEnd);
-      // setRoute(props.route);
-    } else if(mode === "none") {
-      console.log("0. none")
-      if(index >= fullRoute.length) {
-        // index = (index - 8) % 18 + 8;
-        index = fullRoute.length - 1;
-      }
-      // console.log(index)
-      setLng(fullRoute[index][1]);
-      setLat(fullRoute[index][0]);
-      setRoute(route => [...route, fullRoute[index]]);
-    }
-
-    console.log("mapmode "+mode)
-    console.log("maproute "+route)
+    // console.log("mode changed to "+mode)
+    // if(mode === "e11s") {
+    //   console.log("1. start")
+    //   setLng(routeStart[routeStart.length - 1][1]);
+    //   setLat(routeStart[routeStart.length - 1][0]);
+    //   setRoute(routeStart);
+    //   // setRoute(props.route);
+    // } else if(mode === "ori") {
+    //   console.log("2. ori")
+    //   setLng(routeOri[routeOri.length - 1][1]);
+    //   setLat(routeOri[routeOri.length - 1][0]);
+    //   setRoute(routeOri);
+    //   // setRoute(props.route);
+    // } else if(mode === "e11e") {
+    //   console.log("3. end")
+    //   setLng(routeEnd[routeEnd.length - 1][1]);
+    //   setLat(routeEnd[routeEnd.length - 1][0]);
+    //   setRoute(routeEnd);
+    //   // setRoute(props.route);
+    // } else if(mode === "none") {
+    //   console.log("0. none")
+    //   if(index >= fullRoute.length) {
+    //     // index = (index - 8) % 18 + 8;
+    //     index = fullRoute.length - 1;
+    //   }
+    //   // console.log(index)
+    //   setLng(fullRoute[index][1]);
+    //   setLat(fullRoute[index][0]);
+    //   setRoute(route => [...route, fullRoute[index]]);
+    // }
 
     map.current.setCenter([lng, lat]);
 
@@ -168,6 +155,143 @@ export default function Map(props) {
         }]
       });
     }
+  });
+
+  return (
+    <div ref={mapContainer} className={classes.map}>
+
+    </div>
+  )
+}
+
+export default function Map(props) {
+  const classes = useStyles();
+  var index = parseInt(props.index);
+  // console.log(`index ${index}`)
+  var isRiding = props.isRiding;
+
+  var mode = props.mode;
+
+  // const mapContainer = useRef(null);
+  // const map = useRef(null);
+  const [lng, setLng] = useState(fullRoute[0][1]);
+  const [lat, setLat] = useState(fullRoute[0][0]);
+  // const [zoom, setZoom] = useState(15);
+  const [route, setRoute] = useState(fullRoute.slice(0, 1));
+
+  // useEffect(() => {
+  //   if (map.current) return; // initialize map only once
+  //     map.current = new mapboxgl.Map({
+  //       container: mapContainer.current,
+  //       style: 'mapbox://styles/mapbox/streets-v11',
+  //       center: [lng, lat],
+  //       zoom: zoom
+  //     });
+  //     map.current.on('load', function () {
+  //       map.current.addSource('route', {
+  //         'type': 'geojson',
+  //         'data': {
+  //           'type': 'Feature',
+  //           'properties': {},
+  //           'geometry': {
+  //             'type': 'LineString',
+  //             'coordinates': swapColumns(route)
+  //           }
+  //         }
+  //       });
+  //       map.current.addLayer({
+  //         'id': 'route',
+  //         'type': 'line',
+  //         'source': 'route',
+  //         'layout': {
+  //           'line-join': 'round',
+  //           'line-cap': 'round'
+  //         },
+  //         'paint': {
+  //           'line-color': '#888',
+  //           'line-width': 4
+  //         }
+  //       });
+
+  //       map.current.addSource('pointer', {
+  //         type: 'geojson',
+  //         data: {
+  //           "type": "FeatureCollection",
+  //           "features": [{
+  //             "type": "Feature",
+  //             "properties": {},
+  //             "geometry": {
+  //               "type": "Point",
+  //               "coordinates": [lng, lat]
+  //             }
+  //           }]
+  //         }
+  //       });
+  //       map.current.addLayer({
+  //         id: 'pointer',
+  //         type: 'circle',
+  //         source: 'pointer',
+  //         paint: {
+  //           'circle-radius': 5,
+  //           'circle-color': '#FF0000',
+  //           'circle-opacity': 0.8
+  //         }
+  //       });
+  //     });
+  // });
+
+  useEffect(() => {
+    console.log("mode changed to "+mode)
+    if(mode === "e11s") {
+      setLng(routeStart[routeStart.length - 1][1]);
+      setLat(routeStart[routeStart.length - 1][0]);
+      setRoute(routeStart);
+    } else if(mode === "ori") {
+      setLng(routeOri[routeOri.length - 1][1]);
+      setLat(routeOri[routeOri.length - 1][0]);
+      setRoute(routeOri);
+    } else if(mode === "e11e") {
+      setLng(routeEnd[routeEnd.length - 1][1]);
+      setLat(routeEnd[routeEnd.length - 1][0]);
+      setRoute(routeEnd);
+    } else if(mode === "none") {
+      if(index >= fullRoute.length) {
+        // index = (index - 8) % 18 + 8;
+        index = fullRoute.length - 1;
+      }
+      setLng(fullRoute[index][1]);
+      setLat(fullRoute[index][0]);
+      setRoute(route => [...route, fullRoute[index]]);
+    }
+
+    // console.log("mapmode "+mode)
+    // console.log("maproute "+route)
+
+    // map.current.setCenter([lng, lat]);
+
+    // if(map.current.getSource('route')) {
+    //   map.current.getSource('route').setData({
+    //     "type": "Feature",
+    //     "geometry": {
+    //         "type": "LineString",
+    //         "coordinates": swapColumns(route)
+    //     }
+    //   });
+    // }
+
+    // if(map.current.getSource('pointer')) {
+    //   map.current.getSource('pointer').setData({
+    //     "type": "FeatureCollection",
+    //     "features": [{
+    //       "type": "Feature",
+    //       "properties": {},
+    //       "geometry": {
+    //         "type": "Point",
+    //         "coordinates": [lng, lat]
+    //       }
+    //     }]
+    //   });
+    // }
   }, [index, mode]);
 
   useEffect(() => {
@@ -181,8 +305,9 @@ export default function Map(props) {
   }, [isRiding])
 
   return (
-    <div ref={mapContainer} className={classes.map}>
+    // <div ref={mapContainer} className={classes.map}>
 
-    </div>
+    // </div>
+    <InnerMap route={route} lng={lng} lat={lat} />
   )
 }
