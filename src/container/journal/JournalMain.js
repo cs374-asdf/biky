@@ -6,7 +6,7 @@ import { IconButton } from "@material-ui/core";
 import JournalDetail from "../../component/journal/JournalDetail";
 import JournalList from "../../component/journal/JournalList";
 import Modal from "@material-ui/core/Modal";
-import Profile from '../Profile'
+import Profile from "../Profile";
 import React from "react";
 import SearchBar from "../../component/common/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -58,7 +58,7 @@ function getFriendsByJournal(journals, flist) {
   return friendsByJournal;
 }
 
-export default function JournalMain({ journalRef, friendRef }) {
+export default function JournalMain({ storage, journalRef, friendRef }) {
   // var journalRef = db.ref("/" + user + "/journals");
   // var friendRef = db.ref("/" + user + "/friends");
   const classes = useStyles();
@@ -98,9 +98,8 @@ export default function JournalMain({ journalRef, friendRef }) {
       <div className={classes.header}>
         <div className={classes.verticalAlign}>Journal</div>
       </div>
-      
-      <Profile/>
 
+      <Profile />
 
       <div className={classes.content}>
         <div

@@ -28,7 +28,7 @@ function getJournal(jid, initJournals) {
   return j;
 }
 
-export default function JournalEditor({ journalRef, friendRef }) {
+export default function JournalEditor({ storage, journalRef, friendRef }) {
   // 라우트 params 불러오기
   // create인 경우 vs. edit인 경우
   // const id = 1;
@@ -96,8 +96,8 @@ export default function JournalEditor({ journalRef, friendRef }) {
     setPictures(pictures.filter((item) => item !== pic));
   };
 
-  if (loading) return <Loading/>;
-  
+  if (loading) return <Loading />;
+
   const MyPictureSelector = React.forwardRef((props, ref) => (
     <PictureSelector
       pictures={pictures}

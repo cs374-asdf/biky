@@ -312,22 +312,6 @@ export default function JournalForm({
             </div>
           </div>
 
-          {/* 내용 suggestion */}
-          <div>
-            {contentSuggestion("What did you do at Boramae Park?")}
-            {contentSuggestion("You rode a bike with Maengoo!")}
-          </div>
-
-          <TextField
-            onChange={handleDescChange}
-            id="desc"
-            label="Description"
-            variant="outlined"
-            multiline
-            defaultValue={journal.desc}
-            rows={5}
-          />
-
           <div>
             <Typography
               style={{ marginBottom: "10px", display: "inline-block" }}
@@ -344,6 +328,22 @@ export default function JournalForm({
               isEditing
             />
           </div>
+
+          {/* 내용 suggestion */}
+          <div>
+            {contentSuggestion("What did you do at Boramae Park?")}
+            {contentSuggestion("You rode a bike with Maengoo!")}
+          </div>
+
+          <TextField
+            onChange={handleDescChange}
+            id="desc"
+            label="Description"
+            variant="outlined"
+            multiline
+            defaultValue={journal.desc}
+            rows={5}
+          />
 
           <div className={classes.hashtagGroup}>
             {hashtags.map((hashtag) => (

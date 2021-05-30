@@ -146,6 +146,8 @@ function setDB(db, user) {
 
 export default function Login({
   db,
+  auth,
+  login,
   setJournalRef,
   setFriendRef,
   setFrequestsRef,
@@ -187,6 +189,12 @@ export default function Login({
     });
   };
 
+  auth.onAuthStateChanged((user) => {
+    if (user !== null) {
+      console.log("log in");
+    }
+  });
+
   return (
     <div className={classes.background}>
       {/* <Box className={classes.root}> */}
@@ -227,6 +235,7 @@ export default function Login({
           Submit
         </MyButton>
       </div>
+      <button onClick={login}>Continue with Google</button>
     </div>
   );
 }
