@@ -15,6 +15,7 @@ import NavigationBar from "./component/NavigationBar";
 import NotFound from "./NotFound";
 import PhotoUploader from "./component/journal/PhotoUploader";
 import React from "react";
+import Tutorial from "./container/Tutorial";
 import fire from "./firebaseInit";
 
 const theme = createMuiTheme({
@@ -34,17 +35,14 @@ const theme = createMuiTheme({
   },
 });
 
-const journalRef = "/nayeon/journals";
-const frequestRef = "/nayeon/frequests";
-const friendRef = "/nayeon/friends";
 
 function App() {
   const [mainBadge, setMainBadge] = React.useState(0);
+  const [ref, setRef] = React.useState(null);
+
   const [journalRef, setJournalRef] = React.useState(null);
   const [frequestRef, setFrequestsRef] = React.useState(null);
   const [friendRef, setFriendRef] = React.useState(null);
-
-  const [image, setImage] = React.useState(null)
 
   return (
     <ThemeProvider theme={theme}>
@@ -93,11 +91,13 @@ function App() {
               <Login
                 db={fire.db}
                 setJournalRef={(name) =>
-                  setJournalRef("/" + name + "/journals")
+                  setJournalRef(`/user/${name}/journals`)
                 }
-                setFriendRef={(name) => setFriendRef("/" + name + "/friends")}
+                setFriendRef={(name) => 
+                  setFriendRef(`/user/${name}/friends`)
+                }                  
                 setFrequestsRef={(name) =>
-                  setFrequestsRef("/" + name + "/frequests")
+                  setFrequestsRef(`/user/${name}/frequests`)
                 }
               />
             )}
@@ -138,6 +138,12 @@ function App() {
               window.location.href = "/biky"
             }}
           />
+
+          <Route
+            path="/biky/tutorial"
+            render={() => {
+              return <Tutorial/>
+            }} />
 
           <Route
             path="/biky/404"
