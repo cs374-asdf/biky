@@ -1,10 +1,10 @@
 export const allPhotos = [
-  "/images/photo1.jpg",
-  "/images/photo2.jpg",
-  "/images/photo3.jpg",
-  "/images/photo4.jpg",
-  "/images/photo5.jpg",
-  "/images/photo6.jpg",
+  process.env.PUBLIC_URL + "/images/photo1.jpg",
+  process.env.PUBLIC_URL + "/images/photo2.jpg",
+  process.env.PUBLIC_URL + "/images/photo3.jpg",
+  process.env.PUBLIC_URL + "/images/photo4.jpg",
+  process.env.PUBLIC_URL + "/images/photo5.jpg",
+  process.env.PUBLIC_URL + "/images/photo6.jpg",
 ]
 
 export const getRandomPhoto = (num) => {

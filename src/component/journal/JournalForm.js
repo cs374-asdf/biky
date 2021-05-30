@@ -9,6 +9,7 @@ import FriendItem from "./FriendItem";
 import HashtagSelector from "./HashtagSelector";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
+import PhotoUploader from "./PhotoUploader";
 import PictureList from "./PictureList";
 import React from "react";
 import StaticMap from "../home/StaticMap";
@@ -186,6 +187,7 @@ export default function JournalForm({
   pictures,
   removePicture,
   openPictureSelector,
+  onSubmitPictures,
 }) {
   const classes = useStyles();
   console.log(journal);
@@ -261,17 +263,6 @@ export default function JournalForm({
             <Typography style={{ marginBottom: "10px" }}>Records</Typography>
             <StaticMap route={journal.route} />
 
-            {/* <div style={{ margin: "10px 0" }}>
-              <div style={{ display: "inline-block", width: "calc(100% - 180px)", height: "70px", backgroundColor: "green", verticalAlign: "middle", marginRight: "10px", padding: "10px" }}>
-                Show Metaphor {journal.metaphors.tree} trees
-              </div>
-
-              <div style={{ display: "inline-block", width: "150px" }}>
-                <Typography style={{ marginBottom: "10px" }}>Distance: {formatDistance(journal.distance)}</Typography>
-                <Typography style={{ marginBottom: "10px" }}>Time: {formatTime(journal.time)}</Typography>
-              </div>
-            </div> */}
-
             <div style={{ margin: "10px 0" }}>
               <div style={{ display: "inline-block", width: "50%" }}>
                 <Typography style={{ marginBottom: "10px" }}>
@@ -295,7 +286,6 @@ export default function JournalForm({
                 +
               </Button>
               <div>
-                {/* <List dense> */}
                 {friends.map((friend) => (
                   <FriendItem
                     key={friend.id}
@@ -304,10 +294,6 @@ export default function JournalForm({
                     style={{ display: "inline-block" }}
                   />
                 ))}
-                {/* <ListItem> */}
-                {/* <Button onClick={openFriendAddPage} style={{ height: "50px", marginTop: "-15px" }}>+</Button> */}
-                {/* </ListItem> */}
-                {/* </List> */}
               </div>
             </div>
           </div>
@@ -334,9 +320,7 @@ export default function JournalForm({
             >
               Pictures
             </Typography>
-            <Button onClick={openPictureSelector} className={classes.addButton}>
-              +
-            </Button>
+            <PhotoUploader onSubmit={onSubmitPictures} />
 
             <PictureList
               pictures={pictures}
