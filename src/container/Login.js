@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import {getRandomPhoto} from '../data/photo';
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
@@ -53,14 +54,14 @@ const journal = {
   emojis: ["happy", "exited"],
   endTime: "Tue, 25 May 2021 12:17:15 GMT",
   hashtags: ["sad"],
-  createdAt: new Date().toString(),
+  createdAt: new Date('2021-05-25 12:17:15 GMT').toString(),
   id: "j0",
   metaphors: {
     burger: 0.06999999999999999,
     taxi: 700,
     tree: 0.034999999999999996,
   },
-  photos: ["/images/photo1.jpg", "/images/photo2.jpg"],
+  photos: getRandomPhoto(2),
   route: [
     [126.91468074800363, 37.49470666236267],
     [126.91474014452083, 37.49415293252939],

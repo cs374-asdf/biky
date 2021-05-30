@@ -2,7 +2,6 @@ import "./App.css";
 
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { green, orange } from "@material-ui/core/colors";
 
 import BadgeDetail from "./container/BadgeDetail";
 import Friends from "./container/Friends";
@@ -14,8 +13,9 @@ import LoginInitial from "./container/LoginInitial";
 import MyPage from "./container/MyPage";
 import NavigationBar from "./component/NavigationBar";
 import NotFound from "./NotFound";
+import PhotoUploader from "./component/journal/PhotoUploader";
 import React from "react";
-import db from "./firebaseInit";
+import fire from "./firebaseInit";
 
 const theme = createMuiTheme({
   typography: {
@@ -44,6 +44,7 @@ function App() {
   const [frequestRef, setFrequestsRef] = React.useState(null);
   const [friendRef, setFriendRef] = React.useState(null);
 
+  const [image, setImage] = React.useState(null)
 
   return (
     <ThemeProvider theme={theme}>
@@ -55,7 +56,7 @@ function App() {
             exact
             render={() =>{
               if (journalRef)
-               return <Home journalRef={db.ref(journalRef)} />
+               return <Home journalRef={fire.db.ref(journalRef)} />
               window.location.href = "/biky"
               } }//
           />
@@ -66,8 +67,8 @@ function App() {
               if (journalRef && friendRef)
               return (
               <JournalMain
-                journalRef={db.ref(journalRef)}
-                friendRef={db.ref(friendRef)}
+                journalRef={fire.db.ref(journalRef)}
+                friendRef={fire.db.ref(friendRef)}
               />)
             window.location.href = "/biky"
             }}
@@ -78,8 +79,9 @@ function App() {
             render={() => {
               if (journalRef && friendRef)
                return <JournalEditor
-                journalRef={db.ref(journalRef)}
-                friendRef={db.ref(friendRef)}
+                storageRef={fire.storage.ref()}
+                journalRef={fire.db.ref(journalRef)}
+                friendRef={fire.db.ref(friendRef)}
               />
             window.location.href = "/biky"
             }}
@@ -89,7 +91,7 @@ function App() {
             exact
             render={() => (
               <Login
-                db={db}
+                db={fire.db}
                 setJournalRef={(name) =>
                   setJournalRef("/" + name + "/journals")
                 }
@@ -128,9 +130,9 @@ function App() {
             render={() => {
               if (friendRef && journalRef)
                 return <Friends
-                  friendRef={db.ref(friendRef)}
-                  frequestRef={db.ref(frequestRef)}
-                  journalRef={db.ref(journalRef)}
+                  friendRef={fire.db.ref(friendRef)}
+                  frequestRef={fire.db.ref(frequestRef)}
+                  journalRef={fire.db.ref(journalRef)}
                 />
 
               window.location.href = "/biky"
