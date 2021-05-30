@@ -16,6 +16,20 @@ import StaticMap from "../home/StaticMap";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { has } from "lodash";
+
+const animal = [
+  "bird",
+  "cat",
+  "dog",
+  "horse",
+  "sheep",
+  "cow",
+  "elephant",
+  "bear",
+  "zebra",
+  "giraffe",
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -188,6 +202,7 @@ export default function JournalForm({
   removePicture,
   openPictureSelector,
   onSubmitPictures,
+  preference,
 }) {
   const classes = useStyles();
   console.log(journal);
@@ -196,7 +211,6 @@ export default function JournalForm({
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
   const [suggestions, setSuggestions] = React.useState([
     "What did you do at Boramae Park?",
-    "You rode a bike with Maengoo!",
   ]);
 
   const handleTitleChange = (event) => {
@@ -216,11 +230,29 @@ export default function JournalForm({
   };
 
   const addHashtag = (hashtag) => {
-    if (!hashtags.includes(hashtag)) setHashtags([...hashtags, hashtag]);
+    if (Array.isArray(hashtag)) setHashtags([...hashtags, ...hashtag]);
+    else if (!hashtags.includes(hashtag)) setHashtags([...hashtags, hashtag]);
+    changeSuggestion();
+  };
+
+  const changeSuggestion = () => {
+    // console.log(preference);
+    const result = {};
+    preference.forEach((x) => {
+      result[x] = (result[x] || 0) + 1;
+    });
+    // console.log(result);
+    for (var i = 0; i < hashtags.length; i++) {
+      if (preference.includes(hashtags[i]) && animal.includes(hashtags[i])) {
+        setSuggestions([suggestions[0], "Did you meet " + hashtags[i] + "?"]);
+        break;
+      }
+    }
   };
 
   const removeHashtag = (hashtag) => {
     setHashtags(hashtags.filter((item) => item !== hashtag));
+    changeSuggestion();
   };
 
   return (

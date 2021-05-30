@@ -19,17 +19,16 @@ import fire from "./firebaseInit";
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: 'Noto Sans',
-    
+    fontFamily: "Noto Sans",
   },
   palette: {
     primary: {
-      main: '#ff85ac',
-      light: '#FFEDE8', // primary color
+      main: "#ff85ac",
+      light: "#FFEDE8", // primary color
     },
     secondary: {
-      main: '#FF8E53',
-      light: '#FFF9E8', // secondary color
+      main: "#FF8E53",
+      light: "#FFF9E8", // secondary color
     },
   },
 });
@@ -44,7 +43,7 @@ function App() {
   const [frequestRef, setFrequestsRef] = React.useState(null);
   const [friendRef, setFriendRef] = React.useState(null);
 
-  const [image, setImage] = React.useState(null)
+  const [image, setImage] = React.useState(null);
 
   return (
     <ThemeProvider theme={theme}>
@@ -54,23 +53,24 @@ function App() {
           <Route
             path="/biky/home"
             exact
-            render={() =>{
+            render={() => {
               if (journalRef)
-               return <Home journalRef={fire.db.ref(journalRef)} />
-              window.location.href = "/biky"
-              } }//
+                return <Home journalRef={fire.db.ref(journalRef)} />;
+              window.location.href = "/biky";
+            }} //
           />
           <Route
             path="/biky/journal"
             exact
             render={() => {
               if (journalRef && friendRef)
-              return (
-              <JournalMain
-                journalRef={fire.db.ref(journalRef)}
-                friendRef={fire.db.ref(friendRef)}
-              />)
-            window.location.href = "/biky"
+                return (
+                  <JournalMain
+                    journalRef={fire.db.ref(journalRef)}
+                    friendRef={fire.db.ref(friendRef)}
+                  />
+                );
+              window.location.href = "/biky";
             }}
           />
           <Route
@@ -78,12 +78,14 @@ function App() {
             exact
             render={() => {
               if (journalRef && friendRef)
-               return <JournalEditor
-                storageRef={fire.storage.ref()}
-                journalRef={fire.db.ref(journalRef)}
-                friendRef={fire.db.ref(friendRef)}
-              />
-            window.location.href = "/biky"
+                return (
+                  <JournalEditor
+                    storageRef={fire.storage.ref()}
+                    journalRef={fire.db.ref(journalRef)}
+                    friendRef={fire.db.ref(friendRef)}
+                  />
+                );
+              window.location.href = "/biky";
             }}
           />
           <Route
@@ -106,43 +108,43 @@ function App() {
           <Route
             path="/biky/myPage"
             exact
-            render={() =>{
-              if (journalRef)
-                return <MyPage mainBadge={mainBadge} />
-              window.location.href = "/biky"
-              }}
+            render={() => {
+              if (journalRef) return <MyPage mainBadge={mainBadge} />;
+              window.location.href = "/biky";
+            }}
           />
           <Route
             path="/biky/badgeDetail"
             exact
             render={() => {
               if (friendRef && journalRef)
-              return <BadgeDetail
-                changeMainBadge={(id) => setMainBadge(id)}
-                mainBadge={mainBadge}
-              />
-              
-              window.location.href = "/biky"
+                return (
+                  <BadgeDetail
+                    changeMainBadge={(id) => setMainBadge(id)}
+                    mainBadge={mainBadge}
+                  />
+                );
+
+              window.location.href = "/biky";
             }}
           />
           <Route
             path="/biky/friend"
             render={() => {
               if (friendRef && journalRef)
-                return <Friends
-                  friendRef={fire.db.ref(friendRef)}
-                  frequestRef={fire.db.ref(frequestRef)}
-                  journalRef={fire.db.ref(journalRef)}
-                />
+                return (
+                  <Friends
+                    friendRef={fire.db.ref(friendRef)}
+                    frequestRef={fire.db.ref(frequestRef)}
+                    journalRef={fire.db.ref(journalRef)}
+                  />
+                );
 
-              window.location.href = "/biky"
+              window.location.href = "/biky";
             }}
           />
 
-          <Route
-            path="/biky/404"
-            render={() => <NotFound/>}
-          />
+          <Route path="/biky/404" render={() => <NotFound />} />
           <Redirect from="*" to="/biky/404" />
         </Switch>
       </BrowserRouter>

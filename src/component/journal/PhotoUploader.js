@@ -50,7 +50,7 @@ export default function PhotoUploader({ onSubmit, addHashtag }) {
     const result = newp.map((value) => value.class);
     setPredictions(predictions.concat(result));
     console.log(result);
-    result.map((item) => addHashtag(item));
+    addHashtag(result);
   };
 
   const handleSubmit = async ({ target }) => {
