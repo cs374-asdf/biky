@@ -209,7 +209,7 @@ export default function JournalForm({
   const [desc, setDesc] = React.useState(journal.desc);
   const [hashtags, setHashtags] = React.useState(journal.hashtags);
   const [suggestions, setSuggestions] = React.useState([
-    "What did you do at Boramae Park?",
+    "What did you do at Duck Pond?",
   ]);
 
   const handleTitleChange = (event) => {
@@ -229,33 +229,62 @@ export default function JournalForm({
   };
 
   const addHashtagBySuggestion = (suggestion) => {
-    const filtered = suggestion.filter(item => !hashtags.includes(item))
+    const filtered = suggestion.filter((item) => !hashtags.includes(item));
+    // 이런식으로 바뀐 hashtag를 보내도 되나 싶다.. 하지만 setHashtag 뒤에 이 함수를 불러도 제대로 되지 않는걸? set이 완료되기 전에 함수가 불리는 문제를 막기 위해 이리 해봅시다
+    changeSuggestion([...hashtags, ...filtered]);
     setHashtags([...hashtags, ...filtered]);
-    changeSuggestion();
-  }
+  };
 
   const addHashtag = (hashtag) => {
     if (!hashtags.includes(hashtag)) setHashtags([...hashtags, hashtag]);
   };
 
-  const changeSuggestion = () => {
-    // console.log(preference);
+  const changeSuggestion = (hashtag) => {
+    console.log("sug!");
     const result = {};
     preference.forEach((x) => {
       result[x] = (result[x] || 0) + 1;
     });
-    // console.log(result);
-    for (var i = 0; i < hashtags.length; i++) {
-      if (preference.includes(hashtags[i]) && animal.includes(hashtags[i])) {
-        setSuggestions([suggestions[0], "Did you meet " + hashtags[i] + "?"]);
+    let fin = Object.keys(result).sort(function (a, b) {
+      return a - b;
+    });
+    // console.log(fin);
+    // console.log(hashtag);
+    var firstQ = ["What did you do at Duck Pond?"];
+    friends.map((f) =>
+      firstQ.push("Did you rode a bike with " + f + "? How was it?")
+    );
+    // 거기서 뭐했니? 누구랑 만났니 그래서 어땠니를 기본으로 둠
+    var done = false;
+    for (var i = 0; i < fin.length; i++) {
+      if (hashtag.includes(fin[i]) && animal.includes(fin[i])) {
+        // 사용자가 썼던 해시태그 중 하나(가장 많이 했던 것) + 하나 랜덤으로 안겹치게
+        const notUsed = hashtag.filter((item) => item !== fin[i]);
+        notUsed.map((h) =>
+          firstQ.push("Did you see or feel " + h + " during riding?")
+        );
+        const rand = Math.floor(Math.random() * firstQ.length);
+        setSuggestions([firstQ[rand], "Did you meet a" + fin[i] + "?"]);
+        done = true;
         break;
       }
+    }
+    if (done === false) {
+      //만약 쓴 적이 없다면 그냥 다 랜덤으로!
+      hashtag.map((h) =>
+        firstQ.push("Did you see or feel " + h + " during riding?")
+      );
+      const rand = Math.floor(Math.random() * firstQ.length);
+      var rand2 = Math.floor(Math.random() * firstQ.length);
+      while (rand === rand2) {
+        rand2 = Math.floor(Math.random() * firstQ.length);
+      }
+      setSuggestions([firstQ[rand], firstQ[rand2]]);
     }
   };
 
   const removeHashtag = (hashtag) => {
     setHashtags(hashtags.filter((item) => item !== hashtag));
-    changeSuggestion();
   };
 
   return (
