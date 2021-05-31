@@ -33,9 +33,6 @@ const theme = createMuiTheme({
   },
 });
 
-const journalRef = "/nayeon/journals";
-const frequestRef = "/nayeon/frequests";
-const friendRef = "/nayeon/friends";
 
 function App() {
   const [mainBadge, setMainBadge] = React.useState(0);
@@ -44,7 +41,6 @@ function App() {
   const [friendRef, setFriendRef] = React.useState(null);
 
   const [image, setImage] = React.useState(null);
-
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -55,9 +51,12 @@ function App() {
             exact
             render={() => {
               if (journalRef)
-                return <Home journalRef={fire.db.ref(journalRef)} />;
-              window.location.href = "/biky";
-            }} //
+               return <Home 
+                journalRef={fire.db.ref(journalRef)} 
+                wizardRef={fire.db.ref('wizard/')}                
+                />
+              window.location.href = "/biky"
+              } }//
           />
           <Route
             path="/biky/journal"
@@ -97,9 +96,9 @@ function App() {
                 setJournalRef={(name) =>
                   setJournalRef("/" + name + "/journals")
                 }
-                setFriendRef={(name) => setFriendRef("/" + name + "/friends")}
-                setFrequestsRef={(name) =>
-                  setFrequestsRef("/" + name + "/frequests")
+                setFriendRef={(id) => setFriendRef("user/" + id + "/friends")}
+                setFrequestsRef={(id) =>
+                  setFrequestsRef("user/" + id + "/frequests")
                 }
               />
             )}
