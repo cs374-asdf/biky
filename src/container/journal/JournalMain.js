@@ -6,7 +6,7 @@ import { IconButton } from "@material-ui/core";
 import JournalDetail from "../../component/journal/JournalDetail";
 import JournalList from "../../component/journal/JournalList";
 import Modal from "@material-ui/core/Modal";
-import Profile from '../Profile'
+import Profile from "../Profile";
 import React from "react";
 import SearchBar from "../../component/common/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -98,29 +98,27 @@ export default function JournalMain({ journalRef, friendRef }) {
       <div className={classes.header}>
         <div className={classes.verticalAlign}>Journal</div>
       </div>
-      
-      <Profile/>
+
+      <Profile />
 
       <div>
-
         <div
           style={{
             display: "flex",
             justifyContent: "flex-start",
-            alignItems: 'center',
+            alignItems: "center",
             // paddingHorizontal: "15px",
           }}
         >
-          <div style={{flexGrow: 1, marginLeft: '20px'}}>
+          <div style={{ flexGrow: 1, marginLeft: "20px" }}>
             <SearchBar />
           </div>
-          <div style={{marginRight: '10px'}}>
+          <div style={{ marginRight: "10px" }}>
             <IconButton>
-            <FilterListIcon />
-          </IconButton>
+              <FilterListIcon />
+            </IconButton>
           </div>
         </div>
-        
 
         <div>
           <JournalList

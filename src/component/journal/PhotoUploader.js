@@ -8,9 +8,11 @@ import {
   Tooltip,
   makeStyles,
 } from "@material-ui/core";
+import "@tensorflow/tfjs-backend-cpu";
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
 
 import { PhotoCamera } from "@material-ui/icons";
-import React from 'react'
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,14 +28,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-export default function PhotoUploader ({ onSubmit }) {
-
+export default function PhotoUploader({ onSubmit, addHashtag }) {
   const classes = useStyles();
+  const [imgData, setImgData] = useState(null);
+  const [predictions, setPredictions] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
-  const handleSubmit = async ({target}) => {
-    const downloadURL = await onSubmit(Array.from(target.files))
-    console.log(downloadURL)
+  const readImage = (file) => {
+    return new Promise((rs, rj) => {
+      const fileReader = new FileReader();
+      fileReader.onload = () => rs(fileReader.result);
+      fileReader.onerror = () => rj(fileReader.error);
+      fileReader.readAsDataURL(file);
+    });
+  };
+
+  const detectObjectsOnImage = async (imageElement) => {
+    // 이 이미지 지웠을 때에 hashtag 지우는 방식 알아내야 함
+    const model = await cocoSsd.load({});
+    const newp = await model.detect(imageElement, 2);
+    const result = newp.map((value) => value.class);
+    setPredictions(predictions.concat(result));
+    console.log(result);
+    addHashtag(result);
+  };
+
+  const handleSubmit = async ({ target }) => {
+    setLoading(true);
+    const downloadURL = await onSubmit(Array.from(target.files));
+    console.log(downloadURL);
+
+    for (var i = 0; i < target.files.length; i++) {
+      var file = target.files[i];
+      // create 하고 지우는 이상한 짓 안하고 생긴 image 가져다 쓸 방안? 지금 저기서 만든 친구를 가져다 쓰려면 CORS 쓰면서 난리남..
+      var imageElement = document.createElement("img");
+      var imgData = await readImage(file);
+      imageElement.src = imgData;
+
+      imageElement.onload = async () => {
+        await detectObjectsOnImage(imageElement);
+        setLoading(false);
+        imageElement.remove();
+      };
+    }
   };
 
   return (
@@ -60,5 +97,4 @@ export default function PhotoUploader ({ onSubmit }) {
       </Tooltip>
     </>
   );
-};
-
+}
