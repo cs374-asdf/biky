@@ -29,40 +29,53 @@ const useStyles = makeStyles(theme => ({
     fontSize: "15px",
     // border: "solid 1px black"
   },
-  status: {
-    display: "inline-block",
-    color: "darkgray",
-    fontSize: "12px",
-    backgroundColor: "white",
-    padding: "3px 10px",
-    borderRadius: "10px",
-    float: "right",
-  }
 }));
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export default function Weather(props) {
+function getImgURL(weather) {
+  return `${process.env.PUBLIC_URL}/images/home/weather_${weather}.png`
+}
+
+function getTemperature(weather) {
+  if (weather === 'sunny')
+    return randomInt(20, 30)
+  else if (weather === 'cloudy')
+    return randomInt(15, 25)
+  else if (weather === 'rainy')
+    return randomInt(10, 20)
+  return randomInt(0, 30)
+}
+
+
+
+export default function Weather({weather, temperature}) {
   const classes = useStyles();
-  // const weatherTypes = ["sunny", "cloudy", "rainy"];
-  // var [currentWeather, setCurrentWeather] = useState(weatherTypes[0]);
-  // var [currentWeather, setCurrentWeather] = useState(randomInt(1, weatherTypes.length));
-  // console.log(`currentWeather: ${currentWeather}`)
 
-  const currentWeather = props.weather;
+  const style = { 
+    color: "black", 
+    backgroundSize: "100% 100%", 
+    backgroundImage: `url(${getImgURL(weather)}`
+  }
 
-  var style = (currentWeather === 1 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + sunny})` } : currentWeather === 2 ? { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + cloudy})` } : { color: "black", backgroundSize: "100% 100%", backgroundImage: `url(${process.env.PUBLIC_URL + rainy})` });
-  var weather = (currentWeather === 1 ? "sunny" : currentWeather === 2 ? "cloudy" : "rainy");
-  var [temperature, setTemperature] = useState(currentWeather === 1 ? randomInt(20, 30) : currentWeather === 2 ? randomInt(15, 25) : randomInt(10, 20));
+  // const temperature = getTemperature(weather)
+
+  if (weather === 'loading')
+    return (
+      <div className={classes.container}>
+        <div className={classes.background}>
+          Loading...
+        </div>
+      </div>
+    )
 
   return (
     <div className={classes.container}>
-      {/* <img src={process.env.PUBLIC_URL +currentWeather} width="100%" alt="" /> */}
       <div className={classes.background} style={style}>
         {weather} <br />
-        {temperature}&#8451;
+        {temperature ? temperature : getTemperature(weather)}&#8451;
       </div>
     </div>
   )
