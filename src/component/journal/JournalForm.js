@@ -15,8 +15,8 @@ import React from "react";
 import StaticMap from "../home/StaticMap";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { has } from "lodash";
+import { makeStyles } from "@material-ui/core/styles";
 
 const animal = [
   "bird",
@@ -200,7 +200,6 @@ export default function JournalForm({
   addFriend,
   pictures,
   removePicture,
-  openPictureSelector,
   onSubmitPictures,
   preference,
 }) {
@@ -229,10 +228,14 @@ export default function JournalForm({
     });
   };
 
-  const addHashtag = (hashtag) => {
-    if (Array.isArray(hashtag)) setHashtags([...hashtags, ...hashtag]);
-    else if (!hashtags.includes(hashtag)) setHashtags([...hashtags, hashtag]);
+  const addHashtagBySuggestion = (suggestion) => {
+    const filtered = suggestion.filter(item => !hashtags.includes(item))
+    setHashtags([...hashtags, ...filtered]);
     changeSuggestion();
+  }
+
+  const addHashtag = (hashtag) => {
+    if (!hashtags.includes(hashtag)) setHashtags([...hashtags, hashtag]);
   };
 
   const changeSuggestion = () => {
@@ -342,7 +345,7 @@ export default function JournalForm({
             </Typography>
             <PhotoUploader
               onSubmit={onSubmitPictures}
-              addHashtag={addHashtag}
+              addHashtag={addHashtagBySuggestion}
             />
 
             <PictureList

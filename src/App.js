@@ -82,7 +82,7 @@ function App() {
               if (journalRef && friendRef)
                 return (
                   <JournalEditor
-                    storageRef={fire.storage.ref()}
+                    storageRef={fire.storage.ref('/photos')}
                     journalRef={fire.db.ref(journalRef)}
                     friendRef={fire.db.ref(friendRef)}
                   />

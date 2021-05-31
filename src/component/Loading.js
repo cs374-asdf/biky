@@ -7,7 +7,7 @@ export default function Loading()
     // position: 'fixed',
     width: '100%',
     height: '100%',
-    marginTop: '50%',
+    // marginTop: '50%',
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex'

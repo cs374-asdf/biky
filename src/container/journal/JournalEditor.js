@@ -8,10 +8,10 @@ import FriendAddPage from "../../component/journal/FriendAddPage";
 import JournalForm from "../../component/journal/JournalForm";
 import Loading from "../../component/Loading";
 import { Modal } from "@material-ui/core";
-import PictureSelector from "../../component/journal/PictureSelector";
 import React from "react";
 import { mockJournal } from "../../data/journal";
 import { useParams } from "react-router-dom";
+
 // import { getHashtags } from "../../component/journal/JournalItem";
 
 function getFriends(ids, allFriends) {
@@ -29,8 +29,7 @@ function getJournal(jid, initJournals) {
   return j;
 }
 
-export default function JournalEditor({ journalRef, friendRef, storageRef }) {
-  async function uploadImageFile(files) {
+  async function uploadImageFile(files, storageRef) {
     if (!files) return null;
     console.log(files);
 
@@ -44,11 +43,19 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
     return downloadURLs;
   }
 
+
+export default function JournalEditor({ journalRef, friendRef, storageRef }) {
+
   let { id } = useParams();
   const [journal, setJournal] = React.useState(mockJournal);
   const [loading, setLoading] = React.useState(true);
   const [allFriends, setAllFriends] = React.useState([]);
   const [preference, setPreference] = React.useState([]);
+  const [friendPageOpen, setFriendAddPageOpen] = React.useState(false);
+  const [pictures, setPictures] = React.useState([]);
+  const [friends, setFriends] = React.useState([]);
+  const [pictureLoading, setPictureLoading] = React.useState(false)
+  const [pictureFiles, setPictureFiles] = React.useState(false)
 
   React.useEffect(() => {
     journalRef.once("value", (snapshot) => {
@@ -56,6 +63,7 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
       console.log(journalData);
       const j = getJournal(id, journalData);
       setPrefData(journalData ? Object.values(journalData) : []);
+      console.log('pref: ', preference)
       friendRef.once("value", (snapshot) => {
         const friendData = snapshot.val();
         console.log(friendData);
@@ -71,12 +79,28 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
   }, [journalRef, id, friendRef]);
 
   const setPrefData = (journals) => {
-    journals.map((j) => {
-      if (Array.isArray(j.hashtags))
-        setPreference([...preference, ...j.hashtags]);
-      else setPreference([...preference, j.hashtags]);
-    });
+    const hashtags = journals.map(j => j.hashtags)
+    const flatten = hashtags.flat()
+    console.log(flatten)
+    setPreference(flatten);
   };
+
+  React.useEffect( () => {
+    async function fetchPicture() {
+      const downloadURLs = await uploadImageFile(pictureFiles, storageRef);
+      setPictures(pictures => {
+        const oldPictures = pictures.slice(0, pictures.length - pictureFiles.length)
+        return [...oldPictures, ...downloadURLs]
+      });
+      setPictureLoading(false)
+      setPictureFiles([])
+    }
+
+    if (pictureLoading === true) {
+      fetchPicture()
+    }
+  }, [pictureLoading, pictureFiles, storageRef])
+
   const onSubmit = ({ title, desc, hashtags }) => {
     const newJournal = {
       ...journal,
@@ -92,9 +116,6 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
 
     // 새로운 저널일 경우 처리해주기
   };
-  const [friendPageOpen, setFriendAddPageOpen] = React.useState(false);
-  const [pictures, setPictures] = React.useState([]);
-  const [friends, setFriends] = React.useState([]);
 
   const removeFriend = (friend) => {
     setFriends(friends.filter((item) => item !== friend));
@@ -105,11 +126,12 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
     setFriends([...friends, friend]);
   };
 
-  const onSubmitPictures = async (selected) => {
-    const downloadURLs = await uploadImageFile(selected);
-    setPictures([...pictures, ...downloadURLs]);
-    console.log(pictures);
-    return downloadURLs;
+
+  const onSubmitPictures = (selected) => {
+    const loadings = selected.map(item => 'loading')
+    setPictureLoading(true)
+    setPictureFiles(selected)
+    setPictures([...pictures, ...loadings])
   };
 
   const removePicture = (pic) => {

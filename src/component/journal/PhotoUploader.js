@@ -1,6 +1,11 @@
 // </>
 //   )
 // }
+
+import "@tensorflow/tfjs-backend-cpu";
+
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+
 import {
   Button,
   IconButton,
@@ -8,11 +13,9 @@ import {
   Tooltip,
   makeStyles,
 } from "@material-ui/core";
-import "@tensorflow/tfjs-backend-cpu";
-import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import React, { useState } from "react";
 
 import { PhotoCamera } from "@material-ui/icons";
-import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
   photoSelector: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -55,8 +58,7 @@ export default function PhotoUploader({ onSubmit, addHashtag }) {
 
   const handleSubmit = async ({ target }) => {
     setLoading(true);
-    const downloadURL = await onSubmit(Array.from(target.files));
-    console.log(downloadURL);
+    onSubmit(Array.from(target.files));
 
     for (var i = 0; i < target.files.length; i++) {
       var file = target.files[i];
@@ -87,7 +89,6 @@ export default function PhotoUploader({ onSubmit, addHashtag }) {
         <label htmlFor="photoSelector">
           <IconButton
             className={classes.photoSelector}
-            color="primary"
             aria-label="upload picture"
             component="span"
           >

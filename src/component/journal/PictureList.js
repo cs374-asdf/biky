@@ -5,6 +5,7 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
+import Loading from "../Loading";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -99,7 +100,8 @@ export default function PictureList({ pictures, removePicture, isEditing }) {
     >
       {pictures.map((pic, index) => (
         <GridListTile key={pic} className={classes.picture}>
-          <img src={pic} alt="bike" />
+          {(pic === 'loading') ? 
+            <Loading/> : <img src={pic} alt="bike" />}
           {isEditing && (
             <GridListTileBar
               classes={{
