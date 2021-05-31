@@ -126,23 +126,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function setDB(db, user) {
-  const ref = db.ref("user/" + user);
-  ref.once("value").then(function (snapshot) {
-    var existed = snapshot.hasChild("journals");
-    if (!existed) {
-      const frequestRef = ref.child("frequests");
-      const friendRef = ref.child("friends");
-      const journalRef = ref.child("journals");
-      for (var i = 0; i < frequest.length; i++) {
-        frequestRef.child(frequest[i].id).set(frequest[i]);
-      }
-      for (var i = 0; i < friends.length; i++) {
-        friendRef.child(friends[i].id).set(friends[i]);
-      }
-      journalRef.child("j0").set(journal);
+async function setDB(db, user) {
+  const ref = db.ref(`user/${user}`);
+  const snapshot = await ref.once("value")
+  const existed = snapshot.hasChild("journals");
+  if (!existed) {
+    const frequestRef = ref.child("frequests");
+    const friendRef = ref.child("friends");
+    const journalRef = ref.child("journals");
+    for (var i = 0; i < frequest.length; i++) {
+      await frequestRef.child(frequest[i].id).set(frequest[i]);
     }
-  });
+    for (var i = 0; i < friends.length; i++) {
+      await friendRef.child(friends[i].id).set(friends[i]);
+    }
+    await journalRef.child("j0").set(journal);
+  }
+  return existed
 }
 
 export default function Login({
@@ -160,7 +160,7 @@ export default function Login({
 
   let history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (val.id.length === 0) {
       alert("You should enter ID!");
@@ -176,8 +176,9 @@ export default function Login({
     setJournalRef(val.id);
     setFriendRef(val.id);
     setFrequestsRef(val.id);
-    setDB(db, val.id);
-    history.push(`/biky/home`);
+    const existed = await setDB(db, val.id);
+    if (existed) history.push(`/biky/home`);
+    else history.push('/biky/tutorial')
   };
 
   const onChange = (e) => {
