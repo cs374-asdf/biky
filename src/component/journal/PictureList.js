@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   picture: {
+    borderRadius: 25,
 
   }
 
@@ -71,19 +72,19 @@ const getGridListCols = (width) => {
     return 3;
   }
 
-  return 2;
+  return 3;
 }
 
 const getGridListCellHeight = (width) => {
     if (isWidthUp('xl', width)) {
-      return 400;
+      return 200;
     }
 
     if (isWidthUp('lg', width)) {
-      return 300;
+      return 150;
     }
 
-    return 200;
+    return 100;
 }
 
 export default function PictureList({ pictures, removePicture, isEditing }) {
@@ -99,8 +100,7 @@ export default function PictureList({ pictures, removePicture, isEditing }) {
   return (
     <GridList cellHeight={cellHeight} className={classes.gridList} cols={cols} spacing={12}>
       {pictures.map(pic => <GridListTile key={pic} className={classes.picture}>
-        <img src={process.env.PUBLIC_URL + pic} alt="bike" />
-
+        <img src={pic} alt="bike"  />
         {isEditing &&
           <GridListTileBar
             classes={{

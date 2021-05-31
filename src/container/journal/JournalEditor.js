@@ -28,12 +28,21 @@ function getJournal(jid, initJournals) {
   return j;
 }
 
-export default function JournalEditor({ journalRef, friendRef }) {
-  // 라우트 params 불러오기
-  // create인 경우 vs. edit인 경우
-  // const id = 1;
-  // var journalRef = db.ref("/" + user + "/journals");
-  // var friendRef = db.ref("/" + user + "/friends");
+export default function JournalEditor({ journalRef, friendRef, storageRef }) {
+  async function uploadImageFile(files) {
+    if (!files) return null;
+    console.log(files)
+    
+    const promises = files.map(file => {
+      const ref = storageRef.child(`photos${file.name}`)
+      return ref.put(file).then(() => ref.getDownloadURL())
+    });
+
+    const downloadURLs = await Promise.all(promises)
+    console.log('downloadURLs', downloadURLs)
+    return downloadURLs
+  }
+  
   let { id } = useParams();
   const [journal, setJournal] = React.useState(mockJournal);
   const [loading, setLoading] = React.useState(true);
@@ -74,7 +83,6 @@ export default function JournalEditor({ journalRef, friendRef }) {
     // 새로운 저널일 경우 처리해주기
   };
   const [friendPageOpen, setFriendAddPageOpen] = React.useState(false);
-  const [pictureSelectorOpen, setPictureSelectorOpen] = React.useState(false);
   const [pictures, setPictures] = React.useState([]);
   const [friends, setFriends] = React.useState([]);
 
@@ -87,9 +95,11 @@ export default function JournalEditor({ journalRef, friendRef }) {
     setFriends([...friends, friend]);
   };
 
-  const onSubmitPictures = (selected) => {
-    setPictures(selected);
-    setPictureSelectorOpen(false);
+  const onSubmitPictures = async (selected) => {
+    const downloadURLs = await uploadImageFile(selected)
+    setPictures([...pictures, ...downloadURLs]);
+    console.log(pictures)
+    return downloadURLs
   };
 
   const removePicture = (pic) => {
@@ -98,13 +108,6 @@ export default function JournalEditor({ journalRef, friendRef }) {
 
   if (loading) return <Loading/>;
   
-  const MyPictureSelector = React.forwardRef((props, ref) => (
-    <PictureSelector
-      pictures={pictures}
-      onSubmit={onSubmitPictures}
-      ref={ref}
-    />
-  ));
 
   return (
     <div>
@@ -115,9 +118,9 @@ export default function JournalEditor({ journalRef, friendRef }) {
         friends={friends}
         removeFriend={removeFriend}
         addFriend={addFriend}
-        openPictureSelector={() => setPictureSelectorOpen(true)}
         pictures={pictures}
         removePicture={removePicture}
+        onSubmitPictures={onSubmitPictures}
       />
       <Modal open={friendPageOpen} onClose={() => setFriendAddPageOpen(false)}>
         <FriendAddPage
@@ -128,13 +131,8 @@ export default function JournalEditor({ journalRef, friendRef }) {
           close={() => setFriendAddPageOpen(false)}
         />
       </Modal>
-
-      <Modal
-        open={pictureSelectorOpen}
-        onClose={() => setPictureSelectorOpen(false)}
-      >
-        <MyPictureSelector />
-      </Modal>
     </div>
   );
 }
+
+
