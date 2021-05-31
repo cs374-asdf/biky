@@ -59,17 +59,18 @@ export default function LoginInitial() {
         <img src={process.env.PUBLIC_URL + logo} alt="logo" />
       </Grid>
       <Grid container alignItems="center" direction="column" spacing={1}>
-        <MyButton item onClick={handleClick}>
+        <MyButton onClick={handleClick}>
           Log in
         </MyButton>
         <Typography
-          item
           className={classes.character}
           align="center"
           variant="body2"
         >
-          Don't have an account? <div onClick={() => alert("Please look for next update for sign up!")}> <b>SIGN UP</b> </div>
+          Don't have an account?
         </Typography>
+         <div onClick={() => alert("Please look for next update for sign up!")}> <b>SIGN UP</b> </div>
+  
       </Grid>
     </div>
   )

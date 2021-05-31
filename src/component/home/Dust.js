@@ -49,13 +49,16 @@ function randomInt(min, max) {
   return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-export default function Dust() {
+export default function Dust({ fineDust, ultraFineDust }) {
   const classes = useStyles();
-  var [fineDustAmount, setFineDustAmount] = useState(randomInt(0, 200));
+
+  // console.log(fineDust, ultraFineDust);
+  var fineDustAmount = fineDust;
   var fineDustStatus = (fineDustAmount <= 30 ? "GOOD" : fineDustAmount <= 80 ? "NORMAL" : fineDustAmount <= 150 ? "BAD" : "VERY BAD");
-  var [ultraFineDustAmount, setUltraFineDustAmount] = useState(randomInt(0, 100));
+  var ultraFineDustAmount = ultraFineDust;
   var ultraFineDustStatus = (ultraFineDustAmount <= 15 ? "GOOD" : ultraFineDustAmount <= 35 ? "NORMAL" : ultraFineDustAmount <= 75 ? "BAD" : "VERY BAD");
 
+  // console.log(fineDustAmount, ultraFineDustAmount);
   return (
     <div className={classes.container}>
       {/* <img src={dust} width="100%" alt="fine dust" /> */}

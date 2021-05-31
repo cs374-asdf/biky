@@ -8,7 +8,7 @@ import {
   Time,
   Weather,
 } from "../component/home";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { formatDistance, formatTime } from "../util/format";
 
 import Avatar from "../component/Avatar";
@@ -18,6 +18,8 @@ import dayjs from "dayjs";
 import { getRandomPhoto } from "../data/photo";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+
+import { routeStart, routeOri, routeEnd } from "../data/route"
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -138,22 +140,91 @@ function getRandomTitle() {
   return randomTitles[selector];
 }
 
-export default function Home({ journalRef }) {
-  // var journalRef = db.ref("/" + user + "/journals");
-  const classes = useStyles();
-  var [isRiding, setIsRiding] = useState(false);
-  var [open, setOpen] = useState(false);
-  var [distance, setDistance] = useState(0);
-  var [time, setTime] = useState(0);
-  var [route, setRoute] = useState([]);
+const weatherTypes = ["sunny", "cloudy", "rainy"];
 
-  const weatherTypes = ["sunny", "cloudy", "rainy"];
-  var [weather, setWeather] = useState(randomInt(1, weatherTypes.length));
+function getRidingTime(time, wizard) {
+  if (!wizard) return time
+  const {startPauseTime, endPauseTime} = wizard
+  if (!startPauseTime || !endPauseTime) return time
+  
+  const [spHour, spMin] = startPauseTime.split(':')
+  const [epHour, epMin] = endPauseTime.split(':')
+
+  const pauseTime = (epHour - spHour) * 60 + (epMin - spMin)
+//   console.log('pauseTime: ', pauseTime)
+  const resultTime = time - pauseTime
+  return resultTime >= 0 ? resultTime : 0
+}
+
+function getRidingPlace(wizard) {
+  if (!wizard) return 'Boramae Park'
+  const { place } = wizard
+  if (!place) return 'Borameae Park'
+  return place
+}
+
+
+export default function Home({ journalRef, wizardRef }) {
+  const classes = useStyles();
+  const [isRiding, setIsRiding] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [distance, setDistance] = useState(0);
+  const [time, setTime] = useState(0);
+  const [route, setRoute] = useState([]);
+  const [index, setIndex] = useState(0);
+
+  const [weather, setWeather] = useState('loading');
 
   const increment = useRef(null);
 
   const [hashtags, setHashtags] = useState(["happy"]);
   const [startTime, setStartTime] = useState(dayjs());
+  const [wizard, setWizard] = useState(null);
+  const [mode, setMode] = useState("none");
+
+  React.useEffect(
+    () => {
+      console.log("wizard changed")
+      if (wizardRef) {
+        wizardRef.on('value', snapshot => {
+            const wiz = snapshot.val()
+            setWizard(wiz)
+            setWeather(wiz.weather)
+            setMode(wiz.mode)
+            console.log(wiz)
+          })
+        console.log("wizard mode")
+      }
+      else {
+        setWeather(weatherTypes[randomInt(0, weatherTypes.length)])
+        console.log("non-wizard mode")
+      }
+    }, 
+    [wizardRef]
+  )
+
+  useEffect(() => {
+    if(mode === "none") {
+
+    } else {
+        clearInterval(increment.current);
+        if(mode === "e11s") {
+            setTime(0);
+            setDistance(0);
+        } else if(mode === "ori") {
+            setTime(63*3/60);
+            setDistance(0.378*2);
+        } else if(mode === "e11e") {
+            setTime(143*5.5/60);
+            setDistance(0.858*3);
+        }
+
+        // increment.current = setInterval(() => {
+        //     setTime((time) => time + 1/60);
+        // }, 1000);
+    }
+  }, [mode])
+
 
   const createJournal = () => {
     let id = journalRef.push().key;
@@ -162,20 +233,22 @@ export default function Home({ journalRef }) {
     const randomPhotos = getRandomPhoto(3);
     const randomTitle = getRandomTitle();
 
+    const ridingTime = getRidingTime(time, wizard);
+
     let newJournal = {
       createdAt: new Date().toString(),
       id,
       route,
       hashtags,
       distance: distance,
-      time,
+      time: ridingTime,
       date: endTime.format("YYYY. MM. DD"),
-      weather: weatherTypes[weather - 1],
+      weather,
       startTime: startTime.toString(),
       endTime: endTime.toString(),
       title: randomTitle,
 
-      desc: `I rode ${parseInt(distance * 10) / 10} km at Boramae Park!`,
+      desc: `I rode ${parseInt(distance * 10) / 10} km at ${getRidingPlace(wizard)}!`,
       photos: randomPhotos,
       emojis: hashtags,
       metaphors: {
@@ -192,11 +265,22 @@ export default function Home({ journalRef }) {
   const startRide = () => {
     setStartTime(dayjs());
     setIsRiding(true);
-    increment.current = setInterval(() => {
-      setDistance((distance) => distance + 0.1);
-      setTime((time) => time + 1000 / 3600);
-      console.log(distance, time);
-    }, 1000 / 6); // 100m/s
+    if (wizard && wizard.mode !== 'none') {
+      increment.current = setInterval(() => {
+        // setIndex((index) => index + 1);
+        // setDistance((distance) => distance + 0.006);
+        // setTime((time) => time + 1/60);
+        // console.log(distance, time);
+        // console.log(wizard.mode);
+      }, 1000); // 1초에 한 번 업데이트
+    } else {
+        increment.current = setInterval(() => {
+            setIndex((index) => index + 1/6);
+            setDistance((distance) => distance + 0.001);
+            setTime((time) => time + 1/360);
+            // console.log(wizard.mode);
+        }, 1000 / 6); // 1초에 6번 업데이트
+    }
   };
 
   const stopRide = () => {
@@ -209,6 +293,7 @@ export default function Home({ journalRef }) {
     console.log("closing modal");
     createJournal();
     setOpen(false);
+    setIndex(0);
     setDistance(0);
     setTime(0);
   };
@@ -220,6 +305,8 @@ export default function Home({ journalRef }) {
     history.push(`/biky/edit/${id}`);
   };
 
+//   console.log(route)
+
   return (
     <div className={classes.page}>
       <div className={classes.header}>
@@ -230,8 +317,8 @@ export default function Home({ journalRef }) {
 
       <div className={classes.content}>
         <div className={classes.weatherContainer}>
-          <Weather weather={weather} />
-          <Dust />
+          <Weather weather={weather} temperature={wizard ? wizard.temperature : 15}/>
+          <Dust fineDust={(wizard && wizard.fineDust) ? wizard.fineDust : randomInt(10, 70)} ultraFineDust={(wizard && wizard.ultraFineDust) ? wizard.ultraFineDust : randomInt(10, 200)} />
         </div>
 
         {isRiding ? (
@@ -245,7 +332,7 @@ export default function Home({ journalRef }) {
         ) : null}
 
         <div className={classes.mapContainer}>
-          <Map index={distance} isRiding={isRiding} saveRoute={setRoute} />
+          <Map index={index} mode={wizard ? wizard.mode : 'none'} isRiding={isRiding} saveRoute={setRoute} />
         </div>
 
         <div
@@ -268,7 +355,7 @@ export default function Home({ journalRef }) {
         handleJournal={handleJournal}
         open={open}
         distance={formatDistance(distance)}
-        time={formatTime(time)}
+        time={formatTime(getRidingTime(time, wizard))}
         amount={distance}
         route={route}
         closeModal={closeModal}

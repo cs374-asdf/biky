@@ -12,6 +12,7 @@ import PictureSelector from "../../component/journal/PictureSelector";
 import React from "react";
 import { mockJournal } from "../../data/journal";
 import { useParams } from "react-router-dom";
+// import { getHashtags } from "../../component/journal/JournalItem";
 
 function getFriends(ids, allFriends) {
   return allFriends.filter((friend) => ids.includes(friend.id));
@@ -31,28 +32,30 @@ function getJournal(jid, initJournals) {
 export default function JournalEditor({ journalRef, friendRef, storageRef }) {
   async function uploadImageFile(files) {
     if (!files) return null;
-    console.log(files)
-    
-    const promises = files.map(file => {
-      const ref = storageRef.child(`photos${file.name}`)
-      return ref.put(file).then(() => ref.getDownloadURL())
+    console.log(files);
+
+    const promises = files.map((file) => {
+      const ref = storageRef.child(`photos${file.name}`);
+      return ref.put(file).then(() => ref.getDownloadURL());
     });
 
-    const downloadURLs = await Promise.all(promises)
-    console.log('downloadURLs', downloadURLs)
-    return downloadURLs
+    const downloadURLs = await Promise.all(promises);
+    console.log("downloadURLs", downloadURLs);
+    return downloadURLs;
   }
-  
+
   let { id } = useParams();
   const [journal, setJournal] = React.useState(mockJournal);
   const [loading, setLoading] = React.useState(true);
   const [allFriends, setAllFriends] = React.useState([]);
+  const [preference, setPreference] = React.useState([]);
 
   React.useEffect(() => {
     journalRef.once("value", (snapshot) => {
       const journalData = snapshot.val();
       console.log(journalData);
       const j = getJournal(id, journalData);
+      setPrefData(journalData ? Object.values(journalData) : []);
       friendRef.once("value", (snapshot) => {
         const friendData = snapshot.val();
         console.log(friendData);
@@ -67,6 +70,13 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
     });
   }, [journalRef, id, friendRef]);
 
+  const setPrefData = (journals) => {
+    journals.map((j) => {
+      if (Array.isArray(j.hashtags))
+        setPreference([...preference, ...j.hashtags]);
+      else setPreference([...preference, j.hashtags]);
+    });
+  };
   const onSubmit = ({ title, desc, hashtags }) => {
     const newJournal = {
       ...journal,
@@ -96,18 +106,17 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
   };
 
   const onSubmitPictures = async (selected) => {
-    const downloadURLs = await uploadImageFile(selected)
+    const downloadURLs = await uploadImageFile(selected);
     setPictures([...pictures, ...downloadURLs]);
-    console.log(pictures)
-    return downloadURLs
+    console.log(pictures);
+    return downloadURLs;
   };
 
   const removePicture = (pic) => {
     setPictures(pictures.filter((item) => item !== pic));
   };
 
-  if (loading) return <Loading/>;
-  
+  if (loading) return <Loading />;
 
   return (
     <div>
@@ -121,6 +130,7 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
         pictures={pictures}
         removePicture={removePicture}
         onSubmitPictures={onSubmitPictures}
+        preference={preference}
       />
       <Modal open={friendPageOpen} onClose={() => setFriendAddPageOpen(false)}>
         <FriendAddPage
@@ -134,5 +144,3 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
     </div>
   );
 }
-
-
