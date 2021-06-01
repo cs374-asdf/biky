@@ -10,7 +10,7 @@ function getUrl(pageNum) {
 
 
 export default function Tutorial() {
-  const [pageNum, setPageNum] = React.useState(1)
+  const [pageNum, setPageNum] = React.useState(0)
   let history = useHistory();
 
 
@@ -19,10 +19,10 @@ export default function Tutorial() {
   }
 
   const onPressNext = () => {
-    if (pageNum < 9)
-      setPageNum(pageNum+1)
-    else {
+    if (pageNum === 9)
       history.push("/biky/home");      
+    else {
+      setPageNum(pageNum+1)
     }
   }
   
