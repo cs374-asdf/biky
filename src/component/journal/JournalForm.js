@@ -251,7 +251,7 @@ export default function JournalForm({
     // console.log(hashtag);
     var firstQ = ["What did you do at Duck Pond?"];
     friends.map((f) =>
-      firstQ.push("Did you rode a bike with " + f + "? How was it?")
+      firstQ.push("Did you rode a bike with " + f.name + "? How was it?")
     );
     // 거기서 뭐했니? 누구랑 만났니 그래서 어땠니를 기본으로 둠
     var done = false;
