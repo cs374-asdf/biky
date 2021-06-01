@@ -51,8 +51,7 @@ const journal = {
   date: "2021. 05. 25",
   desc: "I rode 700 m at Boramae Park!",
   distance: 0.7,
-  emojis: ["happy", "exited"],
-  endTime: "Tue, 25 May 2021 12:17:15 GMT",
+  emojis: ["sad"],
   hashtags: ["sad"],
   createdAt: new Date('2021-05-25 12:17:15 GMT').toString(),
   id: "j0",
@@ -73,7 +72,8 @@ const journal = {
     [126.91845242684539, 37.49436499975911],
   ],
   startTime: "Tue, 25 May 2021 10:03:55 GMT",
-  time: 2,
+  endTime: "Tue, 25 May 2021 10:13:55 GMT",
+  time: 10,
   title: "To the moon 🚀",
   weather: "rainy",
 };
@@ -223,17 +223,8 @@ export default function Login({
         </form>
 
         <MyButton onClick={handleSubmit} className={classes.submit}>
-          Login
+          Sign Up &  Login 
         </MyButton>
-
-        <Typography
-          className={classes.character}
-          align="center"
-          variant="body2"
-        >
-          Don't have an account?
-        </Typography>
-         <div onClick={() => alert("Please look for next update for sign up!")}> <b>SIGN UP</b> </div>
 
       </div>
     </div>

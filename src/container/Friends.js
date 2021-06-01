@@ -22,9 +22,7 @@ function getJournalsByFriend(flist, journals) {
 const useStyles = makeStyles({
   page: {
     position: "relative",
-    // maxWidth: "550px",
     margin: "0 auto",
-    // border: "solid 1px blue",
   },
   verticalAlign: {
     position: "absolute",
@@ -54,9 +52,6 @@ const useStyles = makeStyles({
 });
 
 export default function Friends({ journalRef, friendRef, frequestRef }) {
-  // var journalRef = db.ref("/" + user + "/journals");
-  // var friendRef = db.ref("/" + user + "/friends");
-  // var frequestRef = db.ref("/" + user + "/frequests");
   const classes = useStyles();
 
   const [frequests, setFrequests] = React.useState([]);

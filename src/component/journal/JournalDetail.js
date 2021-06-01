@@ -65,7 +65,6 @@ export default function JournalDetail({ journal, friends, handleClose }) {
         margin: "20px",
         padding: "20px",
         maxHeight: "90%",
-        overflow: "scroll",
         flexDirection: "column",
       }}
       display="flex"

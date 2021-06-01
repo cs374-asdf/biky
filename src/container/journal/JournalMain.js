@@ -5,6 +5,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { IconButton } from "@material-ui/core";
 import JournalDetail from "../../component/journal/JournalDetail";
 import JournalList from "../../component/journal/JournalList";
+import { Link } from "react-router-dom";
 import Modal from "@material-ui/core/Modal";
 import Profile from "../Profile";
 import React from "react";
@@ -14,9 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   page: {
     position: "relative",
-    // maxWidth: "550px",
     margin: "0 auto",
-    // border: "solid 1px blue",
   },
   verticalAlign: {
     position: "absolute",
@@ -59,10 +58,7 @@ function getFriendsByJournal(journals, flist) {
 }
 
 export default function JournalMain({ journalRef, friendRef }) {
-  // var journalRef = db.ref("/" + user + "/journals");
-  // var friendRef = db.ref("/" + user + "/friends");
   const classes = useStyles();
-  // firebase subscribe를 해서 journal document가 바뀌면 다시 다운받도록 함
   const [journals, setJournals] = React.useState([]);
   const [friendsByJournal, setFriendsByJournal] = React.useState([]);
 
@@ -99,8 +95,6 @@ export default function JournalMain({ journalRef, friendRef }) {
       </div>
 
       <Profile />
-
-      <div>
         <div
           style={{
             display: "flex",
@@ -119,21 +113,20 @@ export default function JournalMain({ journalRef, friendRef }) {
           </div>
         </div>
 
-        <div>
-          <JournalList
-            journals={journals}
-            openJournal={handleOpen}
-            friendsByJournal={friendsByJournal}
-          />
+      <div className={classes.content}>
+        <JournalList
+          journals={journals}
+          openJournal={handleOpen}
+          friendsByJournal={friendsByJournal}
+        />
 
-          <Modal open={open} onClose={handleClose}>
-            <JournalDetail
-              journal={selected}
-              friends={selected ? friendsByJournal[selected.id] : null}
-              handleClose={handleClose}
-            />
-          </Modal>
-        </div>
+        <Modal open={open} onClose={handleClose}>
+          <JournalDetail
+            journal={selected}
+            friends={selected ? friendsByJournal[selected.id] : null}
+            handleClose={handleClose}
+          />
+        </Modal>
       </div>
     </div>
   );
