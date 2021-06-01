@@ -15,7 +15,6 @@ import React from "react";
 import StaticMap from "../home/StaticMap";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { has } from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 
 const animal = [
@@ -207,7 +206,7 @@ export default function JournalForm({
   console.log(journal);
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
-  const [hashtags, setHashtags] = React.useState(journal.hashtags);
+  const [hashtags, setHashtags] = React.useState(journal.hashtags ? journal.hashtags : []);
   const [suggestions, setSuggestions] = React.useState([
     "What did you do at Duck Pond?",
   ]);
@@ -261,25 +260,32 @@ export default function JournalForm({
         // 사용자가 썼던 해시태그 중 하나(가장 많이 했던 것) + 하나 랜덤으로 안겹치게
         const notUsed = hashtag.filter((item) => item !== fin[i]);
         notUsed.map((h) =>
-          firstQ.push("Did you see or feel " + h + " during riding?")
+          firstQ.push("Did you see a " + h + " during riding?")
         );
         const rand = Math.floor(Math.random() * firstQ.length);
-        setSuggestions([firstQ[rand], "Did you meet a" + fin[i] + "?"]);
+        setSuggestions([firstQ[rand], "Did you meet a " + fin[i] + "?"]);
         done = true;
         break;
       }
     }
+    
     if (done === false) {
       //만약 쓴 적이 없다면 그냥 다 랜덤으로!
       hashtag.map((h) =>
-        firstQ.push("Did you see or feel " + h + " during riding?")
+        firstQ.push("Did you see a " + h + " during riding?")
       );
       const rand = Math.floor(Math.random() * firstQ.length);
-      var rand2 = Math.floor(Math.random() * firstQ.length);
-      while (rand === rand2) {
+      if (firstQ.length > 1){
+        var rand2 = Math.floor(Math.random() * firstQ.length);
+        while (rand === rand2) {
         rand2 = Math.floor(Math.random() * firstQ.length);
       }
       setSuggestions([firstQ[rand], firstQ[rand2]]);
+      }
+      else{
+        setSuggestions([firstQ[rand]]);
+      }
+      
     }
   };
 
@@ -318,14 +324,12 @@ export default function JournalForm({
 
           <div>
             <div style={{ position: "absolute", right: "10px" }}>
-              <Typography>
-                {weatherIcon(journal.weather)}{" "}
+              <div>
+                {weatherIcon(journal.weather)}
                 <div style={{ display: "inline-block", margin: "5px" }}>
                   {journal.date}
                 </div>
-              </Typography>
-              {/* <Typography>{journal.weather}</Typography> */}
-              {/* <Typography style={{ marginBottom: "10px" }}>Period: {journal.startTime.slice(undefined, journal.startTime.length - 4)} ~ {journal.endTime.slice(undefined, journal.endTime.length - 4)}</Typography> */}
+              </div>
             </div>
 
             <Typography style={{ marginBottom: "10px" }}>Records</Typography>
@@ -386,6 +390,7 @@ export default function JournalForm({
 
           {/* 내용 suggestion */}
           <div>{suggestions.map((sug) => contentSuggestion(sug))}</div>
+
 
           <TextField
             onChange={handleDescChange}

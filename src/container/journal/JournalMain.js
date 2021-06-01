@@ -69,7 +69,6 @@ export default function JournalMain({ journalRef, friendRef }) {
   React.useEffect(() => {
     journalRef.on("value", (snapshot) => {
       const journalData = snapshot.val();
-      console.log(journalData);
       let journalList = journalData ? Object.values(journalData) : [];
       friendRef.once("value", (snapshot) => {
         let friendData = snapshot.val();

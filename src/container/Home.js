@@ -10,6 +10,7 @@ import {
 } from "../component/home";
 import React, { useEffect, useRef, useState } from "react";
 import { formatDistance, formatTime } from "../util/format";
+import { routeEnd, routeOri, routeStart } from "../data/route"
 
 import Avatar from "../component/Avatar";
 import { Button } from "@material-ui/core";
@@ -18,8 +19,6 @@ import dayjs from "dayjs";
 import { getRandomPhoto } from "../data/photo";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-
-import { routeStart, routeOri, routeEnd } from "../data/route"
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -177,7 +176,7 @@ export default function Home({ journalRef, wizardRef }) {
 
   const increment = useRef(null);
 
-  const [hashtags, setHashtags] = useState(["happy"]);
+  const [hashtags, setHashtags] = useState([]);
   const [startTime, setStartTime] = useState(dayjs());
   const [wizard, setWizard] = useState(null);
   const [mode, setMode] = useState("none");
@@ -266,13 +265,13 @@ export default function Home({ journalRef, wizardRef }) {
     setStartTime(dayjs());
     setIsRiding(true);
     if (wizard && wizard.mode !== 'none') {
-      increment.current = setInterval(() => {
-        // setIndex((index) => index + 1);
-        // setDistance((distance) => distance + 0.006);
-        // setTime((time) => time + 1/60);
-        // console.log(distance, time);
-        // console.log(wizard.mode);
-      }, 1000); // 1초에 한 번 업데이트
+      // increment.current = setInterval(() => {
+      //   // setIndex((index) => index + 1);
+      //   // setDistance((distance) => distance + 0.006);
+      //   // setTime((time) => time + 1/60);
+      //   // console.log(distance, time);
+      //   // console.log(wizard.mode);
+      // }, 1000); // 1초에 한 번 업데이트
     } else {
         increment.current = setInterval(() => {
             setIndex((index) => index + 1/6);
@@ -304,8 +303,6 @@ export default function Home({ journalRef, wizardRef }) {
     const id = createJournal();
     history.push(`/biky/edit/${id}`);
   };
-
-//   console.log(route)
 
   return (
     <div className={classes.page}>

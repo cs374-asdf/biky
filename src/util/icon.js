@@ -8,6 +8,7 @@ import cloudWithRain from "@iconify-icons/twemoji/cloud-with-rain"; // 비
 import cloudWithSnow from "@iconify-icons/twemoji/cloud-with-snow"; // 눈
 import cryingFace from "@iconify-icons/twemoji/crying-face"; // 눈물
 import deciduousTree from "@iconify-icons/twemoji/deciduous-tree"; // 나무
+import dodoIcon from '@iconify-icons/twemoji/dodo';
 import dogIcon from "@iconify-icons/twemoji/dog"; // 강아지
 import dollarBanknote from "@iconify-icons/twemoji/dollar-banknote"; // 돈
 import droolingFace from "@iconify-icons/twemoji/drooling-face"; // 아마도 맛있는게 있어서 침흘림
@@ -57,7 +58,9 @@ import taxiIcon from "@iconify-icons/twemoji/taxi"; // 택시
 
 export function getIconComponent(key)
 {
-  return <Icon icon={getIcon(key)} width="2em"/> 
+  const icon = getIcon(key)
+  if (!icon) return null;
+  return <Icon icon={icon} width="2em"/> 
 }
 
 
@@ -107,8 +110,15 @@ export function getIcon(key)
     case "dog":
       return dogIcon
 
+    case "cat":
+      return catIcon
+
+    case "goose":
+    case "bird":
+      return dodoIcon
+
     default:
-    return catIcon
+      return null
   }
 }
 

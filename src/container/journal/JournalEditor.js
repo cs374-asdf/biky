@@ -25,21 +25,17 @@ function getJournal(jid, initJournals) {
     console.log(`No such journal: ${jid}`);
     return mockJournal;
   }
-  console.log(j);
   return j;
 }
 
   async function uploadImageFile(files, storageRef) {
     if (!files) return null;
-    console.log(files);
-
     const promises = files.map((file) => {
       const ref = storageRef.child(`photos${file.name}`);
       return ref.put(file).then(() => ref.getDownloadURL());
     });
 
     const downloadURLs = await Promise.all(promises);
-    console.log("downloadURLs", downloadURLs);
     return downloadURLs;
   }
 
@@ -60,13 +56,10 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
   React.useEffect(() => {
     journalRef.once("value", (snapshot) => {
       const journalData = snapshot.val();
-      console.log(journalData);
       const j = getJournal(id, journalData);
       setPrefData(journalData ? Object.values(journalData) : []);
-      console.log('pref: ', preference)
       friendRef.once("value", (snapshot) => {
         const friendData = snapshot.val();
-        console.log(friendData);
         let allFriends = toList(friendData);
         let friends = nullToList(j.friends);
         setFriends(getFriends(friends, allFriends));
@@ -81,7 +74,6 @@ export default function JournalEditor({ journalRef, friendRef, storageRef }) {
   const setPrefData = (journals) => {
     const hashtags = journals.map(j => j.hashtags)
     const flatten = hashtags.flat()
-    console.log(flatten)
     setPreference(flatten);
   };
 

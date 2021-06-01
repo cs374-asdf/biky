@@ -17,12 +17,12 @@ const frequest = [
   {
     id: "r0",
     picture: "/images/cactus.png",
-    name: "mangoo",
+    name: "nayoung",
   },
   {
     id: "r1",
     picture: "/images/summer.png",
-    name: "junho",
+    name: "mangoo",
   },
 ];
 
@@ -36,7 +36,7 @@ const friends = [
   {
     id: "f1",
     picture: "/images/sky0.jpg",
-    name: "nayoung",
+    name: "junho",
     total_intimacy: 0,
   },
   {
@@ -197,9 +197,6 @@ export default function Login({
       </Grid>
 
       <div className={classes.form}>
-        <Typography variant="h5" className={classes.login}>
-          Login
-        </Typography>
 
         <TextField
           type="id"
@@ -226,8 +223,18 @@ export default function Login({
         </form>
 
         <MyButton onClick={handleSubmit} className={classes.submit}>
-          Submit
+          Login
         </MyButton>
+
+        <Typography
+          className={classes.character}
+          align="center"
+          variant="body2"
+        >
+          Don't have an account?
+        </Typography>
+         <div onClick={() => alert("Please look for next update for sign up!")}> <b>SIGN UP</b> </div>
+
       </div>
     </div>
   );

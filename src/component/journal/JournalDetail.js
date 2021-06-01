@@ -155,7 +155,7 @@ export default function JournalDetail({ journal, friends, handleClose }) {
         <div style={{ flexWrap: "wrap" }}>{getFriends(friends)}</div>
       </div>
 
-      <div className={classes.row}>{journal.desc}</div>
+      <div className={classes.row} style={{whiteSpace: 'pre-line'}}>{journal.desc}</div>
 
       <div className={classes.centeredRow}>
         <div style={{ display: "inline-block", maxWidth: "50%" }}>

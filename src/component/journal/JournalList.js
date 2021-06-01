@@ -8,12 +8,14 @@ export default function JournalList({ journals, openJournal, friendsByJournal })
   return <Loading/>
 
   
-  var journalList =  _.sortBy(journals, 'createdAt').reverse().map(journal => <JournalItem
+  var journalList =  _.sortBy(journals, (journal) => new Date(journal.createdAt)).reverse().map(journal => 
+  { 
+    return <JournalItem
     key={journal.id}
     openJournal={openJournal}
     journal={journal}
     friends={friendsByJournal[journal.id]}
-  />)
+  />})
 
   return (
     <div>
