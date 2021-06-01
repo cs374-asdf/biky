@@ -24,7 +24,8 @@ const noNavBar = (pathname) => {
     pathname === '/biky' || 
     pathname === '/biky/login' || 
     pathname === '/biky/404' ||
-    pathname === '/biky/')
+    pathname === '/biky/') ||
+    pathname === '/biky/tutorial'
 }
 
 const NavBar = () => {
