@@ -2,10 +2,13 @@
 	"wizard": {
 		"startPauseTime": "14:30",
 		"endPauseTime": "14:45",
+		"mode": "none",
 		"weather": "sunny",
-        "temperature": 20,
-        "fineDust": 15,
-        "ultraFineDust": 36,
-		"mode": "ori"
-	}
+		"temperature": 20,
+		"fineDust": 15,
+		"ultraFineDust": 36,
+		"place": "KAIST Duck Pond"
+	},
+
+	"user": []
 }
