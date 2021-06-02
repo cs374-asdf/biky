@@ -262,10 +262,13 @@ export default function JournalForm({
         // 사용자가 썼던 해시태그 중 하나(가장 많이 했던 것) + 하나 랜덤으로 안겹치게
         const notUsed = hashtag.filter((item) => item !== fin[i]);
         notUsed.map((h) =>
-          firstQ.push("Did you see a " + h + " during riding?")
+          firstQ.push("How was the " + h + " you met during riding?")
         );
         const rand = Math.floor(Math.random() * firstQ.length);
-        setSuggestions([firstQ[rand], "Did you meet a " + fin[i] + "?"]);
+        setSuggestions([
+          firstQ[rand],
+          "How was the " + fin[i] + " you met during riding?",
+        ]);
         done = true;
         break;
       }
@@ -273,7 +276,9 @@ export default function JournalForm({
 
     if (done === false) {
       //만약 쓴 적이 없다면 그냥 다 랜덤으로!
-      hashtag.map((h) => firstQ.push("Did you see a " + h + " during riding?"));
+      hashtag.map((h) =>
+        firstQ.push("How was the " + h + " you met during riding?")
+      );
       const rand = Math.floor(Math.random() * firstQ.length);
       if (firstQ.length > 1) {
         var rand2 = Math.floor(Math.random() * firstQ.length);
