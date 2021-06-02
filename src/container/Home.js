@@ -274,9 +274,9 @@ export default function Home({ journalRef, wizardRef }) {
       // }, 1000); // 1초에 한 번 업데이트
     } else {
         increment.current = setInterval(() => {
-            setIndex((index) => index + 1/6);
-            setDistance((distance) => distance + 0.001);
-            setTime((time) => time + 1/360);
+            setIndex((index) => index + 10*1/6);
+            setDistance((distance) => distance + 3*10*0.001);
+            setTime((time) => time + 10*5*1/360);
             // console.log(wizard.mode);
         }, 1000 / 6); // 1초에 6번 업데이트
     }
