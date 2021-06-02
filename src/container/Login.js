@@ -17,12 +17,12 @@ const frequest = [
   {
     id: "r0",
     picture: "/images/cactus.png",
-    name: "mangoo",
+    name: "nayoung",
   },
   {
     id: "r1",
     picture: "/images/summer.png",
-    name: "junho",
+    name: "mangoo",
   },
 ];
 
@@ -36,7 +36,7 @@ const friends = [
   {
     id: "f1",
     picture: "/images/sky0.jpg",
-    name: "nayoung",
+    name: "junho",
     total_intimacy: 0,
   },
   {
@@ -51,8 +51,7 @@ const journal = {
   date: "2021. 05. 25",
   desc: "I rode 700 m at Boramae Park!",
   distance: 0.7,
-  emojis: ["happy", "exited"],
-  endTime: "Tue, 25 May 2021 12:17:15 GMT",
+  emojis: ["sad"],
   hashtags: ["sad"],
   createdAt: new Date('2021-05-25 12:17:15 GMT').toString(),
   id: "j0",
@@ -73,7 +72,8 @@ const journal = {
     [126.91845242684539, 37.49436499975911],
   ],
   startTime: "Tue, 25 May 2021 10:03:55 GMT",
-  time: 2,
+  endTime: "Tue, 25 May 2021 10:13:55 GMT",
+  time: 10,
   title: "To the moon 🚀",
   weather: "rainy",
 };
@@ -197,9 +197,6 @@ export default function Login({
       </Grid>
 
       <div className={classes.form}>
-        <Typography variant="h5" className={classes.login}>
-          Login
-        </Typography>
 
         <TextField
           type="id"
@@ -226,8 +223,9 @@ export default function Login({
         </form>
 
         <MyButton onClick={handleSubmit} className={classes.submit}>
-          Submit
+          Sign Up &  Login 
         </MyButton>
+
       </div>
     </div>
   );

@@ -91,7 +91,7 @@ function App() {
             }}
           />
           <Route
-            path="/biky/login"
+            path="/biky/"
             exact
             render={() => (
               <Login
@@ -108,7 +108,6 @@ function App() {
               />
             )}
           />
-          <Route path="/biky/" exact component={LoginInitial} />
           <Route
             path="/biky/myPage"
             exact

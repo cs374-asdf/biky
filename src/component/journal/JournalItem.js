@@ -145,6 +145,8 @@ export function GetMetaphors(metaphor) {
 }
 
 export function emojiItem(emoji) {
+  const iconComp = getIconComponent(emoji)
+  if (!iconComp) return null;
   return (
     <Box
       borderRadius="50%"
@@ -158,8 +160,9 @@ export function emojiItem(emoji) {
       alignItems="center"
       justifyContent="center"
       mr={1}
+      key={emoji}
     >
-      <Box>{emoji}</Box>
+      <Box>{iconComp}</Box>
     </Box>
   );
 }
@@ -188,7 +191,7 @@ function generateurl(route) {
 
 export default function JournalItem({ journal, openJournal, friends }) {
   if (!journal) return null;
-  const emojis = nullToList(journal.hashtags).map(getIconComponent);
+  const emojis = nullToList(journal.hashtags).map(emojiItem);
   return (
     <Card
       onClick={() => openJournal(journal)}
@@ -208,7 +211,7 @@ export default function JournalItem({ journal, openJournal, friends }) {
           />
         </Box>
         <Box flex={4} display="flex" flexDirection="row-reverse">
-          {emojis.map((emoji) => emojiItem(emoji))}
+          {emojis}
         </Box>
       </Box>
       <Box flex={1} display="flex" flexDirection="row">

@@ -99,7 +99,10 @@ export default function PictureList({ pictures, removePicture, isEditing }) {
       spacing={12}
     >
       {pictures.map((pic, index) => (
-        <GridListTile key={pic} className={classes.picture}>
+        <GridListTile key={pic === 'loading' ? `loading${index}` : pic} className={classes.picture}
+        onClick={() => console.log(pic)}
+        
+        >
           {(pic === 'loading') ? 
             <Loading/> : <img src={pic} alt="bike" />}
           {isEditing && (
