@@ -264,7 +264,8 @@ export default function JournalForm({
           firstQ.push("Did you see or feel " + h + " during riding?")
         );
         const rand = Math.floor(Math.random() * firstQ.length);
-        setSuggestions([firstQ[rand], "Did you meet a" + fin[i] + "?"]);
+        setSuggestions([firstQ[rand], "Did you meet a " + fin[i] + "?"]);
+        // 띄어쓰기 고침
         done = true;
         break;
       }
