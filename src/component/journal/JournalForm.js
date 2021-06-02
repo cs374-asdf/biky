@@ -260,7 +260,7 @@ export default function JournalForm({
         // 사용자가 썼던 해시태그 중 하나(가장 많이 했던 것) + 하나 랜덤으로 안겹치게
         const notUsed = hashtag.filter((item) => item !== fin[i]);
         notUsed.map((h) =>
-          firstQ.push("Did you see a " + h + " during riding?")
+          firstQ.push("How was the " + h + " you met during riding?")
         );
         const rand = Math.floor(Math.random() * firstQ.length);
         setSuggestions([firstQ[rand], "Did you meet a " + fin[i] + "?"]);
