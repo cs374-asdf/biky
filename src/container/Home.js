@@ -190,6 +190,7 @@ export default function Home({ journalRef, wizardRef }) {
             setWizard(wiz)
             setWeather(wiz.weather)
             setMode(wiz.mode)
+            setIsRiding(wiz.isRiding)
             console.log(wiz)
           })
         console.log("wizard mode")
