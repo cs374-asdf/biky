@@ -206,7 +206,9 @@ export default function JournalForm({
   console.log(journal);
   const [title, setTitle] = React.useState(journal.title);
   const [desc, setDesc] = React.useState(journal.desc);
-  const [hashtags, setHashtags] = React.useState(journal.hashtags ? journal.hashtags : []);
+  const [hashtags, setHashtags] = React.useState(
+    journal.hashtags ? journal.hashtags : []
+  );
   const [suggestions, setSuggestions] = React.useState([
     "What did you do at Duck Pond?",
   ]);
@@ -263,29 +265,30 @@ export default function JournalForm({
           firstQ.push("How was the " + h + " you met during riding?")
         );
         const rand = Math.floor(Math.random() * firstQ.length);
-        setSuggestions([firstQ[rand], "Did you meet a " + fin[i] + "?"]);
+        setSuggestions([
+          firstQ[rand],
+          "How was the " + fin[i] + " you met during riding?",
+        ]);
         done = true;
         break;
       }
     }
-    
+
     if (done === false) {
       //만약 쓴 적이 없다면 그냥 다 랜덤으로!
       hashtag.map((h) =>
-        firstQ.push("Did you see a " + h + " during riding?")
+        firstQ.push("How was the " + h + " you met during riding?")
       );
       const rand = Math.floor(Math.random() * firstQ.length);
-      if (firstQ.length > 1){
+      if (firstQ.length > 1) {
         var rand2 = Math.floor(Math.random() * firstQ.length);
         while (rand === rand2) {
-        rand2 = Math.floor(Math.random() * firstQ.length);
-      }
-      setSuggestions([firstQ[rand], firstQ[rand2]]);
-      }
-      else{
+          rand2 = Math.floor(Math.random() * firstQ.length);
+        }
+        setSuggestions([firstQ[rand], firstQ[rand2]]);
+      } else {
         setSuggestions([firstQ[rand]]);
       }
-      
     }
   };
 
@@ -390,7 +393,6 @@ export default function JournalForm({
 
           {/* 내용 suggestion */}
           <div>{suggestions.map((sug) => contentSuggestion(sug))}</div>
-
 
           <TextField
             onChange={handleDescChange}
