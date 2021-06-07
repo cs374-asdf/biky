@@ -129,11 +129,12 @@ function randomInt(min, max) {
 function getRandomTitle() {
   const randomTitles = [
     "Met a beautiful cat",
-    "No play and all work makes Jack a dull boy",
-    "Come along with me",
     "Dundun dance",
-    "Here's Jonny",
-    "Open the pot, HAL",
+    "Met a dirty goose",
+    "Sunny day",
+    "Final exam",
+    "Happy bike ride",
+    "Bike ride after Fantastic HCI class"
   ];
   let selector = randomInt(0, randomTitles.length - 1);
   return randomTitles[selector];
@@ -276,10 +277,10 @@ export default function Home({ journalRef, wizardRef }) {
     } else {
         increment.current = setInterval(() => {
             setIndex((index) => index + 10*1/6);
-            setDistance((distance) => distance + 3*10*0.001);
+            setDistance((distance) => distance + 2*10*0.001);
             setTime((time) => time + 10*5*1/360);
             // console.log(wizard.mode);
-        }, 1000 / 6); // 1초에 6번 업데이트
+        }, 1000 / 20); // 1초에 6번 업데이트
     }
   };
 

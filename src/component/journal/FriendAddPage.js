@@ -51,7 +51,7 @@ export default function FriendAddPage({
   const classes = useStyles();
   return (
     <div className={classes.paper}>
-      <MyAppBar onSubmit={close} string="Frineds" />
+      <MyAppBar onSubmit={close} string="Friend" />
       <Box
         display="flex"
         flexDirection="row"

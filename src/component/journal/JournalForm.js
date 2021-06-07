@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   picture: {},
 
   title: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
   },
   titleBar: {
     background:
@@ -265,10 +265,7 @@ export default function JournalForm({
           firstQ.push("How was the " + h + " you met during riding?")
         );
         const rand = Math.floor(Math.random() * firstQ.length);
-        setSuggestions([
-          firstQ[rand],
-          "How was the " + fin[i] + " you met during riding?",
-        ]);
+        setSuggestions([firstQ[rand], "How was the " + fin[i] + " you met during riding?"]);
         done = true;
         break;
       }
@@ -296,6 +293,9 @@ export default function JournalForm({
     setHashtags(hashtags.filter((item) => item !== hashtag));
   };
 
+const inputRef = React.useRef();
+
+
   return (
     <div className={classes.page}>
       <div className={classes.header}>
@@ -305,15 +305,6 @@ export default function JournalForm({
       <div className={classes.content}>
         <div className={classes.root} noValidate autoComplete="off">
           <Box display="flex" flexDirection="row" alignItems="center">
-            <IconButton
-              aria-label="delete"
-              onClick={() => {
-                setTitle("");
-              }}
-              className={classes.title}
-            >
-              <CancelIcon />
-            </IconButton>
             <TextField
               onChange={handleTitleChange}
               id="title"
@@ -322,7 +313,18 @@ export default function JournalForm({
               value={title}
               defaultValue={journal.title}
               className={classes.textField}
+              inputRef={inputRef} 
             />
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                inputRef.current.focus();
+                setTitle("");
+              }}
+              className={classes.title}
+            >
+              <CancelIcon />
+            </IconButton>
           </Box>
 
           <div>

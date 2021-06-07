@@ -149,7 +149,7 @@ function ShowMetaphors(image, val) {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <div style={{ marginRight: 10 }}>
-        <Icon style={{ fontSize: 60 }} icon={icon_name} />
+        <Icon style={{ fontSize: 40 }} icon={icon_name} />
       </div>
       <div>{val}</div>
     </div>
@@ -242,13 +242,13 @@ export default function MyPage({ mainBadge }) {
                       display: "inline-block",
                     }}
                   >
-                    1029.9km and 47.7hrs!
+                    129.9km and 4.7hrs!
                   </div>
                 </Typography>
                 <div className={classes.metaphorContainer}>
-                  {ShowMetaphors("taxi", "1,031,870")}
-                  {ShowMetaphors("burger", "103.5")}
-                  {ShowMetaphors("tree", "51.49")}
+                  {ShowMetaphors("taxi", "131,870")}
+                  {ShowMetaphors("burger", "13.5")}
+                  {ShowMetaphors("tree", "5.49")}
                 </div>
               </Box>
             </Box>
