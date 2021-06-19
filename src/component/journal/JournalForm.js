@@ -146,7 +146,8 @@ function contentSuggestion(text) {
         // border: "solid 1px lightgray",
         borderRadius: "5px",
         padding: "5px 10px",
-        boxShadow: "0px 1.43351px 2.86702px rgba(0, 0, 0, 0.25)",
+        // border: "solid 1px lightgray",
+        boxShadow: "0px 1.43351px 2.86702px rgba(0, 0, 0, 0.1)",
         marginBottom: "10px",
       }}
     >

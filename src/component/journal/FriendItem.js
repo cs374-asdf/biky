@@ -1,5 +1,6 @@
 import Avatar from "@material-ui/core/Avatar";
 import { Delete } from "@material-ui/icons";
+import { Close } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -47,7 +48,7 @@ export default function FriendItem({ friend, removeFriend }) {
             aria-label="delete"
             onClick={() => removeFriend(friend)}
           >
-            <Delete />
+            <Close />
           </IconButton>
         </Box>
       </Box>
