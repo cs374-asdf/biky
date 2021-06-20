@@ -66,8 +66,9 @@ export default function JournalDetail({ journal, friends, handleClose }) {
         padding: "20px",
         maxHeight: "90%",
         flexDirection: "column",
+        overflow: 'scroll'
       }}
-      display="flex"
+      // display="flex"
     >
       <div
         className={classes.actions}
