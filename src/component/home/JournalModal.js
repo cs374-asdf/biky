@@ -1,9 +1,9 @@
-import { Button, Modal, Typography } from '@material-ui/core'
+import { Button, ButtonBase, Modal, Typography } from '@material-ui/core'
 import { MetaphorContainer, StaticMap } from './'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 
-import { Link } from 'react-router-dom'
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -19,16 +19,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
     outline: 'none',
   },
+  header: {
+    top: '-5px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignContent: 'center'
+  },
   title: {
     fontSize: '20px',
     fontWeight: 'bold',
     textAlign: 'center',
     paddingBottom: '15px',
     position: 'relative',
-    top: '-5px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   half: {
     display: 'inline-block',
@@ -56,6 +59,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    fontSize: 15,
+  },
+}))(Tooltip);
+
+
 export default function JournalModal(props) {
   const classes = useStyles()
   var open = props.open
@@ -64,6 +74,7 @@ export default function JournalModal(props) {
   var amount = props.amount
   var route = props.route
   var closeModal = props.closeModal
+  const tooltipOpen = props.tooltipOpen
 
   return (
     <div>
@@ -73,40 +84,33 @@ export default function JournalModal(props) {
         aria-describedby="simple-modal-description"
       >
         <div className={classes.modal}>
-          <div id="modal-title" className={classes.title}>
+          <div id="modal-title" className={classes.header}>
+            <div style={{marginLeft: 30}}>
+            </div>
             <Typography
-              style={{
-                display: 'inline-block',
-                justifyContent: 'flex-start',
-                position: 'relative',
-                left: '30px',
-                flex: 1,
-              }}
               variant="h5"
             >
               Today's Ride
             </Typography>
 
-            <Button
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                position: 'relative',
-                left: '5px',
-              }}
-              size="small"
-              onClick={closeModal}
-            >
-              <img
-                alt="close button"
-                src={process.env.PUBLIC_URL + '/images/close.png'}
-              />
-            </Button>
+                      
+          <LightTooltip open={tooltipOpen} place="top" arrow title="Busy? Write later!">
+              <ButtonBase
+                size="small"
+                onClick={closeModal}
+              >
+                <img
+                  alt="close button"
+                  src={process.env.PUBLIC_URL + '/images/close.png'}
+                />
+              </ButtonBase>
+
+          </LightTooltip>
+
+            
           </div>
 
           <MetaphorContainer amount={amount} />
-
-          {/* <hr /> */}
 
           <div id="modal-description">
             <div className={classes.half}>
@@ -132,7 +136,10 @@ export default function JournalModal(props) {
             </Button>
           </div>
         </div>
+
+
       </Modal>
     </div>
   )
 }
+

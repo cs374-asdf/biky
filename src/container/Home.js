@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: "25px",
-    color: "white",
+    color: theme.palette.common.white,
   },
   startButton: {
     position: "relative",
@@ -181,6 +181,7 @@ export default function Home({ journalRef, wizardRef }) {
   const [startTime, setStartTime] = useState(dayjs());
   const [wizard, setWizard] = useState(null);
   const [mode, setMode] = useState("none");
+  const [tooltipOpen, setTooltipOpen] = useState(true)
 
   React.useEffect(
     () => {
@@ -202,6 +203,18 @@ export default function Home({ journalRef, wizardRef }) {
       }
     }, 
     [wizardRef]
+  )
+
+  React.useEffect(
+    () => {
+      journalRef.on("value", (snapshot) => {
+        const journalData = snapshot.val();
+      let journalList = journalData ? Object.values(journalData) : [];
+      console.log(journalList.length, " set tooltipOpen")
+      if (journalList.length >= 2) setTooltipOpen(false)
+      else setTooltipOpen(true)
+          })
+    }, [journalRef, setTooltipOpen]
   )
 
   useEffect(() => {
@@ -353,6 +366,7 @@ export default function Home({ journalRef, wizardRef }) {
       <JournalModal
         handleJournal={handleJournal}
         open={open}
+        tooltipOpen={tooltipOpen}
         distance={formatDistance(distance)}
         time={formatTime(getRidingTime(time, wizard))}
         amount={distance}

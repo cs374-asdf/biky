@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 
-import { PhotoCamera } from "@material-ui/icons";
+import PhotoCamera from '@material-ui/icons/AddAPhoto';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,9 +92,11 @@ export default function PhotoUploader({ onSubmit, addHashtag }) {
             aria-label="upload picture"
             component="span"
           >
+            {/* TODO 이미지 바꾸기 */}
             <PhotoCamera fontSize="large" />
           </IconButton>
         </label>
+        
       </Tooltip>
     </>
   );
